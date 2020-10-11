@@ -12,15 +12,34 @@ code {
     monospace;
 }
 
-.quote-block {
+.quote-picture-container {
+  position: relative;
+  display: inline-block;
+}
+.quote-picture-text {
+  position: absolute;    
+  height: 100%;
+  text-align: center;    
+  width: 100%;
+}
+/* p {
+  display: inline-block;
+  font-size: 20px;
+} */
+.quote-picture-block {
   display: block;
+  max-width: 100%;
+  height: auto;
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
-  animation: right-animate 4s ease infinite alternate;
+  /* animation: right-animate 4s ease infinite alternate; */
 }
 
-@keyframes right-animate {
+/* ^^^This is blob expan/dcollapse func */
+
+/* @keyframes right-animate {
   0% { transform: scaleX(0) }
   65% { transform: scaleX(1) }
-}
+} */
+
