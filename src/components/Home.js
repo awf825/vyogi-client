@@ -1,6 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom'
+import {Nav} from 'react-bootstrap';
+import QuoteBanner from './QuoteBanner'
+import PitchBanner from './PitchBanner'
+import CPP from './CPP'
+// import CPQ from './CPQ'
 
 const Home = (props) => {
 
@@ -18,14 +22,26 @@ const Home = (props) => {
     <div>
       {
         props.loggedInStatus ? 
-        <Link to='/logout' onClick={handleClick}>Log Out</Link> :
-        <React.Fragment>
-          <Link to='/login'>Log In</Link>
-          <br></br>
-          <Link to='/signup'>Sign Up</Link>
-          <br></br>
-        </React.Fragment>
+        // <Header {...props} /> :
+        <Nav justify variant="tabs" defaultActiveKey="/home">
+          <Nav.Item>
+            <Nav.Link to="/logout" onClick={handleClick}>Log Out</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        :
+        <Nav justify variant="tabs" defaultActiveKey="/home">
+          <Nav.Item>
+            <Nav.Link href="/login" >Log In</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/signup" >Sign Up</Nav.Link>
+          </Nav.Item>
+        </Nav>
       }
+      <QuoteBanner profile_photo="mountain.jpg" alt_name="IMG" />
+      <PitchBanner />
+
+      <CPP />
     </div>
   );
 };

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 import Home from './components/Home'
 import Login from './components/registrations/Login'
 import Signup from './components/registrations/Signup'
@@ -78,14 +80,5 @@ class App extends Component {
     )
   }
 }
-
-// stateless, functional component in original boilerplate
-// function App() {
-//   return (
-//     <div className="App">
-
-//     </div>
-//   );
-// }
 
 export default App;
