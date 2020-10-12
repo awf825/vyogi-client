@@ -69,8 +69,8 @@ class QuoteBanner extends Component {
           className="quote-picture-block"
           src={this.props.profile_photo}
           alt={this.props.alt_name}
-          width="300"
-          height="300"
+          width="400"
+          height="400"
         />
       </div>
     );
