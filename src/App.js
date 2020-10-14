@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import axios from 'axios'
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import axios from 'axios'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {Nav} from 'react-bootstrap';
 import Home from './components/Home'
 import Login from './components/registrations/Login'
 import Signup from './components/registrations/Signup'
-import BigJoe from './components/BigJoe'
-import {Nav} from 'react-bootstrap';
+import Schedule from './components/Schedule'
+import Book from './components/Book'
 
 class App extends Component {
   constructor(props) {
@@ -84,7 +85,10 @@ class App extends Component {
             // <Header {...props} /> :
             <Nav justify variant="tabs" defaultActiveKey="/home">
               <Nav.Item>
-                <Nav.Link href="/testapptment" >Book</Nav.Link>
+                <Nav.Link href="/" >Home</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/schedule" >Schedule</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link to="/logout" onClick={this.handleClick}>Log Out</Nav.Link>
@@ -111,8 +115,11 @@ class App extends Component {
             <Route exact path='/signup' render={props => (
               <Signup {...props} handleLogin={this.handleLogin} loggedInStatus={isLoggedIn}/>
             )}/>
-            <Route exact path='/testapptment' render={props => (
-              <BigJoe {...props} />
+            <Route exact path='/schedule' render={props => (
+              <Schedule {...props} handleLogout={this.handleLogout} loggedInStatus={isLoggedIn}/>
+            )}/>
+            <Route exact path='/book' render={props => (
+              <Book {...props} handleLogout={this.handleLogout} loggedInStatus={isLoggedIn}/>
             )}/>
           </Switch>
         </BrowserRouter>
