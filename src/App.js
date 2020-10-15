@@ -73,7 +73,7 @@ class App extends Component {
     // render=props. This allows us to pass props to the components to 
     // be rendered, and in that way, we can pass isLoggedIn state status, 
     // handleLogin(), and handleLogout(), to our components as props!
-    const { isLoggedIn } = this.state
+    const { isLoggedIn, user } = this.state
     return (
       <div>
           {
@@ -91,7 +91,7 @@ class App extends Component {
                 <Nav.Link href="/schedule" >Schedule</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link to="/logout" onClick={this.handleClick}>Log Out</Nav.Link>
+                <Nav.Link href="/" onClick={this.handleClick}>Log Out</Nav.Link>
               </Nav.Item>
             </Nav>
             :         
@@ -107,7 +107,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path='/' render={props => (
-              <Home {...props} handleLogout={this.handleLogout} loggedInStatus={isLoggedIn}/>
+              <Home {...props} handleLogout={this.handleLogout} loggedInStatus={isLoggedIn} user={user}/>
             )}/>
             <Route exact path='/login' render={props => (
               <Login {...props} handleLogin={this.handleLogin} loggedInStatus={isLoggedIn}/>
@@ -116,10 +116,10 @@ class App extends Component {
               <Signup {...props} handleLogin={this.handleLogin} loggedInStatus={isLoggedIn}/>
             )}/>
             <Route exact path='/schedule' render={props => (
-              <Schedule {...props} handleLogout={this.handleLogout} loggedInStatus={isLoggedIn}/>
+              <Schedule {...props} loggedInStatus={true}/>
             )}/>
             <Route exact path='/book' render={props => (
-              <Book {...props} handleLogout={this.handleLogout} loggedInStatus={isLoggedIn}/>
+              <Book {...props} loggedInStatus={true}/>
             )}/>
           </Switch>
         </BrowserRouter>

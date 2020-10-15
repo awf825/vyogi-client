@@ -8,6 +8,7 @@ class Schedule extends Component {
     this.state = {
       schedule: []
     }
+    console.log(props)
   }
 
   componentDidMount() {
@@ -36,15 +37,22 @@ class Schedule extends Component {
             <tbody>
               { 
                 schedule.map(function(s, i) {
+                  console.log(s)
                   return (
-                    <tr>
+                    <tr key={i}>
                       <td>{s["title"]}</td>
                       <td>START ===</td>
                       <td>{s["start"]}</td>
                       <td>END ===</td>
                       <td>{s["end"]}</td>
                       <td>
-                        <Link to="/book">Book</Link>
+                        {/* <Link to="/book", state: {schedule={s}}>Book</Link> */}
+                        <Link to={{
+                          pathname: "/book",
+                          state: {
+                            schedule: s
+                          }
+                        }}>Book</Link>
                       </td>
                     </tr>
                   )
