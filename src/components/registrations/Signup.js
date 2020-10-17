@@ -5,7 +5,6 @@ class Signup extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
       email: '',
       password: '',
       password_confirmation: '',
@@ -26,9 +25,8 @@ class Signup extends Component {
 
   handleSubmit = (ev) => {
     ev.preventDefault()
-    const { username, email, password, password_confirmation }= this.state
+    const { email, password, password_confirmation }= this.state
     let user = {
-      username: username,
       email: email,
       password: password,
       password_confirmation: password_confirmation
@@ -65,18 +63,11 @@ class Signup extends Component {
   }
 
   render() {
-    const {username, email, password, password_confirmation} = this.state
+    const {email, password, password_confirmation} = this.state
     return (
       <div>
         <h1>Sign Up</h1>
         <form onSubmit={this.handleSubmit}>
-          <input
-            placeholder="username"
-            type="text"
-            name="username"
-            value={username}
-            onChange={this.handleChange}
-          />
           <input
             placeholder="email"
             type="text"

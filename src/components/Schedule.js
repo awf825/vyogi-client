@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import Fade from 'react-reveal/Fade'
 
 class Schedule extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3001/schedules', {withCredentials: true})
+    axios.get('http://localhost:3001/lessons', {withCredentials: true})
     .then(resp => {
       this.setState({
         schedule: resp.data
@@ -32,34 +33,39 @@ class Schedule extends Component {
     const { schedule } = this.state
     return (
       <div>
-        <h1>Book Here</h1>
-          <table>
-            <tbody>
-              { 
-                schedule.map(function(s, i) {
-                  console.log(s)
-                  return (
-                    <tr key={i}>
-                      <td>{s["title"]}</td>
-                      <td>START ===</td>
-                      <td>{s["start"]}</td>
-                      <td>END ===</td>
-                      <td>{s["end"]}</td>
-                      <td>
-                        {/* <Link to="/book", state: {schedule={s}}>Book</Link> */}
-                        <Link to={{
-                          pathname: "/book",
-                          state: {
-                            schedule: s
-                          }
-                        }}>Book</Link>
-                      </td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </table>
+        <Fade left>
+          <h1>Book Here</h1>
+            <table>
+              <tbody>
+                { 
+                  schedule.map(function(s, i) {
+                    return (
+                      <tr key={i}>
+                        <td>{s["title"]}</td>
+                        <td>DESC ===</td>
+                        <td>{s["description"]}</td>
+                        <td>START ===</td>
+                        <td>{s["start"]}</td>
+                        <td>DUR ===</td>
+                        <td>{s["duration"]}</td>
+                        <td>COST ===</td>
+                        <td>{s["cost"]}</td>
+                        <td>
+                          {/* <Link to="/book", state: {schedule={s}}>Book</Link> */}
+                          <Link to={{
+                            pathname: "/book",
+                            state: {
+                              lesson: s
+                            }
+                          }}>Book</Link>
+                        </td>
+                      </tr>
+                    )
+                  })
+                }
+              </tbody>
+            </table>
+        </Fade>
       </div>
     )
   }

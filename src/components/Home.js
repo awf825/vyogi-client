@@ -5,10 +5,7 @@ import QuoteBanner from './QuoteBanner';
 // import PitchBanner from './PitchBanner';
 import Zoom from 'react-reveal/Zoom';
 
-// const Home = (props) => {
 const Home = (props) => {
-  console.log(props.user)
-
   // const handleClick = () => {
   //   axios.delete('http://localhost:3001/logout', {withCredentials: true})
   //     .then(resp => {
