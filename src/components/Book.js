@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Fade from 'react-reveal/Fade'
+import PayForm from './book/PayForm.js'
 
 class Book extends Component {
   constructor(props) {
     super(props)
     this.state = {
       user: {},
-      lesson: props.location.state.lesson,
-      // will need to expand booking to be all inputs
-      // instead of obj
-      booking: {}
+      showPayForm: false,
+      stripeField1: '',
+      stripeField2: '',
+      stripeField3: ''
     }
+    this.handleConfirmation = this.handleConfirmation.bind(this)
     this.handleRejection = this.handleRejection.bind(this)
   }
 
@@ -39,15 +41,29 @@ class Book extends Component {
   }
 
   handleConfirmation = () => {
-    console.log('confirm')
+    this.setState({
+      showPayForm: true
+    })
   }
 
   handleRejection = () => {
     this.props.history.push('/schedule')
   }
 
+  handleChange = (ev) => {
+    const {name, value} = ev.target
+    this.setState({
+      [name]: value
+    })
+  }
+
+  handlePayment = () => {
+    // booking will be created here, 
+  }
+
   render() {
-    const {user, lesson, booking} = this.state
+    const {user, showPayForm, stripeField1, stripeField2, stripeField3} = this.state
+    const lesson = this.props.location.state.lesson
     // class CreateBookings < ActiveRecord::Migration[5.1]
     // def change
     //   create_table :bookings do |t|
@@ -81,7 +97,36 @@ class Book extends Component {
             <input type="button" value="Yes" onClick={this.handleConfirmation}></input>
             <input type="button" value="No" onClick={this.handleRejection}></input>
           </div>
+          <div className={showPayForm ? 'pay-form show' : 'pay-form'}>
+            <form onSubmit={this.handlePayment}>
+              <input 
+                placeholder="test"
+                type="text"
+                name="stripeField1"
+                value={stripeField1}
+                onChange={this.handleChange}
+              />
+              <input 
+                placeholder="test"
+                type="text"
+                name="stripeField2"
+                value={stripeField2}
+                onChange={this.handleChange}
+              />
+              <input 
+                placeholder="test"
+                type="text"
+                name="stripeField3"
+                value={stripeField3}
+                onChange={this.handleChange}
+              />
+            </form>
+            <button placeholder="Make Payment" type="submit">
+              Make Payment
+            </button>
+          </div>
         </Fade>
+        {/* <PayForm show={showPayForm}/> */}
       </div>
     )
   }
