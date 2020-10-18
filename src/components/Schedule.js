@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import Fade from 'react-reveal/Fade'
+import Fade from 'react-reveal/Fade';
+import ScheduleCalender from './schedule/ScheduleCalender'
 
 class Schedule extends Component {
   constructor(props) {
@@ -15,11 +16,30 @@ class Schedule extends Component {
   componentDidMount() {
     axios.get('http://localhost:3001/lessons', {withCredentials: true})
     .then(resp => {
+      let evts = []
+      resp.data.map(d => {
+        evts.push(
+          {
+            id: d["id"],
+            allDay: false,
+            start: new Date(d["start"]),
+            end: new Date(d["start"]),
+            title: d["title"]
+          }
+        )
+      })
+      console.log('Events in mount are', evts)
+      // build proper JSON here to be digested by calender
+
       this.setState({
-        schedule: resp.data
+        schedule: evts
       })
     })
     .catch(er => console.error(er))
+  }
+
+  handleSelection = () => {
+    console.log('option selected')
   }
 
   // SOME POINT IN THIS COMPONENT
@@ -31,44 +51,24 @@ class Schedule extends Component {
 
   render() {
     const { schedule } = this.state
+    console.log('schedule on render', schedule)
     return (
       <div>
         <Fade left>
           <h1>Book Here</h1>
-            <table>
-              <tbody>
-                { 
-                  schedule.map(function(s, i) {
-                    return (
-                      <tr key={i}>
-                        <td>{s["title"]}</td>
-                        <td>DESC ===</td>
-                        <td>{s["description"]}</td>
-                        <td>START ===</td>
-                        <td>{s["start"]}</td>
-                        <td>DUR ===</td>
-                        <td>{s["duration"]}</td>
-                        <td>COST ===</td>
-                        <td>{s["cost"]}</td>
-                        <td>
-                          {/* <Link to="/book", state: {schedule={s}}>Book</Link> */}
-                          <Link to={{
-                            pathname: "/book",
-                            state: {
-                              lesson: s
-                            }
-                          }}>Book</Link>
-                        </td>
-                      </tr>
-                    )
-                  })
-                }
-              </tbody>
-            </table>
+          <ScheduleCalender dates={schedule} handleSelection={this.handleSelection}/>
         </Fade>
       </div>
     )
   }
 }
+
+{/* <Link to="/book", state: {schedule={s}}>Book</Link>
+<Link to={{
+  pathname: "/book",
+  state: {
+    lesson: s
+  }
+}}>Book</Link> */}
 
 export default Schedule;
