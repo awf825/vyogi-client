@@ -10,7 +10,6 @@ class Schedule extends Component {
     this.state = {
       schedule: []
     }
-    console.log(props)
   }
 
   componentDidMount() {
@@ -28,8 +27,6 @@ class Schedule extends Component {
           }
         )
       })
-      console.log('Events in mount are', evts)
-      // build proper JSON here to be digested by calender
 
       this.setState({
         schedule: evts
@@ -38,8 +35,8 @@ class Schedule extends Component {
     .catch(er => console.error(er))
   }
 
-  handleSelection = () => {
-    console.log('option selected')
+  handleSelection = (event) => {
+    console.log(event)
   }
 
   // SOME POINT IN THIS COMPONENT
