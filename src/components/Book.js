@@ -6,12 +6,19 @@ import PayForm from './book/PayForm.js'
 class Book extends Component {
   constructor(props) {
     super(props)
+    const l = props.location.state.lesson
+    console.log(l)
     this.state = {
       user: {},
       showPayForm: false,
       stripeField1: '',
       stripeField2: '',
-      stripeField3: ''
+      stripeField3: '',
+      lesson_id: l['id'],
+      lesson_title: l['title'],
+      lesson_start: l['start'],
+      lesson_end: l['end'],
+      cost: ''
     }
     this.handleConfirmation = this.handleConfirmation.bind(this)
     this.handleRejection = this.handleRejection.bind(this)
@@ -62,8 +69,19 @@ class Book extends Component {
   }
 
   render() {
-    const {user, showPayForm, stripeField1, stripeField2, stripeField3} = this.state
-    const lesson = this.props.location.state.lesson
+    //debugger
+    const { 
+      user, 
+      showPayForm, 
+      stripeField1, 
+      stripeField2, 
+      stripeField3,
+      lesson_end,
+      lesson_start,
+      lesson_id,
+      lesson_title,
+      cost
+    } = this.state
     // class CreateBookings < ActiveRecord::Migration[5.1]
     // def change
     //   create_table :bookings do |t|
@@ -76,23 +94,28 @@ class Book extends Component {
     //   add_index :lesson_id
     //   add_index :account_id
     // end
-
-  // cost: 7.5
-  // created_at: "2020-10-17T03:09:53.854Z"
-  // description: "Test Lesson Desc"
-  // duration: "1 hour"
-  // id: 19
-  // image: null
-  // level: "Beginner"
-  // start: "2020-10-23T03:09:53.852Z"
-  // title: "Test Lesson 18"
+    
+    // cost: 7.5
+    // created_at: "2020-10-17T03:09:53.854Z"
+    // description: "Test Lesson Desc"
+    // duration: "1 hour"
+    // id: 19
+    // image: null
+    // level: "Beginner"
+    // start: "2020-10-23T03:09:53.852Z"
+    // title: "Test Lesson 18"
+    const lesson = this.props.location.state.lesson
     return (
       <div>
         <Fade bottom>
           <div> 
-            <h2> {user["email"]}, </h2>
-            <p>This is {lesson["title"]}. This is a {lesson["level"]} level lesson, 
-            it starts at {lesson["start"]} and will last {lesson["duration"]}. </p>
+            {/* <h2> {user["email"]}, </h2> */}
+            <ul>
+              <li>{this.state.lesson_end}</li>
+              {/* <li>{lesson_title}</li>
+              <li>{lesson_end}</li>
+              <li>{lesson_start}</li> */}
+            </ul>
             <p>Can you confirm this?</p>
             <input type="button" value="Yes" onClick={this.handleConfirmation}></input>
             <input type="button" value="No" onClick={this.handleRejection}></input>

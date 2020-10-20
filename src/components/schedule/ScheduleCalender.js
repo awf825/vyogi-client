@@ -14,8 +14,6 @@ class ScheduleCalender extends Component {
   }
     
   render() {
-    console.dir(this)
-    console.dir('this.props is', this.props)
     return (
       <div>
         <Calendar
@@ -23,14 +21,7 @@ class ScheduleCalender extends Component {
           events={this.props.dates}
           style={{ height: 800 }}
           selectable={true}
-          // selected={event => {
-          //   console.log(event)
-          // }}
           onSelectEvent={event => this.props.handleSelection(event)}
-          // onSelectSlot={this.props.handleSelection}
-          // components={{
-          //   eventWrapper: CalendarEventWrapper
-          // }}
         />
       </div>
     )

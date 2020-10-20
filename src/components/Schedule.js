@@ -3,12 +3,16 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Fade from 'react-reveal/Fade';
 import ScheduleCalender from './schedule/ScheduleCalender'
+import BookModal from './book/BookModal'
+import BookModalContent from './book/BookModalContent'
 
 class Schedule extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      schedule: []
+      schedule: [],
+      modalOpen: false,
+      modalData: {},
     }
   }
 
@@ -35,8 +39,19 @@ class Schedule extends Component {
     .catch(er => console.error(er))
   }
 
-  handleSelection = (event) => {
-    console.log(event)
+  handleSelection = (e) => {
+    this.setState({
+      modalOpen: true,
+      modalData: e
+    })
+    console.log('stall')
+  }
+
+  rejectModal = (e) => {
+    this.setState({
+      modalInputName: "",
+      modalOpen: false
+    }) 
   }
 
   // SOME POINT IN THIS COMPONENT
@@ -47,13 +62,25 @@ class Schedule extends Component {
   //// THE BACK END 
 
   render() {
-    const { schedule } = this.state
-    console.log('schedule on render', schedule)
+    const { schedule, modalOpen, modalData } = this.state
+    if (modalOpen && modalData) {
+      this.children = (
+        <BookModalContent data={modalData}/>
+      )
+    }
     return (
       <div>
         <Fade left>
           <h1>Book Here</h1>
-          <ScheduleCalender dates={schedule} handleSelection={this.handleSelection}/>
+          <React.Fragment>
+            <BookModal
+              visible={modalOpen}
+              dismiss={this.rejectModal}
+              children={this.children} 
+            >
+            </BookModal>
+            <ScheduleCalender dates={schedule} handleSelection={this.handleSelection}/>
+          </React.Fragment>
         </Fade>
       </div>
     )
