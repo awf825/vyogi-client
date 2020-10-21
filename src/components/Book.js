@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Fade from 'react-reveal/Fade'
-import PayForm from './book/PayForm.js'
+// import PayForm from './book/PayForm.js'
 
 class Book extends Component {
   constructor(props) {

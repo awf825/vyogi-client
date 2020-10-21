@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Fade from 'react-reveal/Fade';
 import ScheduleCalender from './schedule/ScheduleCalender'
@@ -11,8 +10,9 @@ class Schedule extends Component {
     super(props)
     this.state = {
       schedule: [],
-      modalOpen: false,
       modalData: {},
+      modalOpen: false,
+      showPayForm: false
     }
   }
 
@@ -24,10 +24,13 @@ class Schedule extends Component {
         evts.push(
           {
             id: d["id"],
-            allDay: false,
+            title: d["title"],
+            description: d["description"],
             start: new Date(d["start"]),
             end: new Date(d["start"]),
-            title: d["title"]
+            level: d["level"],
+            cost: d["cost"],
+            allDay: false
           }
         )
       })
@@ -44,14 +47,23 @@ class Schedule extends Component {
       modalOpen: true,
       modalData: e
     })
-    console.log('stall')
   }
 
-  rejectModal = (e) => {
+  rejectModal = () => {
     this.setState({
-      modalInputName: "",
-      modalOpen: false
+      modalOpen: false,
+      showPayForm: false
     }) 
+  }
+
+  handleLessonConfirmation = () => {
+    this.setState({
+      showPayForm: true
+    })
+  }
+
+  handleLessonRejection = () => {
+    this.rejectModal()
   }
 
   // SOME POINT IN THIS COMPONENT
@@ -62,10 +74,21 @@ class Schedule extends Component {
   //// THE BACK END 
 
   render() {
-    const { schedule, modalOpen, modalData } = this.state
+    const { schedule, modalOpen, modalData, showPayForm } = this.state
+
+    const message = `This is lesson ${modalData.title}.
+    It will start at ${modalData.start} and last an hour. Can you confirm
+    this?`
+
     if (modalOpen && modalData) {
       this.children = (
-        <BookModalContent data={modalData}/>
+        <BookModalContent 
+          message={message}
+          id={modalData.id}
+          handleLessonConfirmation={this.handleLessonConfirmation}
+          handleLessonRejection={this.handleLessonRejection}
+          showPayForm={showPayForm}
+        />
       )
     }
     return (
@@ -86,13 +109,5 @@ class Schedule extends Component {
     )
   }
 }
-
-{/* <Link to="/book", state: {schedule={s}}>Book</Link>
-<Link to={{
-  pathname: "/book",
-  state: {
-    lesson: s
-  }
-}}>Book</Link> */}
 
 export default Schedule;

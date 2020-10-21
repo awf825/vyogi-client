@@ -3,15 +3,15 @@ import { BookModalWrapper, BookModalBoxSetup, BookModalBg } from "./BookModalSty
 
 export default class BookModal extends Component {
   render() {
-  const { visible, dismiss, children, client } = this.props;
+    const { visible, dismiss, children, client } = this.props;
     return (
       <React.Fragment>
-          {visible ? (
-            <BookModalWrapper>
-                <BookModalBoxSetup width={client}>{children} </BookModalBoxSetup>
-              <BookModalBg onClick={dismiss} />
+        {visible ? (
+          <BookModalWrapper>
+              <BookModalBoxSetup width={client}>{children}</BookModalBoxSetup>
+            <BookModalBg onClick={dismiss} />
           </BookModalWrapper>
-          ) : null}
+        ) : null}
       </React.Fragment>
     );
   }

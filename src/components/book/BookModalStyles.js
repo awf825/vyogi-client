@@ -11,10 +11,10 @@ align-items: baseline;
 `;
 
 export const BookModalBoxSetup = styled.div`
-position: absolute;
+position: fixed;
 left: 0;
 right: 0;
-width: ${props => props.width || "32%"}
+width: "32%"
 overflow:hidden;
 padding:16px;
 margin: 50px auto;
