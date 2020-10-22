@@ -1,10 +1,11 @@
 import React from 'react'
-import BigJoe2 from '../forms/BigJoe2'
+import PayForm from '../stripe/PayForm'
 
 const BookModalContent = (props) => {
   const confirm = props.handleLessonConfirmation
   const reject = props.handleLessonRejection
   const reveal = props.showPayForm 
+  // WILL NEED TO PASS MORE PROPS TO PAYFORM => STRIPE
   return (
     <div>
       <div>
@@ -13,7 +14,7 @@ const BookModalContent = (props) => {
         <input type="button" value="No" onClick={reject}></input>
       </div>
       {
-        reveal ? <BigJoe2 id={props.id}/> : null
+        reveal ? <PayForm id={props.id}/> : null
       }
     </div>
   )
