@@ -17,7 +17,7 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3001/lessons', {withCredentials: true})
+    axios.get('http://localhost:3001/api/v1/lessons', {withCredentials: true})
     .then(resp => {
       let evts = []
       resp.data.map(d => {

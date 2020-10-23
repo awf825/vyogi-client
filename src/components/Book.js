@@ -34,7 +34,7 @@ class Book extends Component {
   //// card info etc
 
   getUser = () => {
-    axios.get('http://localhost:3001/logged_in', {withCredentials: true})
+    axios.get('http://localhost:3001/api/v1/logged_in', {withCredentials: true})
     .then(response => {
       if (response.data.logged_in) {
         this.setState({

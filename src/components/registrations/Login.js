@@ -32,7 +32,7 @@ class Login extends Component {
       password: password
     }
 
-    axios.post('http://localhost:3001/login', {user}, {withCredentials: true})
+    axios.post('http://localhost:3001/api/v1/login', {user}, {withCredentials: true})
       .then(resp => {
         if (resp.data.logged_in) {
           this.props.handleLogin(resp.data)

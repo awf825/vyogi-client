@@ -1,51 +1,82 @@
 import React, { Component } from 'react';
-import {CardElement, injectStripe} from 'react-stripe-elements';
+import {ElementsConsumer, CardElement} from '@stripe/react-stripe-js';
+import CardSection from './CardSection'
 
 class Checkout extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      complete: false
-    }
-    console.log('props when Stripe appears:', props)
-  }
+  handleSubmit = async (ev) => {
+    ev.preventDefault();
 
-  submit = async () => {
-    let {token} = await this.props.stripe.createToken({name: 'Name'})
-    let {response} = await fetch('http//localhost:3001/charges', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        token: token.id,
-        orderId: this.props.id
-      })
-    })
-
-    if (response.ok) {
-      this.setState({
-        complete: true
-        // create lesson_payment and booking?
-      })
+    const {stripe, elements} = this.props
+    
+    if (!stripe || !elements) {
+      return;
+      //handle errors?
     }
-  }
+    
+    // createToken also accepts an optional second parameter containing 
+    // additional card information collected from the customer, which is 
+    // not used in this example. 
+    const card = elements.getElement(CardElement);
+
+    const result = await stripe.createToken(card)
+    
+    if (result.error) {
+      console.log(result.error.message)
+    } else {
+      // Send the token to your server.
+      // stripeTokenHandler(result.token)
+      // or
+      const token = result.token
+      const paymentData = {token: token.id}
+
+      const response = fetch('http://localhost:3001/api/v1/charges', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(paymentData)
+      })
+
+      return response;
+    }
+    
+  };
+
+  // stripeTokenHandler = (token) => {
+  //   const paymentData = {token: token.id}
+
+  //   // Use fetch to send the token ID and any other payment data to your server.
+  //   const response = fetch('/charges', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(paymentData)
+  //   });
+
+  //   return response.json();
+  // }
+
 
   render() {
-    if (this.state.complete) return <h1>Purchase Complete!</h1>
-
     return (
-      <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
-        <CardElement />
-        <button onClick={this.submit}>Book</button>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <CardSection />
+        <button disabled={!this.props.stripe}>Confirm Order</button>
+
+      </form>
     )
   }
 }
 
-// The injectStripe is a higher-order component (HOC), which is a function that takes 
-// in a component and returns a new component containing a Stripe object. You must 
-// use the wrapped component in your application instead of the original CheckoutForm.
+export default function InjectCheckoutForm() {
+  return (
+    <ElementsConsumer>
+      {({stripe, elements}) => (
+        <Checkout stripe={stripe} elements={elements} />
+      )}
+    </ElementsConsumer>
+  )
+}
 
-export default injectStripe(Checkout);
+

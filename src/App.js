@@ -29,7 +29,7 @@ class App extends Component {
   loginStatus = () => {
     // withCredentials allows our Rails server to set and read the 
     // cookie on the front-end’s browser. ALWAYS pass this argument! 
-    axios.get('http://localhost:3001/logged_in', {withCredentials: true})
+    axios.get('http://localhost:3001/api/v1/logged_in', {withCredentials: true})
     .then(response => {
       if (response.data.logged_in) {
         this.handleLogin(response)
@@ -55,7 +55,7 @@ class App extends Component {
   }
 
   handleClick = () => {
-    axios.delete('http://localhost:3001/logout', {withCredentials: true})
+    axios.delete('http://localhost:3001/api/v1/logout', {withCredentials: true})
       .then(resp => {
         this.handleLogout()
         // props.history.push('/')
