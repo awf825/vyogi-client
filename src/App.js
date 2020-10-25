@@ -116,7 +116,7 @@ class App extends Component {
               <Signup {...props} handleLogin={this.handleLogin} loggedInStatus={isLoggedIn}/>
             )}/>
             <Route exact path='/schedule' render={props => (
-              <Schedule {...props} loggedInStatus={true}/>
+              <Schedule {...props} handleLogout={this.handleLogout} loggedInStatus={true}/>
             )}/>
             <Route exact path='/book' render={props => (
               <Book {...props} loggedInStatus={true}/>

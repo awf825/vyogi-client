@@ -6,8 +6,9 @@ class Checkout extends Component {
   handleSubmit = async (ev) => {
     ev.preventDefault();
 
+
     const {stripe, elements} = this.props
-    
+
     if (!stripe || !elements) {
       return;
       //handle errors?
@@ -27,7 +28,14 @@ class Checkout extends Component {
       // stripeTokenHandler(result.token)
       // or
       const token = result.token
-      const paymentData = {token: token.id}
+      const paymentData = {
+        token: token.id,
+        cost: "cost",
+        user: "get the id of user in modal",
+        lesson: "get the id of the lesson clicked on outside of the modal",
+        accessCode: "code set to user if you're not gonna do it in the back end",
+        status: "gonna need to find a way to send back data from the back end to mark fully booked events"
+      }
 
       const response = fetch('http://localhost:3001/api/v1/charges', {
         method: 'POST',
@@ -41,22 +49,6 @@ class Checkout extends Component {
     }
     
   };
-
-  // stripeTokenHandler = (token) => {
-  //   const paymentData = {token: token.id}
-
-  //   // Use fetch to send the token ID and any other payment data to your server.
-  //   const response = fetch('/charges', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(paymentData)
-  //   });
-
-  //   return response.json();
-  // }
-
 
   render() {
     return (

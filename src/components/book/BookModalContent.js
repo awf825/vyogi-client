@@ -14,7 +14,15 @@ const BookModalContent = (props) => {
         <input type="button" value="No" onClick={reject}></input>
       </div>
       {
-        reveal ? <PayForm id={props.id}/> : null
+        reveal ? 
+        <PayForm 
+          id={props.id}
+          cost={props.cost}
+          description={props.description}
+          start={props.start}
+          title={props.title}
+        /> 
+        : null
       }
     </div>
   )

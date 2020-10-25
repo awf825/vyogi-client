@@ -71,16 +71,10 @@ class Book extends Component {
   render() {
     //debugger
     const { 
-      user, 
       showPayForm, 
       stripeField1, 
       stripeField2, 
       stripeField3,
-      lesson_end,
-      lesson_start,
-      lesson_id,
-      lesson_title,
-      cost
     } = this.state
     // class CreateBookings < ActiveRecord::Migration[5.1]
     // def change

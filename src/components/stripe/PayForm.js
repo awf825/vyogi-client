@@ -11,8 +11,14 @@ class PayForm extends Component {
     return (
       <div className="test">
         <h1>Stripe</h1>
-        <Elements stripe={stripePromise}>
-          <Checkout id={this.props.id}/>
+        <Elements stripe={stripePromise}
+          // id={this.props.id}
+          // cost={this.props.cost}
+          // description={this.props.description}
+          // start={this.props.start}
+          // title={this.props.title}
+        >
+          <Checkout />
         </Elements>
       </div>
     )
