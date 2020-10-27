@@ -3,17 +3,30 @@ import {ElementsConsumer, CardElement} from '@stripe/react-stripe-js';
 import CardSection from './CardSection'
 
 class Checkout extends Component {
+  constructor(props) {
+    console.log('props at checkout', props)
+    super(props)
+    this.state = {
+      test: 'test'
+    }
+  }
+
   handleSubmit = async (ev) => {
     ev.preventDefault();
-
-
-    const {stripe, elements} = this.props
-
+    
+    const {
+      id,
+      cost,
+      start,
+      stripe, 
+      elements
+    } = this.props
+    
     if (!stripe || !elements) {
       return;
       //handle errors?
     }
-    
+
     // createToken also accepts an optional second parameter containing 
     // additional card information collected from the customer, which is 
     // not used in this example. 
@@ -30,10 +43,11 @@ class Checkout extends Component {
       const token = result.token
       const paymentData = {
         token: token.id,
-        cost: "cost",
-        user: "get the id of user in modal",
-        lesson: "get the id of the lesson clicked on outside of the modal",
-        accessCode: "code set to user if you're not gonna do it in the back end",
+        cost: cost,
+        user: "GET USER ID",
+        start: start,
+        lesson: id,
+        accessCode: "build in backend and mail to user",
         status: "gonna need to find a way to send back data from the back end to mark fully booked events"
       }
 
@@ -61,11 +75,21 @@ class Checkout extends Component {
   }
 }
 
-export default function InjectCheckoutForm() {
+export default function InjectCheckoutForm(props) {
+  // cost={this.props.cost}
+  // description={this.props.description}
+  // start={this.props.start}
+  // title={this.props.title}
   return (
     <ElementsConsumer>
       {({stripe, elements}) => (
-        <Checkout stripe={stripe} elements={elements} />
+        <Checkout 
+          id={props.id} 
+          cost={props.cost}
+          start={props.start}
+          stripe={stripe} 
+          elements={elements} 
+        />
       )}
     </ElementsConsumer>
   )

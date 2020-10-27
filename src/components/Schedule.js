@@ -81,7 +81,6 @@ class Schedule extends Component {
     this?`
 
     if (modalOpen && modalData) {
-      console.log('modalData:', modalData)
       this.children = (
         <BookModalContent 
           message={message}
