@@ -16,6 +16,8 @@ const BookModalContent = (props) => {
       {
         reveal ? 
         <PayForm 
+          userId={props.userId}
+          userEmail={props.userEmail}
           id={props.id}
           cost={props.cost}
           description={props.description}

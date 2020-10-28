@@ -19,7 +19,9 @@ class Checkout extends Component {
       cost,
       start,
       stripe, 
-      elements
+      elements,
+      userId,
+      userEmail
     } = this.props
     
     if (!stripe || !elements) {
@@ -44,7 +46,8 @@ class Checkout extends Component {
       const paymentData = {
         token: token.id,
         cost: cost,
-        user: "GET USER ID",
+        userId: userId,
+        email: userEmail,
         start: start,
         lesson: id,
         accessCode: "build in backend and mail to user",
@@ -84,6 +87,8 @@ export default function InjectCheckoutForm(props) {
     <ElementsConsumer>
       {({stripe, elements}) => (
         <Checkout 
+          userId={props.userId}
+          userEmail={props.userEmail}
           id={props.id} 
           cost={props.cost}
           start={props.start}
@@ -94,5 +99,3 @@ export default function InjectCheckoutForm(props) {
     </ElementsConsumer>
   )
 }
-
-

@@ -8,11 +8,15 @@ import BookModalContent from './book/BookModalContent'
 class Schedule extends Component {
   constructor(props) {
     super(props)
+    const email = props.user.email
+    const id = props.user.id
     this.state = {
       schedule: [],
       modalData: {},
       modalOpen: false,
-      showPayForm: false
+      showPayForm: false,
+      userEmail: email,
+      userId: id
     }
   }
 
@@ -74,7 +78,7 @@ class Schedule extends Component {
   //// THE BACK END 
 
   render() {
-    const { schedule, modalOpen, modalData, showPayForm } = this.state
+    const { schedule, modalOpen, modalData, showPayForm, userId, userEmail } = this.state
 
     const message = `This is lesson ${modalData.title}.
     It will start at ${modalData.start} and last an hour. Can you confirm
@@ -83,6 +87,8 @@ class Schedule extends Component {
     if (modalOpen && modalData) {
       this.children = (
         <BookModalContent 
+          userId={userId}
+          userEmail={userEmail}
           message={message}
           id={modalData.id}
           cost={modalData.cost}
