@@ -49,9 +49,7 @@ class Checkout extends Component {
         userId: userId,
         email: userEmail,
         start: start,
-        lesson: id,
-        accessCode: "build in backend and mail to user",
-        status: "gonna need to find a way to send back data from the back end to mark fully booked events"
+        lesson: id
       }
 
       const response = fetch('http://localhost:3001/api/v1/charges', {

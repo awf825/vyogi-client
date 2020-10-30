@@ -25,18 +25,20 @@ class Schedule extends Component {
     .then(resp => {
       let evts = []
       resp.data.map(d => {
-        evts.push(
-          {
-            id: d["id"],
-            title: d["title"],
-            description: d["description"],
-            start: new Date(d["start"]),
-            end: new Date(d["start"]),
-            level: d["level"],
-            cost: d["cost"],
-            allDay: false
-          }
-        )
+        if (d["status"] !== "Full/Unavailable") {
+          evts.push(
+            {
+              id: d["id"],
+              title: d["title"],
+              description: d["description"],
+              start: new Date(d["start"]),
+              end: new Date(d["start"]),
+              level: d["level"],
+              cost: d["cost"],
+              allDay: false
+            }
+          )
+        }
       })
 
       this.setState({
