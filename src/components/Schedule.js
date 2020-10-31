@@ -25,6 +25,7 @@ class Schedule extends Component {
     .then(resp => {
       let evts = []
       resp.data.map(d => {
+        // TODO BLOCK USERS WHO HAVE ALREADY BOOKED 
         if (d["status"] !== "Full/Unavailable") {
           evts.push(
             {

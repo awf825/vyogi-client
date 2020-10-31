@@ -21,12 +21,12 @@ class Checkout extends Component {
       stripe, 
       elements,
       userId,
-      userEmail
+      userEmail,
+      closeModal
     } = this.props
     
     if (!stripe || !elements) {
       return;
-      //handle errors?
     }
 
     // createToken also accepts an optional second parameter containing 
@@ -37,7 +37,8 @@ class Checkout extends Component {
     const result = await stripe.createToken(card)
     
     if (result.error) {
-      console.log(result.error.message)
+      console.error(result.error.message)
+      alert(`I'm sorry, your card number is either incomplete or invalid`)
     } else {
       // Send the token to your server.
       // stripeTokenHandler(result.token)
@@ -52,15 +53,23 @@ class Checkout extends Component {
         lesson: id
       }
 
-      const response = fetch('http://localhost:3001/api/v1/charges', {
+      fetch('http://localhost:3001/api/v1/charges', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(paymentData)
+      }).then(function(resp){
+        if (resp.ok) {
+          alert("Thank you! You should be emailed your access code shortly; please contact us if it hasn't arrived in the next 10 minutes")
+        } else {
+          alert('Something went wrong.')
+        }
+        return resp
       })
 
-      return response;
+      closeModal()
+
     }
     
   };
@@ -85,6 +94,7 @@ export default function InjectCheckoutForm(props) {
     <ElementsConsumer>
       {({stripe, elements}) => (
         <Checkout 
+          closeModal={props.closeModal}
           userId={props.userId}
           userEmail={props.userEmail}
           id={props.id} 
