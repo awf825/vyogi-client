@@ -4,24 +4,34 @@ import './index.css';
 import Header from './components/Header'
 import Home from './components/Home'
 import Login from './components/registrations/Login'
+// import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
+import Signup from './components/registrations/Signup'
+import Schedule from './components/Schedule'
+import Book from './components/Book'
 export const AuthContext = React.createContext();
 const storage = sessionStorage.getItem('user')
 const deadState = { isLoggedIn: false, user: null }
 const liveState = { isLoggedIn: true, user: JSON.parse(storage)}
 const appState = !storage ? deadState : liveState
 
-// import axios from 'axios'
-// import {BrowserRouter, Switch, Route} from 'react-router-dom'
 // import {Nav} from 'react-bootstrap';
-// import Signup from './components/registrations/Signup'
-// import Schedule from './components/Schedule'
-// import Book from './components/Book'
+// import axios from 'axios'
 
 const reducer = (state, action) => {
+  console.log(action.payload)
   switch(action.type) {
     case "LOGIN":
       sessionStorage.setItem("user", JSON.stringify(action.payload.user));
       // sessionStorage.setItem("token", JSON.stringify(action.payload.token));
+      return {
+        ...state,
+        isLoggedIn: true,
+        user: action.payload.user
+        // token: action.payload.token
+      };
+    case "REGISTER":
+      sessionStorage.setItem("user", JSON.stringify(action.payload.user));
       return {
         ...state,
         isLoggedIn: true,
@@ -41,18 +51,61 @@ const reducer = (state, action) => {
 };
 
 
+
 function App() {
   const [state, dispatch] = React.useReducer(reducer, appState)
+  let history = useHistory()
+
+  const handleLogout = () => {
+    fetch('http://localhost:3001/api/v1/logout', {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": 'application/json'
+      }
+    }).then(resp => {
+      if (resp.ok) {
+        return resp.json()
+      }
+      throw resp;
+    }).then(respJson => {
+      dispatch({
+        type: "LOGOUT",
+        payload: respJson
+      })
+    }).catch(err => {
+      alert(err)
+    })
+  }
+
   return (
     <AuthContext.Provider
       value={{
         state,
         dispatch
       }}
-    >
-      <Header />
+      >
       <div className="App">
-        {!state.isLoggedIn ? <Login /> : <Home />}
+        {!state.isLoggedIn ? 
+        <Login history={history}/> 
+        :
+        <div className="AppHome">
+          <Header handleLogout={handleLogout}/>
+          <Switch>
+            <Route exact path='/home' render={props => (
+              <Home {...props} />
+            )}/>
+            {/* <Route exact path='/login' render={props => (
+              <Login {...props}/>
+            )}/> */}
+            <Route exact path='/signup' render={props => (
+              <Signup {...props} />
+            )}/>
+            <Route exact path='/schedule' render={props => (
+              <Schedule {...props} />
+            )}/>
+          </Switch>
+        </div>
+        }
       </div>
     </AuthContext.Provider>
   )
@@ -153,28 +206,9 @@ function App() {
 //               </Nav.Item>
 //             </Nav>
 //           }
-//         <BrowserRouter>
-//           <Switch>
-//             <Route exact path='/' render={props => (
-//               <Home {...props} handleLogout={this.handleLogout} loggedInStatus={isLoggedIn} user={user}/>
-//             )}/>
-//             <Route exact path='/login' render={props => (
-//               <Login {...props} handleLogin={this.handleLogin} loggedInStatus={isLoggedIn}/>
-//             )}/>
-//             <Route exact path='/signup' render={props => (
-//               <Signup {...props} handleLogin={this.handleLogin} loggedInStatus={isLoggedIn}/>
-//             )}/>
-//             <Route exact path='/schedule' render={props => (
-//               <Schedule {...props} handleLogout={this.handleLogout} loggedInStatus={true} user={user}/>
-//             )}/>
-//             <Route exact path='/book' render={props => (
-//               <Book {...props} loggedInStatus={true}/>
-//             )}/>
-//           </Switch>
-//         </BrowserRouter>
 //       </div>
 //     )
 //   }
 // }
 
-export default App;
+export default withRouter(App);

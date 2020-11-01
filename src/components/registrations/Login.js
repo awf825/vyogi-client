@@ -1,16 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import RegisModal from './RegisModal'
+import RegisModalContent from './RegisModalContent'
 import axios from 'axios';
 // import {Link} from 'react-router-dom'
 import {AuthContext} from '../../App'
 
-export const Login = () => {
+export const Login = (props) => {
   const { dispatch } = React.useContext(AuthContext);
   const initialState = {
     email: '',
     password: '',
+    passwordConf: '',
     isSubmitting: false,
-    errorMessage: null
+    errorMessage: null,
+    showModal: false
   }
+
   const [data, setData] = React.useState(initialState);
 
   const handleInputChange = event => {
@@ -27,23 +32,83 @@ export const Login = () => {
       isSumitting: true,
       errorMessage: null
     });
-    fetch('http://localhost:3001/api/v1/login', {
+    let user = {email: data.email, password: data.password}
+    axios.post('http://localhost:3001/api/v1/login', user)
+      .then(resp => {
+        if (resp.data.logged_in) {
+          dispatch({
+            type: "LOGIN",
+            payload: resp.data
+          })
+          props.history.push('/home')
+        } else {
+          setData({
+            ...data,
+            isSubmitting: false,
+            errorMessage: resp.data.errors
+          })
+          console.log('failure', resp)
+        }
+      })
+      .catch(er => console.log('api errors:', er))
+
+    // fetch('http://localhost:3001/api/v1/login', {
+    //   method: 'POST',
+    //   headers: {
+    //     "Content-Type": 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     email: data.email,
+    //     password: data.password
+    //   })
+    // }).then(resp => {
+    //   console.log('resp at login:', resp)
+    //   if (resp.ok) {
+    //     props.history.push('/home')
+    //     return resp.json()
+    //   }
+    //   throw resp;
+    // }).then(respJson => {
+    //   dispatch({
+    //     type: "LOGIN",
+    //     payload: respJson
+    //   })
+    // }).catch(err => {
+    //   setData({
+    //     ...data,
+    //     isSubmitting: false,
+    //     errorMessage: err.message || err.statusText
+    //   })
+    // })
+  }
+
+  const handleModalSubmit = event => {
+    event.preventDefault();
+    setData({
+      ...data,
+      errorMessage: null,
+      showModal: false
+    });
+    fetch('http://localhost:3001/api/v1/users', {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json'
       },
       body: JSON.stringify({
         email: data.email,
-        password: data.password
+        password: data.password,
+        passwordConf: data.passwordConf
       })
     }).then(resp => {
-      if (resp.ok) {
+      console.log(resp)
+      if(resp.ok) {
+        props.history.push('/home')
         return resp.json()
       }
       throw resp;
     }).then(respJson => {
       dispatch({
-        type: "LOGIN",
+        type: "REGISTER",
         payload: respJson
       })
     }).catch(err => {
@@ -55,10 +120,31 @@ export const Login = () => {
     })
   }
 
+  const displayModal = () => {
+    setData({
+      ...data,
+      showModal: true
+    })
+  }
+
+  const hideModal = () => {
+    setData({
+      ...data,
+      showModal: false
+    })
+  }
+
   return (
     <div className="login-container">
       <div className="card">
         <div className="container">
+          <RegisModal show={data.showModal} handleClose={hideModal}>
+            <RegisModalContent 
+              handleRegistration={handleModalSubmit} 
+              handleInputChange={handleInputChange} 
+              data={data} 
+            />
+          </RegisModal>
           <form onSubmit={handleFormSubmit}>
             <h1>Login</h1>
             <label htmlFor="email">
@@ -93,6 +179,12 @@ export const Login = () => {
               )}
             </button>
           </form>
+          <div>
+            or
+            <button onClick={displayModal}>
+              Register
+            </button>
+          </div>
 
         </div>
       </div>
