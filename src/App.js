@@ -7,10 +7,10 @@ import Login from './components/registrations/Login'
 import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
 import Schedule from './components/Schedule'
 export const AuthContext = React.createContext();
-const storage = sessionStorage.getItem('user')
+const currentUser = JSON.parse(sessionStorage.getItem('user'))
 const deadState = { isLoggedIn: false, user: null }
-const liveState = { isLoggedIn: true, user: JSON.parse(storage)}
-const appState = !storage ? deadState : liveState
+const liveState = { isLoggedIn: true, user: currentUser }
+const appState = !currentUser ? deadState : liveState
 
 const reducer = (state, action) => {
   switch(action.type) {
@@ -91,7 +91,7 @@ function App() {
               <Login {...props}/>
             )}/> */}
             <Route exact path='/schedule' render={props => (
-              <Schedule {...props} />
+              <Schedule {...props} user={currentUser} />
             )}/>
           </Switch>
         </div>

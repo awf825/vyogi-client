@@ -8,45 +8,49 @@ import BookModalContent from './book/BookModalContent'
 class Schedule extends Component {
   constructor(props) {
     super(props)
-    const email = props.user.email
-    const id = props.user.id
+    // const email = props.user.email
+    // const id = props.user.id
     this.state = {
       schedule: [],
       modalData: {},
       modalOpen: false,
-      showPayForm: false,
-      userEmail: email,
-      userId: id
+      showPayForm: false
     }
   }
 
-  componentDidMount() {
-    axios.get('http://localhost:3001/api/v1/lessons', {withCredentials: true})
-    .then(resp => {
-      let evts = []
-      resp.data.map(d => {
-        // TODO BLOCK USERS WHO HAVE ALREADY BOOKED 
-        if (d["status"] !== "Full/Unavailable") {
-          evts.push(
-            {
-              id: d["id"],
-              title: d["title"],
-              description: d["description"],
-              start: new Date(d["start"]),
-              end: new Date(d["start"]),
-              level: d["level"],
-              cost: d["cost"],
-              allDay: false
-            }
-          )
-        }
-      })
-
+  componentDidMount() {        
+    axios.all([
+      axios.get('http://localhost:3001/api/v1/lessons'),
+      axios.get(`http://localhost:3001/api/v1/accounts/${this.props.user.account_id}`)
+    ])
+    .then(responseArr => {
+        let evts = []
+        responseArr[0].data.map(d => {
+          const condition1 = (d["status"] !== "Full/Unavailable")
+          // use second condition to disable; trigger alert
+          // const condition2 = (responseArr[1].data.lessons.includes(d["id"]))
+          // const toggle = (condition1 || condition2)
+          // TODO BLOCK USERS WHO HAVE ALREADY BOOKED 
+          if (condition1) {
+            evts.push(
+              {
+                id: d["id"],
+                title: d["title"],
+                description: d["description"],
+                start: new Date(d["start"]),
+                end: new Date(d["start"]),
+                level: d["level"],
+                cost: d["cost"],
+                allDay: false
+              }
+            )
+          }
+        })
+  
       this.setState({
         schedule: evts
       })
-    })
-    .catch(er => console.error(er))
+    });
   }
 
   handleSelection = (e) => {
@@ -73,15 +77,9 @@ class Schedule extends Component {
     this.rejectModal()
   }
 
-  // SOME POINT IN THIS COMPONENT
-
-  //// ONLY COMMIT CHARGE, BOOKING AND SCHEDULE ONCE USER SUBMITS
-  //// FORM IN BOOK COMPONENT!!! !!!BUT NEED TO FIND A WAY TO HOLD ON TO SCHEDULE OBJ
-  //// ONCE BOOK LINK IS SELECTED SO FULL BOOKING CAN BE BUILT IN
-  //// THE BACK END 
-
   render() {
-    const { schedule, modalOpen, modalData, showPayForm, userId, userEmail } = this.state
+    const { schedule, modalOpen, modalData, showPayForm } = this.state
+    const { user } = this.props
 
     const message = `This is lesson ${modalData.title}.
     It will start at ${modalData.start} and last an hour. Can you confirm
@@ -90,8 +88,8 @@ class Schedule extends Component {
     if (modalOpen && modalData) {
       this.children = (
         <BookModalContent 
-          userId={userId}
-          userEmail={userEmail}
+          userId={user.id}
+          userEmail={user.email}
           message={message}
           id={modalData.id}
           cost={modalData.cost}
