@@ -304,3 +304,22 @@ label{
 .display-none {
   display: none;
 }
+
+.video {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width:50%;
+  height: 50%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.video-main {
+  position: absolute;
+  background: white;
+  width: 80%;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}

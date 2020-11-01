@@ -3,6 +3,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Header from './components/Header'
 import Home from './components/Home'
+import Video from './components/Video'
+import About from './components/About'
 import Login from './components/registrations/Login'
 import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
 import Schedule from './components/Schedule'
@@ -87,11 +89,14 @@ function App() {
             <Route exact path='/home' render={props => (
               <Home {...props} />
             )}/>
-            {/* <Route exact path='/login' render={props => (
-              <Login {...props}/>
-            )}/> */}
+            <Route exact path='/video' render={props => (
+              <Video {...props}/>
+            )}/>
             <Route exact path='/schedule' render={props => (
               <Schedule {...props} user={currentUser} />
+            )}/>
+            <Route exact path='/about' render={props => (
+              <About {...props} user={currentUser} />
             )}/>
           </Switch>
         </div>

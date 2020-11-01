@@ -8,9 +8,7 @@ const localizer = momentLocalizer(moment)
 class ScheduleCalender extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      clicked: false
-    }
+    console.log('props sent to calender:', props)
   }
     
   render() {

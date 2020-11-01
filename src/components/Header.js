@@ -9,6 +9,12 @@ export const Header = (props) => {
           <Nav.Link href="/schedule" >Schedule</Nav.Link>
         </Nav.Item>
         <Nav.Item>
+          <Nav.Link href="/video" >Go To Lesson</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link href="/about" >About</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
           <Nav.Link href="/" onClick={props.handleLogout}>Log Out</Nav.Link>
         </Nav.Item>
       </Nav>

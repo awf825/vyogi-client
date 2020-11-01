@@ -8,13 +8,12 @@ import BookModalContent from './book/BookModalContent'
 class Schedule extends Component {
   constructor(props) {
     super(props)
-    // const email = props.user.email
-    // const id = props.user.id
     this.state = {
       schedule: [],
       modalData: {},
       modalOpen: false,
-      showPayForm: false
+      showPayForm: false,
+      userLessonIds: []
     }
   }
 
@@ -27,10 +26,6 @@ class Schedule extends Component {
         let evts = []
         responseArr[0].data.map(d => {
           const condition1 = (d["status"] !== "Full/Unavailable")
-          // use second condition to disable; trigger alert
-          // const condition2 = (responseArr[1].data.lessons.includes(d["id"]))
-          // const toggle = (condition1 || condition2)
-          // TODO BLOCK USERS WHO HAVE ALREADY BOOKED 
           if (condition1) {
             evts.push(
               {
@@ -46,18 +41,23 @@ class Schedule extends Component {
             )
           }
         })
-  
       this.setState({
-        schedule: evts
+        schedule: evts,
+        userLessonIds: responseArr[1].data.lessons
       })
     });
   }
 
   handleSelection = (e) => {
-    this.setState({
-      modalOpen: true,
-      modalData: e
-    })
+    if (this.state.userLessonIds.includes(e.id)) {
+      this.rejectModal()
+      alert('You are already booked for this time.')
+    } else {
+      this.setState({
+        modalOpen: true,
+        modalData: e
+      })
+    }
   }
 
   rejectModal = () => {
@@ -78,7 +78,7 @@ class Schedule extends Component {
   }
 
   render() {
-    const { schedule, modalOpen, modalData, showPayForm } = this.state
+    const { schedule, modalOpen, modalData, showPayForm, userLessonIds } = this.state
     const { user } = this.props
 
     const message = `This is lesson ${modalData.title}.
@@ -113,7 +113,7 @@ class Schedule extends Component {
               children={this.children} 
             >
             </BookModal>
-            <ScheduleCalender dates={schedule} handleSelection={this.handleSelection}/>
+            <ScheduleCalender dates={schedule} handleSelection={this.handleSelection} blacklist={userLessonIds}/>
           </React.Fragment>
         </Fade>
       </div>
