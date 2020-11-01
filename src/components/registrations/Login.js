@@ -2,7 +2,6 @@ import React from 'react';
 import RegisModal from './RegisModal'
 import RegisModalContent from './RegisModalContent'
 import axios from 'axios';
-// import {Link} from 'react-router-dom'
 import {AuthContext} from '../../App'
 
 export const Login = (props) => {
@@ -13,10 +12,37 @@ export const Login = (props) => {
     passwordConf: '',
     isSubmitting: false,
     errorMessage: null,
+    errorLocale: "form",
     showModal: false
   }
 
   const [data, setData] = React.useState(initialState);
+
+  const loginReq = (user, sourceFlag) => {
+    const toggle = ((sourceFlag == "form") ? "LOGIN" : "REGISTER")
+    const url = (
+      (sourceFlag == "form") ? 
+      'http://localhost:3001/api/v1/login' : 
+      'http://localhost:3001/api/v1/users'
+    )
+    axios.post(url, user)
+      .then(resp => {
+        if (resp.data.logged_in || (resp.data.status == "created")) {
+          dispatch({
+            type: toggle,
+            payload: resp.data
+          })
+          props.history.push('/home')
+        } else {
+          setData({
+            ...data,
+            isSubmitting: false,
+            errorMessage: resp.data.errors
+          })
+        }
+      })
+      .catch(er => console.log('api errors:', er))
+  }
 
   const handleInputChange = event => {
     setData({
@@ -32,54 +58,8 @@ export const Login = (props) => {
       isSumitting: true,
       errorMessage: null
     });
-    let user = {email: data.email, password: data.password}
-    axios.post('http://localhost:3001/api/v1/login', user)
-      .then(resp => {
-        if (resp.data.logged_in) {
-          dispatch({
-            type: "LOGIN",
-            payload: resp.data
-          })
-          props.history.push('/home')
-        } else {
-          setData({
-            ...data,
-            isSubmitting: false,
-            errorMessage: resp.data.errors
-          })
-          console.log('failure', resp)
-        }
-      })
-      .catch(er => console.log('api errors:', er))
-
-    // fetch('http://localhost:3001/api/v1/login', {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     email: data.email,
-    //     password: data.password
-    //   })
-    // }).then(resp => {
-    //   console.log('resp at login:', resp)
-    //   if (resp.ok) {
-    //     props.history.push('/home')
-    //     return resp.json()
-    //   }
-    //   throw resp;
-    // }).then(respJson => {
-    //   dispatch({
-    //     type: "LOGIN",
-    //     payload: respJson
-    //   })
-    // }).catch(err => {
-    //   setData({
-    //     ...data,
-    //     isSubmitting: false,
-    //     errorMessage: err.message || err.statusText
-    //   })
-    // })
+    const user = ({email: data.email, password: data.password})
+    loginReq(user, "form")
   }
 
   const handleModalSubmit = event => {
@@ -89,48 +69,23 @@ export const Login = (props) => {
       errorMessage: null,
       showModal: false
     });
-    fetch('http://localhost:3001/api/v1/users', {
-      method: 'POST',
-      headers: {
-        "Content-Type": 'application/json'
-      },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-        passwordConf: data.passwordConf
-      })
-    }).then(resp => {
-      console.log(resp)
-      if(resp.ok) {
-        props.history.push('/home')
-        return resp.json()
-      }
-      throw resp;
-    }).then(respJson => {
-      dispatch({
-        type: "REGISTER",
-        payload: respJson
-      })
-    }).catch(err => {
-      setData({
-        ...data,
-        isSubmitting: false,
-        errorMessage: err.message || err.statusText
-      })
-    })
+    const user = ({email: data.email, password: data.password, password_confirmation: data.passwordConf})
+    loginReq(user, "modal")
   }
 
   const displayModal = () => {
     setData({
       ...data,
-      showModal: true
+      showModal: true,
+      errorLocale: "modal"
     })
   }
 
   const hideModal = () => {
     setData({
       ...data,
-      showModal: false
+      showModal: false,
+      errorLocale: ""
     })
   }
 
@@ -168,9 +123,10 @@ export const Login = (props) => {
               />
             </label>
 
-            {data.errorMessage && (
+            {(data.errorMessage && (data.errorLocale == "form")) && (
               <span className="form-error">{data.errorMessage}</span>
             )}
+
             <button disabled={data.isSubmitting}>
               {data.isSubmitting ? (
                 "Loading..."
@@ -191,103 +147,5 @@ export const Login = (props) => {
     </div>
   )
 }
-
-
-// class Login extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       email: '',
-//       password: '',
-//       errors: ''
-//     };
-//   }
-
-//   componentWillMount() {
-//     return this.props.loggedInStatus ? this.redirect() : null
-//   }
-
-//   handleChange = (ev) => {
-//     const {name, value} = ev.target;
-//     this.setState({
-//       [name]: value
-//     })
-//   };
-
-//   handleSubmit = (ev) => {
-//     ev.preventDefault();
-//     const {email, password} = this.state
-
-//     let user = {
-//       email: email,
-//       password: password
-//     }
-
-//     axios.post('http://localhost:3001/api/v1/login', {user}, {withCredentials: true})
-//       .then(resp => {
-//         if (resp.data.logged_in) {
-//           this.props.handleLogin(resp.data)
-//           this.redirect()
-//         } else {
-//           this.setState({
-//             errors: resp.data.errors
-//           })
-//         }
-//       })
-//       .catch(er => console.log('api errors:', er))
-//   }
-
-//   redirect = () => {
-//     this.props.history.push('/schedule')
-//   }
-
-//   handleErrors = () => {
-//     return (
-//       <div>
-//         <ul>
-//           {this.state.errors.map(er => {
-//             return <li key={er}>{er}</li>
-//           })}
-//         </ul>
-//       </div>
-//     )
-//   }
-
-//   render() {
-//     const {email, password} = this.state
-//     return (
-//       <div>
-//         <h1>Log In</h1>
-//         <form onSubmit={this.handleSubmit}>
-//           <input
-//             placeholder="email"
-//             type="text"
-//             name="email"
-//             value={email}
-//             onChange={this.handleChange}
-//           />
-//           <input
-//             placeholder="password"
-//             type="password"
-//             name="password"
-//             value={password}
-//             onChange={this.handleChange}
-//           />
-//           <button placeholder="submit" type="submit">
-//             Log In
-//           </button>
-//           <div>
-//             or <Link to="/signup">sign up</Link>
-//           </div>
-//         </form>
-//         <div>
-//           {
-//             this.state.errors ? this.handleErrors() : null
-//           }
-//         </div>
-//       </div>
-//     );
-//   }
-// }
 
 export default Login;

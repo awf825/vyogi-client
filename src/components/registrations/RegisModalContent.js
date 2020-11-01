@@ -35,6 +35,11 @@ export const RegisModalContent = ({ handleRegistration, handleInputChange, data 
             id="passwordConf"
           />
         </label>
+
+        {(data.errorMessage && (data.errorLocale == "modal")) && (
+          <span className="form-error">{data.errorMessage}</span>
+        )}
+        
         <button placeholder="submit" type="submit">
           Signup
         </button>
