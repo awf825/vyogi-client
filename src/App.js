@@ -72,6 +72,10 @@ function App() {
     })
   }
 
+  const injectAccount = () => {
+    console.log('inject me into header onClicks via props')
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -84,13 +88,13 @@ function App() {
         <Login history={history}/> 
         :
         <div className="AppHome">
-          <Header handleLogout={handleLogout}/>
+          <Header handleLogout={handleLogout} injectAccount={injectAccount}/>
           <Switch>
             <Route exact path='/home' render={props => (
               <Home {...props} />
             )}/>
             <Route exact path='/video' render={props => (
-              <Video {...props}/>
+              <Video {...props} user={currentUser}/>
             )}/>
             <Route exact path='/schedule' render={props => (
               <Schedule {...props} user={currentUser} />
