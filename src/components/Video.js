@@ -3,9 +3,10 @@ import React from 'react'
 import axios from 'axios'
 import VideoContainer from './video/VideoContainer'
 import VideoAction from './video/VideoAction'
+import {AuthContext} from '../App'
 
 export const Video = (props) => {
-  // const { dispatch } = React.useContext(AuthContext);
+  const { dispatch } = React.useContext(AuthContext);
   const initialState = {
     showVideo: false,
     codeInput: ""
@@ -24,7 +25,15 @@ export const Video = (props) => {
         }, []).find(el => el == data.codeInput)
 
         if (validation) {
-          console.log('go')
+          props.handleVideoGeneration()
+          // may not need this dispatch
+          // dispatch({
+          //   type: "AWAKE",
+          //   // eventually pass lesson end here
+          //   payload: {
+          //     videoToken: 'GENERATE_TOKEN_PLEASE'
+          //   }
+          // })
           setData({
             ...data,
             showVideo: true,

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { suid } from 'rand-token';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Header from './components/Header'
@@ -8,10 +9,13 @@ import About from './components/About'
 import Login from './components/registrations/Login'
 import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
 import Schedule from './components/Schedule'
+import Cookies from 'universal-cookie'
+const cookies = new Cookies();
 export const AuthContext = React.createContext();
 const currentUser = JSON.parse(sessionStorage.getItem('user'))
-const deadState = { isLoggedIn: false, user: null }
-const liveState = { isLoggedIn: true, user: currentUser }
+const currentVideoSession = cookies.get('videoToken')
+const deadState = { isLoggedIn: false, user: null, videoRunning: !!currentVideoSession }
+const liveState = { isLoggedIn: true, user: currentUser, videoRunning: !!currentVideoSession }
 const appState = !currentUser ? deadState : liveState
 
 const reducer = (state, action) => {
@@ -34,12 +38,25 @@ const reducer = (state, action) => {
         // token: action.payload.token
       };
     case "LOGOUT":
-      sessionStorage.clear();
+      sessionStorage.removeItem("user");
       return {
         ...state,
         isLoggedIn: false,
         user: null
       }
+    // case "AWAKE":
+
+      // var expiry = moment(new Date()).add(30, 's').toDate();
+      // var videoSession = {
+      //   expiresAt: expiry,
+      //   token: action.payload.videoToken
+      // }
+      // sessionStorage.setItem("videoSession", JSON.stringify(videoSession))
+      // return {
+      //   ...state,
+      //   isLoggedIn: true,
+      //   user: currentUser
+      // }
     default:
       return state;  
   }
@@ -49,6 +66,7 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = React.useReducer(reducer, appState)
+  // setCookie('name', newName, { path: '/' })
   let history = useHistory()
 
   const handleLogout = () => {
@@ -70,6 +88,12 @@ function App() {
     }).catch(err => {
       alert(err)
     })
+  }
+
+  const handleVideoGeneration = () => {
+    var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+    var tkn = suid(16)
+    cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
   }
 
   const injectAccount = () => {
@@ -94,7 +118,7 @@ function App() {
               <Home {...props} />
             )}/>
             <Route exact path='/video' render={props => (
-              <Video {...props} user={currentUser}/>
+              <Video {...props} user={currentUser} handleVideoGeneration={handleVideoGeneration}/>
             )}/>
             <Route exact path='/schedule' render={props => (
               <Schedule {...props} user={currentUser} />

@@ -8,7 +8,6 @@ const localizer = momentLocalizer(moment)
 class ScheduleCalender extends Component {
   constructor(props) {
     super(props)
-    console.log('props sent to calender:', props)
   }
     
   render() {
