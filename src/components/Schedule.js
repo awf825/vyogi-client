@@ -17,7 +17,7 @@ class Schedule extends Component {
     }
   }
 
-  componentDidMount() {        
+  componentDidMount() {       
     axios.all([
       axios.get('http://localhost:3001/api/v1/lessons'),
       axios.get(`http://localhost:3001/api/v1/accounts/${this.props.user.account_id}`)

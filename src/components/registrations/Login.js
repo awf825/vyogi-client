@@ -20,19 +20,26 @@ export const Login = (props) => {
 
   const loginReq = (user, sourceFlag) => {
     const toggle = ((sourceFlag == "form") ? "LOGIN" : "REGISTER")
-    const url = (
+    const mainUrl = (
       (sourceFlag == "form") ? 
       'http://localhost:3001/api/v1/login' : 
       'http://localhost:3001/api/v1/users'
     )
-    axios.post(url, user)
+    // BIG TODO FIND WAY TO CHAIN AXIOS CALLS: ACCOUNT URL IS DEPENDENT ON USER INFO
+    axios.post(mainUrl, user)
       .then(resp => {
         if (resp.data.logged_in || (resp.data.status == "created")) {
-          dispatch({
-            type: toggle,
-            payload: resp.data
-          })
-          props.history.push('/home')
+          axios.get(`http://localhost:3001/api/v1/accounts/${resp.data.user.id}`)
+            .then(secondResp => {
+              dispatch({
+                type: toggle,
+                payload: {
+                  user: resp.data,
+                  account: secondResp.data
+                }
+              })
+              props.history.push('/home')
+            }) 
         } else {
           setData({
             ...data,

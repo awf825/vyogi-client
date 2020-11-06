@@ -10,6 +10,7 @@ import Login from './components/registrations/Login'
 import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
 import Schedule from './components/Schedule'
 import Cookies from 'universal-cookie'
+import axios from 'axios';
 const cookies = new Cookies();
 export const AuthContext = React.createContext();
 const currentUser = JSON.parse(sessionStorage.getItem('user'))
@@ -26,7 +27,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLoggedIn: true,
-        user: action.payload.user
+        user: action.payload.user,
         // token: action.payload.token
       };
     case "REGISTER":
@@ -42,10 +43,13 @@ const reducer = (state, action) => {
       return {
         ...state,
         isLoggedIn: false,
-        user: null
+        user: null,
+        account: null
       }
-    // case "AWAKE":
-
+    case "AWAKE":
+      // var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+      // // var tkn = suid(16)
+      // cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
       // var expiry = moment(new Date()).add(30, 's').toDate();
       // var videoSession = {
       //   expiresAt: expiry,
@@ -66,7 +70,6 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = React.useReducer(reducer, appState)
-  // setCookie('name', newName, { path: '/' })
   let history = useHistory()
 
   const handleLogout = () => {
@@ -96,9 +99,13 @@ function App() {
     cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
   }
 
-  const injectAccount = () => {
-    console.log('inject me into header onClicks via props')
-  }
+  // const injectAccount = () => {
+  //   axios.get(`http://localhost:3001/api/v1/accounts/${currentUser.account_id}`)
+  //     .then(resp => {
+  //       console.log('account call in injectAccount:', resp)
+  //     })
+  //   console.log('inject me into header onClicks via props')
+  // }
 
   return (
     <AuthContext.Provider
@@ -112,13 +119,13 @@ function App() {
         <Login history={history}/> 
         :
         <div className="AppHome">
-          <Header handleLogout={handleLogout} injectAccount={injectAccount}/>
+          <Header handleLogout={handleLogout} />
           <Switch>
             <Route exact path='/home' render={props => (
               <Home {...props} />
             )}/>
             <Route exact path='/video' render={props => (
-              <Video {...props} user={currentUser} handleVideoGeneration={handleVideoGeneration}/>
+              <Video {...props} user={currentUser} videoRunning={state.videoRunning} handleVideoGeneration={handleVideoGeneration}/>
             )}/>
             <Route exact path='/schedule' render={props => (
               <Schedule {...props} user={currentUser} />

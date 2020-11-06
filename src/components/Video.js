@@ -1,14 +1,14 @@
 import React from 'react'
-// import {AuthContext} from '../App'
 import axios from 'axios'
 import VideoContainer from './video/VideoContainer'
 import VideoAction from './video/VideoAction'
-import {AuthContext} from '../App'
+// import { suid } from 'rand-token';
+// import {AuthContext} from '../App'
 
 export const Video = (props) => {
-  const { dispatch } = React.useContext(AuthContext);
+  // const { dispatch } = React.useContext(AuthContext);
   const initialState = {
-    showVideo: false,
+    showVideo: props.videoRunning,
     codeInput: ""
   }
 
@@ -26,29 +26,25 @@ export const Video = (props) => {
 
         if (validation) {
           props.handleVideoGeneration()
+          // var tkn = suid(16)
           // may not need this dispatch
           // dispatch({
           //   type: "AWAKE",
           //   // eventually pass lesson end here
           //   payload: {
-          //     videoToken: 'GENERATE_TOKEN_PLEASE'
+          //     user
+          //     videoToken: tkn
           //   }
           // })
-          setData({
-            ...data,
-            showVideo: true,
-            codeInput: ""
-          })
+          // setData({
+          //   ...data,
+          //   showVideo: true,
+          //   codeInput: ""
+          // })
         } else {
           alert('Code is invalid')
         }
       })
-    // get request
-    // check current lesson id and access codes/booking ids
-      // check for correct access Verify 
-      // 1) that the user is attached to the lesson via booking 
-      // 2) the access code inputted is attached to the lesson.
-    // either redirect the user to the home page or schedule OR display videod
   }
 
   const handleInputChange = event => {
