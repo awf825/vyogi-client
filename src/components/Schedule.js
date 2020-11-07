@@ -12,44 +12,40 @@ class Schedule extends Component {
       schedule: [],
       modalData: {},
       modalOpen: false,
-      showPayForm: false,
-      userLessonIds: []
+      showPayForm: false
     }
   }
 
-  componentDidMount() {       
-    axios.all([
-      axios.get('http://localhost:3001/api/v1/lessons'),
-      axios.get(`http://localhost:3001/api/v1/accounts/${this.props.user.account_id}`)
-    ])
-    .then(responseArr => {
-        let evts = []
-        responseArr[0].data.map(d => {
-          const condition1 = (d["status"] !== "Full/Unavailable")
-          if (condition1) {
-            evts.push(
-              {
-                id: d["id"],
-                title: d["title"],
-                description: d["description"],
-                start: new Date(d["start"]),
-                end: new Date(d["start"]),
-                level: d["level"],
-                cost: d["cost"],
-                allDay: false
-              }
-            )
-          }
+  componentDidMount() {     
+    axios.get('http://localhost:3001/api/v1/lessons')
+      .then(resp => {
+          let evts = []
+          resp.data.map(d => {
+            const condition1 = (d["status"] !== "Full/Unavailable")
+            if (condition1) {
+              evts.push(
+                {
+                  id: d["id"],
+                  title: d["title"],
+                  description: d["description"],
+                  start: new Date(d["start"]),
+                  end: new Date(d["start"]),
+                  level: d["level"],
+                  cost: d["cost"],
+                  allDay: false
+                }
+              )
+            }
+          })
+        this.setState({
+          schedule: evts
         })
-      this.setState({
-        schedule: evts,
-        userLessonIds: responseArr[1].data.lessons
-      })
-    });
+      });
   }
 
   handleSelection = (e) => {
-    if (this.state.userLessonIds.includes(e.id)) {
+    var lessonIds = this.props.account.bookings.map(x => x.lesson_id)
+    if (lessonIds.includes(e.id)) {
       this.rejectModal()
       alert('You are already booked for this time.')
     } else {

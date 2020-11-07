@@ -34,7 +34,7 @@ export const Login = (props) => {
               dispatch({
                 type: toggle,
                 payload: {
-                  user: resp.data,
+                  user: resp.data.user,
                   account: secondResp.data
                 }
               })
