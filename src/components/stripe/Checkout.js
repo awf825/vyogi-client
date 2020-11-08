@@ -1,19 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {ElementsConsumer, CardElement} from '@stripe/react-stripe-js';
 import CardSection from './CardSection'
 
-class Checkout extends Component {
-  constructor(props) {
-    console.log('props at checkout', props)
-    super(props)
-    this.state = {
-      test: 'test'
-    }
-  }
-
-  handleSubmit = async (ev) => {
-    ev.preventDefault();
-    
+export const Checkout = (props) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const {
       id,
       cost,
@@ -24,7 +15,7 @@ class Checkout extends Component {
       userEmail,
       account,
       closeModal
-    } = this.props
+    } = props
     
     if (!stripe || !elements) {
       return;
@@ -34,17 +25,14 @@ class Checkout extends Component {
     // additional card information collected from the customer, which is 
     // not used in this example. 
     const card = elements.getElement(CardElement);
-
     const result = await stripe.createToken(card)
     
     if (result.error) {
       console.error(result.error.message)
       alert(`I'm sorry, your card number is either incomplete or invalid`)
     } else {
-      // Send the token to your server.
-      // stripeTokenHandler(result.token)
-      // or
       const token = result.token
+
       const paymentData = {
         token: token.id,
         cost: cost,
@@ -69,22 +57,17 @@ class Checkout extends Component {
         }
         return resp
       })
-
       closeModal()
-
     }
-    
+  
   };
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <CardSection />
-        <button disabled={!this.props.stripe}>Confirm Order</button>
-
-      </form>
-    )
-  }
+  
+  return (
+    <form onSubmit={e => handleSubmit(e)}>
+      <CardSection />
+      <button disabled={!props.stripe}>Confirm Order</button>
+    </form>
+  )
 }
 
 export default function InjectCheckoutForm(props) {
