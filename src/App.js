@@ -10,7 +10,7 @@ import Login from './components/registrations/Login'
 import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
 import Schedule from './components/Schedule'
 import Cookies from 'universal-cookie'
-// import axios from 'axios';
+import axios from 'axios';
 const cookies = new Cookies();
 export const AuthContext = React.createContext();
 const currentUser = JSON.parse(sessionStorage.getItem('user'))
@@ -95,11 +95,13 @@ function App() {
         "Content-Type": 'application/json'
       }
     }).then(resp => {
+      console.log('first catch at logout:', resp)
       if (resp.ok) {
         return resp.json()
       }
       throw resp;
     }).then(respJson => {
+      console.log('second catch at logout:', respJson)
       dispatch({
         type: "LOGOUT",
         payload: respJson
@@ -130,13 +132,22 @@ function App() {
           <Header handleLogout={handleLogout} />
           <Switch>
             <Route exact path='/home' render={props => (
-              <Home {...props} />
+              <Home {...props} user={currentUser} account={currentAccount} />
             )}/>
             <Route exact path='/video' render={props => (
-              <Video {...props} user={currentUser} videoRunning={state.videoRunning} handleVideoGeneration={handleVideoGeneration}/>
+              <Video 
+                {...props} 
+                user={currentUser} 
+                account={currentAccount} 
+                videoRunning={state.videoRunning} 
+                handleVideoGeneration={handleVideoGeneration}/>
             )}/>
             <Route exact path='/schedule' render={props => (
-              <Schedule {...props} user={currentUser} account={state.account} />
+              <Schedule 
+                {...props} 
+                user={currentUser} 
+                account={currentAccount}
+              />
             )}/>
             <Route exact path='/about' render={props => (
               <About {...props} user={currentUser} />

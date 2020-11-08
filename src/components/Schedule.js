@@ -19,27 +19,25 @@ class Schedule extends Component {
   componentDidMount() {     
     axios.get('http://localhost:3001/api/v1/lessons')
       .then(resp => {
-          let evts = []
-          resp.data.map(d => {
-            const condition1 = (d["status"] !== "Full/Unavailable")
-            if (condition1) {
-              evts.push(
-                {
-                  id: d["id"],
-                  title: d["title"],
-                  description: d["description"],
-                  start: new Date(d["start"]),
-                  end: new Date(d["start"]),
-                  level: d["level"],
-                  cost: d["cost"],
-                  allDay: false
-                }
-              )
-            }
-          })
+        var evts = resp.data.reduce((arr, lesson) => {
+          let obj = {
+            id: lesson["id"],
+            title: lesson["title"],
+            description: lesson["description"],
+            start: new Date(lesson["start"]),
+            end: new Date(lesson["start"]),
+            level: lesson["level"],
+            cost: lesson["cost"],
+            allDay: false
+          }
+          arr.push(obj)
+          return arr
+        }, [])
+
         this.setState({
           schedule: evts
         })
+
       });
   }
 
@@ -74,8 +72,8 @@ class Schedule extends Component {
   }
 
   render() {
-    const { schedule, modalOpen, modalData, showPayForm, userLessonIds } = this.state
-    const { user } = this.props
+    const { schedule, modalOpen, modalData, showPayForm } = this.state
+    const { user, account } = this.props
 
     const message = `This is lesson ${modalData.title}.
     It will start at ${modalData.start} and last an hour. Can you confirm
@@ -95,23 +93,24 @@ class Schedule extends Component {
           handleLessonConfirmation={this.handleLessonConfirmation}
           handleLessonRejection={this.handleLessonRejection}
           showPayForm={showPayForm}
+          account={account}
         />
       )
     }
     return (
       <div>
-        <Fade left>
-          <h1>Book Here</h1>
-          <React.Fragment>
-            <BookModal
-              visible={modalOpen}
-              dismiss={this.rejectModal}
-              children={this.children} 
-            >
-            </BookModal>
-            <ScheduleCalender dates={schedule} handleSelection={this.handleSelection} blacklist={userLessonIds}/>
-          </React.Fragment>
-        </Fade>
+        <React.Fragment>
+          <Fade left>
+            <h1>Book Here</h1>
+          </Fade>
+          <BookModal
+            visible={modalOpen}
+            dismiss={this.rejectModal}
+            children={this.children} 
+          >
+          </BookModal>
+          <ScheduleCalender dates={schedule} handleSelection={this.handleSelection} />
+        </React.Fragment>
       </div>
     )
   }

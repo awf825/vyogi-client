@@ -22,6 +22,7 @@ class Checkout extends Component {
       elements,
       userId,
       userEmail,
+      account,
       closeModal
     } = this.props
     
@@ -50,7 +51,8 @@ class Checkout extends Component {
         userId: userId,
         email: userEmail,
         start: start,
-        lesson: id
+        lesson: id,
+        account: account
       }
 
       fetch('http://localhost:3001/api/v1/charges', {
@@ -86,10 +88,6 @@ class Checkout extends Component {
 }
 
 export default function InjectCheckoutForm(props) {
-  // cost={this.props.cost}
-  // description={this.props.description}
-  // start={this.props.start}
-  // title={this.props.title}
   return (
     <ElementsConsumer>
       {({stripe, elements}) => (
@@ -100,6 +98,7 @@ export default function InjectCheckoutForm(props) {
           id={props.id} 
           cost={props.cost}
           start={props.start}
+          account={props.account}
           stripe={stripe} 
           elements={elements} 
         />
