@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useCallback, useState} from 'react';
 import { suid } from 'rand-token';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Header from './components/Header'
 import Home from './components/Home'
 import Video from './components/Video'
+import dailyApi from './components/video/dailyApi'
 import About from './components/About'
 import Login from './components/registrations/Login'
 import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
@@ -29,6 +30,10 @@ const liveState = {
   videoRunning: !!currentVideoSession 
 }
 const appState = !currentUser ? deadState : liveState
+// Only enable "leave" button when we know we're not mid-operation
+const enableCallButtons = [STATE_JOINED, STATE_ERROR].includes(callState);
+// Only enable "start" button when we know we're not mid-operation
+const enableStartButton = callState === STATE_IDLE;
 
 const reducer = (state, action) => {
   switch(action.type) {
@@ -116,6 +121,68 @@ function App() {
     var tkn = suid(16)
     cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
   }
+
+  useEffect(() => {
+    if (!callObject) return;
+  
+    const events = ["joined-meeting", "left-meeting", "error"];
+  
+    function handleNewMeetingState(event) {
+      event && logDailyEvent(event);
+      switch (callObject.meetingState()) {
+        case "joined-meeting":
+          // update component state to a "joined" state...
+          break;
+        case "left-meeting":
+          callObject.destroy().then(() => {
+            // update component state to a "left" state...
+          });
+          break;
+        case "error":
+          // update component state to an "error" state...
+          break;
+        default:
+          break;
+      }
+    }
+  
+    // Use initial state
+    handleNewMeetingState();
+  
+    // Listen for changes in state
+    for (const event of events) {
+      callObject.on(event, handleNewMeetingState);
+    }
+  
+    // Stop listening for changes in state
+    return function cleanup() {
+      for (const event of events) {
+        callObject.off(event, handleNewMeetingState);
+      }
+    };
+  }, [callObject]);
+
+  const createCall = useCallback(() => {
+    // update component state to a "creating" state
+    return dailyApi
+      .createRoom()
+      .then(room => room.url)
+      .catch(error => {
+        // update comp state to an "error" state...
+      })
+  }, []);
+
+  const startJoiningCall = useCallback(url => {
+    const callObject = DailyIframe.createCallObject();
+    // update comp to "joining" state
+    callObject.join({ url });
+  }, []);
+
+  const startLeavingCall = useCallback(() => {
+    if (!callObject) return;
+    // update comp state to a "leaving" state
+    callObject.leave()
+  }, [callObject]);
 
   return (
     <AuthContext.Provider

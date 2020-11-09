@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import VideoContainer from './video/VideoContainer'
 import VideoAction from './video/VideoAction'
+import dailyApi from './video/dailyApi'
 // import { suid } from 'rand-token';
 // import {AuthContext} from '../App'
 
