@@ -1,15 +1,15 @@
 // SAVE THIS FILE FOR DOCUMENTATION
 
-import React, { useEffect, useState, useCallback } from 'react';
-import Call from './Call';
+// import React, { useEffect, useState, useCallback } from 'react';
+// import Call from './Call';
 // import StartButton from '../StartButton/StartButton';
-import dailyApi from './dailyApi';
+// import dailyApi from './dailyApi';
 // import './App.css';
-import Tray from './Tray';
+// import Tray from './Tray';
 // import CallObjectContext from '../CallObjectContext';
-import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../../../urlUtils';
-import DailyIframe from '@daily-co/daily-js';
-import { logDailyEvent } from '../../../logUtils';
+// import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../../../urlUtils';
+// import DailyIframe from '@daily-co/daily-js';
+// import { logDailyEvent } from '../../../logUtils';
 
 // const STATE_IDLE = 'STATE_IDLE';
 // const STATE_CREATING = 'STATE_CREATING';
@@ -58,29 +58,29 @@ export default function VideoApp() {
   /**
    * Starts leaving the current call.
    */
-  const startLeavingCall = useCallback(() => {
-    if (!callObject) return;
-    // If we're in the error state, we've already "left", so just clean up
-    if (appState === STATE_ERROR) {
-      callObject.destroy().then(() => {
-        setRoomUrl(null);
-        setCallObject(null);
-        setAppState(STATE_IDLE);
-      });
-    } else {
-      setAppState(STATE_LEAVING);
-      callObject.leave();
-    }
-  }, [callObject, appState]);
+  // const startLeavingCall = useCallback(() => {
+  //   if (!callObject) return;
+  //   // If we're in the error state, we've already "left", so just clean up
+  //   if (appState === STATE_ERROR) {
+  //     callObject.destroy().then(() => {
+  //       setRoomUrl(null);
+  //       setCallObject(null);
+  //       setAppState(STATE_IDLE);
+  //     });
+  //   } else {
+  //     setAppState(STATE_LEAVING);
+  //     callObject.leave();
+  //   }
+  // }, [callObject, appState]);
 
   /**
    * If a room's already specified in the page's URL when the component mounts,
    * join the room.
    */
-  useEffect(() => {
-    const url = roomUrlFromPageUrl();
-    url && startJoiningCall(url);
-  }, [startJoiningCall]);
+  // useEffect(() => {
+  //   const url = roomUrlFromPageUrl();
+  //   url && startJoiningCall(url);
+  // }, [startJoiningCall]);
 
   /**
    * Update the page's URL to reflect the active call when roomUrl changes.
@@ -89,11 +89,11 @@ export default function VideoApp() {
    * of state-management complexity. See the comments around enableCallButtons
    * and enableStartButton for more information.
    */
-  useEffect(() => {
-    const pageUrl = pageUrlFromRoomUrl(roomUrl);
-    if (pageUrl === window.location.href) return;
-    window.history.replaceState(null, null, pageUrl);
-  }, [roomUrl]);
+  // useEffect(() => {
+  //   const pageUrl = pageUrlFromRoomUrl(roomUrl);
+  //   if (pageUrl === window.location.href) return;
+  //   window.history.replaceState(null, null, pageUrl);
+  // }, [roomUrl]);
 
   /**
    * Uncomment to attach call object to window for debugging purposes.
@@ -110,69 +110,69 @@ export default function VideoApp() {
    * you know you'll be done with the call object for a while and you're no
    * longer listening to its events.
    */
-  useEffect(() => {
-    if (!callObject) return;
+  // useEffect(() => {
+  //   if (!callObject) return;
 
-    const events = ['joined-meeting', 'left-meeting', 'error'];
+  //   const events = ['joined-meeting', 'left-meeting', 'error'];
 
-    function handleNewMeetingState(event) {
-      event && logDailyEvent(event);
-      switch (callObject.meetingState()) {
-        case 'joined-meeting':
-          setAppState(STATE_JOINED);
-          break;
-        case 'left-meeting':
-          callObject.destroy().then(() => {
-            setRoomUrl(null);
-            setCallObject(null);
-            setAppState(STATE_IDLE);
-          });
-          break;
-        case 'error':
-          setAppState(STATE_ERROR);
-          break;
-        default:
-          break;
-      }
-    }
+  //   function handleNewMeetingState(event) {
+  //     event && logDailyEvent(event);
+  //     switch (callObject.meetingState()) {
+  //       case 'joined-meeting':
+  //         setAppState(STATE_JOINED);
+  //         break;
+  //       case 'left-meeting':
+  //         callObject.destroy().then(() => {
+  //           setRoomUrl(null);
+  //           setCallObject(null);
+  //           setAppState(STATE_IDLE);
+  //         });
+  //         break;
+  //       case 'error':
+  //         setAppState(STATE_ERROR);
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   }
 
-    // Use initial state
-    handleNewMeetingState();
+  //   // Use initial state
+  //   handleNewMeetingState();
 
-    // Listen for changes in state
-    for (const event of events) {
-      callObject.on(event, handleNewMeetingState);
-    }
+  //   // Listen for changes in state
+  //   for (const event of events) {
+  //     callObject.on(event, handleNewMeetingState);
+  //   }
 
-    // Stop listening for changes in state
-    return function cleanup() {
-      for (const event of events) {
-        callObject.off(event, handleNewMeetingState);
-      }
-    };
-  }, [callObject]);
+  //   // Stop listening for changes in state
+  //   return function cleanup() {
+  //     for (const event of events) {
+  //       callObject.off(event, handleNewMeetingState);
+  //     }
+  //   };
+  // }, [callObject]);
 
   /**
    * Listen for app messages from other call participants.
    */
-  useEffect(() => {
-    if (!callObject) {
-      return;
-    }
+  // useEffect(() => {
+  //   if (!callObject) {
+  //     return;
+  //   }
 
-    function handleAppMessage(event) {
-      if (event) {
-        logDailyEvent(event);
-        console.log(`received app message from ${event.fromId}: `, event.data);
-      }
-    }
+  //   function handleAppMessage(event) {
+  //     if (event) {
+  //       logDailyEvent(event);
+  //       console.log(`received app message from ${event.fromId}: `, event.data);
+  //     }
+  //   }
 
-    callObject.on('app-message', handleAppMessage);
+  //   callObject.on('app-message', handleAppMessage);
 
-    return function cleanup() {
-      callObject.off('app-message', handleAppMessage);
-    };
-  }, [callObject]);
+  //   return function cleanup() {
+  //     callObject.off('app-message', handleAppMessage);
+  //   };
+  // }, [callObject]);
 
   /**
    * Show the call UI if we're either joining, already joined, or are showing

@@ -1,4 +1,4 @@
-// import React, { useEffect } from 'react'
+// import { useEffect } from 'react'
 
 // function getStreamStates(callObject) {
 //   let isCameraMuted,
@@ -12,7 +12,7 @@
 //     const localParticipant = callObject.participants().local;
 //     isCameraMuted = !localParticipant.video;
 //     isMicMuted = !localParticipant.audio;
-//     isSharingScreen = localPartcipant.screen;
+//     isSharingScreen = localParticipant.screen;
 //   }
 //   return [isCameraMuted, isMicMuted, isSharingScreen];
 // }

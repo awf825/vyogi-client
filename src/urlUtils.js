@@ -1,3 +1,4 @@
+// export helper functions to read/wrtie uri
 export function roomUrlFromPageUrl() {
   const match = window.location.search.match(/roomUrl=([^&]+)/i);
   return match && match[1] ? decodeURIComponent(match[1]) : null;

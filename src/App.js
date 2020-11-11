@@ -112,11 +112,11 @@ function App() {
     })
   }
 
-  const handleVideoGeneration = () => {
-    var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
-    var tkn = suid(16)
-    cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
-  }
+  // const handleVideoGeneration = () => {
+  //   var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+  //   var tkn = suid(16)
+  //   cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
+  // }
 
   return (
     <AuthContext.Provider
@@ -139,9 +139,7 @@ function App() {
               <Video 
                 {...props} 
                 user={currentUser} 
-                account={currentAccount} 
-                videoRunning={state.videoRunning} 
-                handleVideoGeneration={handleVideoGeneration}/>
+                account={currentAccount}/>
             )}/>
             <Route exact path='/schedule' render={props => (
               <Schedule 
