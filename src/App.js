@@ -1,5 +1,5 @@
 import React, {useEffect, useCallback, useState} from 'react';
-import { suid } from 'rand-token';
+// import { suid } from 'rand-token';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import Header from './components/Header'
@@ -10,7 +10,6 @@ import Login from './components/registrations/Login'
 import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
 import Schedule from './components/Schedule'
 import Cookies from 'universal-cookie'
-import axios from 'axios';
 const cookies = new Cookies();
 export const AuthContext = React.createContext();
 const currentUser = JSON.parse(sessionStorage.getItem('user'))

@@ -1,8 +1,8 @@
 import React, { useEffect, useContext, useReducer, useCallback } from 'react'
 // import './Call.css';
-import Tile from './Tile'
-import CallMessage from './CallMessage'
-import { CallObjectContext } from '../Video';
+import Tile from '../tile/Tile'
+import CallMessage from '../callMessage/CallMessage'
+import { CallObjectContext } from '../../Video';
 // import CallMessage from './CallMessage/CallMessage';
 import {
   initialCallState,
@@ -12,11 +12,9 @@ import {
   FATAL_ERROR,
   callReducer,
   isLocal,
-  isScreenShare,
-  containsScreenShare,
   getMessage,
-} from './callState'
-import { logDailyEvent } from '../../logUtils'
+} from '../callState'
+import { logDailyEvent } from '../../../logUtils'
 
 
 export default function Call() {
@@ -105,9 +103,7 @@ export default function Call() {
     let largeTiles = [];
     let smallTiles = [];
     Object.entries(callState.callItems).forEach(([id, callItem]) => {
-      const isLarge = 
-        isScreenShare(id) ||
-        (!isLocal(id) && !containsScreenShare(callState.callItems));
+      const isLarge = !isLocal(id)
       const tile = (
         <Tile 
           key={id}

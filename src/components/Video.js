@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react'
-import Call from './video/Call';
-import Tray from './video/Tray';
+import Call from './video/call/Call';
+import Tray from './video/tray/Tray';
 import axios from 'axios'
 import dailyApi from './video/dailyApi'
 import DailyIframe from '@daily-co/daily-js';
@@ -30,8 +30,9 @@ export const Video = (props) => {
   const [videoAppState, setAppState] = useState(!!currentVideoSession ? STATE_JOINED : STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
-  console.log('callobject after init:', callObject)
-  
+
+  console.log(callObject)
+
   const handleVideoGeneration = () => {
     var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
     var tkn = suid(16)
@@ -49,7 +50,6 @@ export const Video = (props) => {
       }, []).find(el => el == data.codeInput)
       
       if (validation) {
-        debugger
         handleVideoGeneration()
         setData({
           ...data,
@@ -69,7 +69,12 @@ export const Video = (props) => {
     })
   }
 
-  
+  // ONLY TRAINER SHOULD BE ABLE TO 'CREATE' A CALL
+  // CLIENTS ENTERING CODE SHOULD BE PROMPTED TO 'JOIN' A CALL
+  // in jsx, you can see that createCall is async, so in then function 
+  // ot chains join call. So, 
+  // trainer = creating + joining
+  // client = joining
   const createCall = useCallback(() => {
     setAppState(STATE_CREATING);
     return dailyApi
@@ -81,8 +86,18 @@ export const Video = (props) => {
       setAppState(STATE_IDLE);
     });
   }, []);
-  
+  //THESE FUNCTIONS BOTH HAVE NO DEPENDENCIES BECAUSE THEY ARE CHAINED TOGETHER
   const startJoiningCall = useCallback((url) => {
+    // * !!!
+    // * IMPORTANT: only one call object is meant to be used at a time. Creating a
+    // * new call object with DailyIframe.createCallObject() *before* your previous
+    // * callObject.destroy() completely finishes can result in unexpected behavior.
+    // * Disabling the start button until then avoids that scenario.
+    // * !!!
+    // */
+    // SO HERE, WHEN LOOKING TO MAKE A NEW CALL, CHECK IF
+    // USER IS TRAINER LOOKING TO MAKE A NEW LESSON (LAMBDA)
+    // OR IF USER IS A CLIENT ENTERING CODE
     const newCallObject = DailyIframe.createCallObject();
     setRoomUrl(url);
     setCallObject(newCallObject);
@@ -94,6 +109,7 @@ export const Video = (props) => {
     videoAppState
   );
     
+  // DISABLE LEAVE FOR TRAINER
   const startLeavingCall = useCallback(() => {
     if (!callObject) return;
     // If we're in the error state, we've already "left", so just clean up
@@ -109,6 +125,7 @@ export const Video = (props) => {
     }
   }, [callObject, videoAppState]);
   
+  // THESE EFFECTS CLEAN URL SO VIDEO CAN BE DISPLAYED
   useEffect(() => {
     const url = roomUrlFromPageUrl();
     url && startJoiningCall(url);
@@ -127,9 +144,11 @@ export const Video = (props) => {
   //   window.callObject = callObject;
   // }, [callObject]);
     
+  // EVERYTIME callObject changes, this method is fired
   useEffect(() => {
     if (!callObject) return;
     
+    // these are attached to callObject payload 
     const events = ['joined-meeting', 'left-meeting', 'error'];
     
     function handleNewMeetingState(event) {
@@ -166,6 +185,7 @@ export const Video = (props) => {
     };
   }, [callObject]);
 
+  // MAY NOT NEED THIS?
   useEffect(() => {
     if (!callObject) {
       return;
@@ -208,6 +228,7 @@ export const Video = (props) => {
    * !!!
    */
   const enableStartButton = videoAppState === STATE_IDLE;
+
   // NOTE: for an app this size, it's not obvious that using a Context
   // is the best choice. But for larger apps with deeply-nested components
   // that want to access call object state and bind event listeners to the
@@ -218,11 +239,11 @@ export const Video = (props) => {
       {showCall ? (
         <CallObjectContext.Provider value={callObject}>
           <Call roomUrl={roomUrl} />
-          {/* <Tray
+          <Tray
             disabled={!enableCallButtons}
             onClickLeaveCall={startLeavingCall}
-          />  */}
-         </CallObjectContext.Provider>
+          /> 
+        </CallObjectContext.Provider>
       ) : (
         <div className="video-launch">
           <input
