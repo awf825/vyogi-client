@@ -1,4 +1,4 @@
-import React, {useEffect, useCallback, useState} from 'react';
+import React, {useEffect, useCallback, useState, useContext} from 'react';
 // import { suid } from 'rand-token';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -9,9 +9,9 @@ import About from './components/About'
 import Login from './components/registrations/Login'
 import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
 import Schedule from './components/Schedule'
+import AuthContext from './AuthContext'
 import Cookies from 'universal-cookie'
 const cookies = new Cookies();
-export const AuthContext = React.createContext();
 const currentUser = JSON.parse(sessionStorage.getItem('user'))
 const currentAccount = JSON.parse(sessionStorage.getItem('account'))
 const currentVideoSession = cookies.get('videoToken')
@@ -111,12 +111,6 @@ function App() {
     })
   }
 
-  // const handleVideoGeneration = () => {
-  //   var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
-  //   var tkn = suid(16)
-  //   cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
-  // }
-
   return (
     <AuthContext.Provider
       value={{
@@ -142,8 +136,7 @@ function App() {
             )}/>
             <Route exact path='/schedule' render={props => (
               <Schedule 
-                {...props} 
-                user={currentUser} 
+                {...props}  
                 account={currentAccount}
               />
             )}/>

@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState, useEffect, useContext } from 'react'
 import Call from './video/call/Call';
 import Tray from './video/tray/Tray';
 import axios from 'axios'
@@ -7,12 +7,13 @@ import DailyIframe from '@daily-co/daily-js';
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../urlUtils';
 import { logDailyEvent } from '../logUtils';
 import { suid } from 'rand-token';
-// import {AuthContext} from '../App'
+import AuthContext from '../AuthContext'
 import Cookies from 'universal-cookie'
 const cookies = new Cookies();
 const currentVideoSession = cookies.get('videoToken')
 
 export const CallObjectContext = React.createContext();
+
 const STATE_IDLE = 'STATE_IDLE';
 const STATE_CREATING = 'STATE_CREATING';
 const STATE_JOINING = 'STATE_JOINING';
@@ -30,7 +31,8 @@ export const Video = (props) => {
   const [videoAppState, setAppState] = useState(!!currentVideoSession ? STATE_JOINED : STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
-
+  const testUser = useContext(AuthContext)
+  console.log(['TESTUSER AT VIDEO:', testUser])
   console.log(callObject)
 
   const handleVideoGeneration = () => {

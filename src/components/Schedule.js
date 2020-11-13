@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import Fade from 'react-reveal/Fade';
 import ScheduleCalender from './schedule/ScheduleCalender'
@@ -82,8 +82,6 @@ class Schedule extends Component {
     if (modalOpen && modalData) {
       this.children = (
         <BookModalContent 
-          userId={user.id}
-          userEmail={user.email}
           message={message}
           id={modalData.id}
           cost={modalData.cost}
@@ -93,24 +91,31 @@ class Schedule extends Component {
           handleLessonConfirmation={this.handleLessonConfirmation}
           handleLessonRejection={this.handleLessonRejection}
           showPayForm={showPayForm}
-          account={account}
         />
       )
     }
     return (
       <div>
-        <React.Fragment>
-          <Fade left>
-            <h1>Book Here</h1>
-          </Fade>
-          <BookModal
-            visible={modalOpen}
-            dismiss={this.rejectModal}
-            children={this.children} 
-          >
-          </BookModal>
-          <ScheduleCalender dates={schedule} handleSelection={this.handleSelection} />
-        </React.Fragment>
+        {
+          schedule.length > 0 ? (
+            <React.Fragment>
+              <Fade left>
+                <h1>Book Here</h1>
+              </Fade>
+              <BookModal
+                visible={modalOpen}
+                dismiss={this.rejectModal}
+                children={this.children} 
+              >
+              </BookModal>
+              <ScheduleCalender dates={schedule} handleSelection={this.handleSelection} />
+            </React.Fragment>
+          ) : (
+            <div>
+              <h1>LOADING...</h1>
+            </div>
+          )
+        }
       </div>
     )
   }

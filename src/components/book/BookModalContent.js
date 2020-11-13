@@ -17,14 +17,11 @@ const BookModalContent = (props) => {
         reveal ? 
         <PayForm 
           closeModal={reject}
-          userId={props.userId}
-          userEmail={props.userEmail}
           id={props.id}
           cost={props.cost}
           description={props.description}
           start={props.start}
           title={props.title}
-          account={props.account}
         /> 
         : null
       }

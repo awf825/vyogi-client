@@ -2,7 +2,7 @@ import React from 'react';
 import RegisModal from './RegisModal'
 import RegisModalContent from './RegisModalContent'
 import axios from 'axios';
-import {AuthContext} from '../../App'
+import AuthContext from '../../AuthContext'
 
 export const Login = (props) => {
   const { dispatch } = React.useContext(AuthContext);

@@ -2,7 +2,7 @@ import React from 'react'
 
 export const About = () => {
   return (
-    <h1>BIG HOAJ!</h1>
+    <h1>JERRY, HELLO!</h1>
   )
 }
 
