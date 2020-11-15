@@ -77,7 +77,20 @@ export const Video = (props) => {
   // ot chains join call. So, 
   // trainer = creating + joining
   // client = joining
-  const createCall = useCallback(() => {
+  const createCall = useCallback((props) => {
+    debugger
+    if (props.videoLive) {
+      return axios.get(
+        'http://localhost:3001/api/v1/video_session'
+      ).then((resp) => {
+        console.log('response from server when video is live for client:', resp)
+        if (resp.status == 200) {
+          return resp.data
+        } else {
+          alert(resp.message)
+        }
+      })
+    }
     setAppState(STATE_CREATING);
     return dailyApi
     .createRoom()
@@ -259,7 +272,7 @@ export const Video = (props) => {
             disabled={!enableStartButton}
             onClick={(e) => {
               generateLessonSession(e);
-              createCall().then((url) => startJoiningCall(url));
+              createCall(props).then((url) => startJoiningCall(url));
             }}
           >
             Access
