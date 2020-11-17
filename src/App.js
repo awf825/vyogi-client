@@ -32,7 +32,6 @@ const appState = !currentUser ? deadState : liveState
 const reducer = (state, action) => {
   switch(action.type) {
     case "LOGIN":
-      //debugger
       sessionStorage.setItem('user', JSON.stringify(action.payload.user));
       sessionStorage.setItem('account', JSON.stringify(action.payload.account))
       // sessionStorage.setItem("token", JSON.stringify(action.payload.token));

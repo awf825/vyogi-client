@@ -31,9 +31,8 @@ export const Video = (props) => {
   const [videoAppState, setAppState] = useState(!!currentVideoSession ? STATE_JOINED : STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
-  const testUser = useContext(AuthContext)
-  console.log(['TESTUSER AT VIDEO:', testUser])
-  console.log(callObject)
+  const userObject = useContext(AuthContext)
+  console.log(['TESTUSER AT VIDEO:', userObject])
 
   const handleVideoGeneration = () => {
     var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
@@ -77,29 +76,29 @@ export const Video = (props) => {
   // ot chains join call. So, 
   // trainer = creating + joining
   // client = joining
-  const createCall = useCallback((props) => {
-    debugger
-    if (props.videoLive) {
+  const createCall = useCallback(() => {
+    if (!userObject.state.user.is_admin) {
       return axios.get(
-        'http://localhost:3001/api/v1/video_session'
+        'http://localhost:3001/api/v1/video_client'
       ).then((resp) => {
         console.log('response from server when video is live for client:', resp)
         if (resp.status == 200) {
-          return resp.data
+          return resp.data.data.url
         } else {
           alert(resp.message)
         }
       })
+    } else {
+      setAppState(STATE_CREATING);
+      return dailyApi
+      .createRoom()
+      .then((room) => room.url)
+      .catch((error) => {
+        console.log('Error creating room', error);
+        setRoomUrl(null);
+        setAppState(STATE_IDLE);
+      });
     }
-    setAppState(STATE_CREATING);
-    return dailyApi
-    .createRoom()
-    .then((room) => room.url)
-    .catch((error) => {
-      console.log('Error creating room', error);
-      setRoomUrl(null);
-      setAppState(STATE_IDLE);
-    });
   }, []);
   //THESE FUNCTIONS BOTH HAVE NO DEPENDENCIES BECAUSE THEY ARE CHAINED TOGETHER
   const startJoiningCall = useCallback((url) => {
@@ -272,7 +271,7 @@ export const Video = (props) => {
             disabled={!enableStartButton}
             onClick={(e) => {
               generateLessonSession(e);
-              createCall(props).then((url) => startJoiningCall(url));
+              createCall().then((url) => startJoiningCall(url));
             }}
           >
             Access
