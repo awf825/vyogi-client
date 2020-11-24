@@ -1,3 +1,4 @@
+import { API_ROOT } from '../api-config.js';
 import React, { Component } from 'react';
 import axios from 'axios';
 import Fade from 'react-reveal/Fade';
@@ -17,7 +18,7 @@ class Schedule extends Component {
   }
 
   componentDidMount() {     
-    axios.get('http://localhost:3001/api/v1/lessons')
+    axios.get(`${API_ROOT}/lessons`)
       .then(resp => {
         var evts = resp.data.reduce((arr, lesson) => {
           let obj = {

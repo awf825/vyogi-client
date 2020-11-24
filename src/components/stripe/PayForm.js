@@ -1,3 +1,4 @@
+import { API_ROOT } from '../../api-config.js';
 import React, {Component} from 'react';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
@@ -16,7 +17,7 @@ class PayForm extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3001/api/v1/stripe')
+    axios.get(`${API_ROOT}/stripe`)
       .then(resp => {
         this.setState({
           stripeToken: loadStripe(resp.data)

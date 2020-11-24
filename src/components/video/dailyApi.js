@@ -1,13 +1,9 @@
+import { API_ROOT } from '../../api-config.js';
+
 const newRoomEndpoint =
-  'http://localhost:3001/api/v1/video';
+  `${API_ROOT}/video`;
 
 /**
- * Create a short-lived room for demo purposes.
- *
- * IMPORTANT: this is purely a "demo-only" API, and *not* how we recommend
- * you create rooms in real production code. In your code, we recommend that you:
- * - Create rooms by invoking the Daily REST API from your own backend server
- *   (or from the Daily dashboard if you're OK with creating rooms manually).
  * - Pass an "exp" (expiration) parameter to the Daily REST endpoint so you
  *   don't end up with a huge number of live rooms.
  *

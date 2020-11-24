@@ -11,6 +11,7 @@ import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
 import Schedule from './components/Schedule'
 import AuthContext from './AuthContext'
 import Cookies from 'universal-cookie'
+import { API_ROOT } from './api-config.js';
 const cookies = new Cookies();
 const currentUser = JSON.parse(sessionStorage.getItem('user'))
 const currentAccount = JSON.parse(sessionStorage.getItem('account'))
@@ -88,7 +89,7 @@ function App() {
   let history = useHistory()
 
   const handleLogout = () => {
-    fetch('http://localhost:3001/api/v1/logout', {
+    fetch(`${API_ROOT}/logout`, {
       method: 'DELETE',
       headers: {
         "Content-Type": 'application/json'

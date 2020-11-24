@@ -1,3 +1,4 @@
+import { API_ROOT } from '../../api-config.js';
 import React from 'react';
 import RegisModal from './RegisModal'
 import RegisModalContent from './RegisModalContent'
@@ -22,14 +23,14 @@ export const Login = (props) => {
     const toggle = ((sourceFlag == "form") ? "LOGIN" : "REGISTER")
     const mainUrl = (
       (sourceFlag == "form") ? 
-      'http://localhost:3001/api/v1/login' : 
-      'http://localhost:3001/api/v1/users'
+      `${API_ROOT}/login` : 
+      `${API_ROOT}/users`
     )
     // BIG TODO FIND WAY TO CHAIN AXIOS CALLS: ACCOUNT URL IS DEPENDENT ON USER INFO
     axios.post(mainUrl, user)
       .then(resp => {
         if (resp.data.logged_in || (resp.data.status == "created")) {
-          axios.get(`http://localhost:3001/api/v1/accounts/${resp.data.user.id}`)
+          axios.get(`${API_ROOT}/accounts/${resp.data.user.id}`)
             .then(secondResp => {
               dispatch({
                 type: toggle,

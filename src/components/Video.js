@@ -1,3 +1,4 @@
+import { API_ROOT } from '../api-config.js';
 import React, { useCallback, useState, useEffect, useContext } from 'react'
 import Call from './video/call/Call';
 import Tray from './video/tray/Tray';
@@ -43,7 +44,7 @@ export const Video = (props) => {
   const generateLessonSession = (ev) => {
     ev.preventDefault()
     // get lesson access codes
-    axios.get('http://localhost:3001/api/v1/codes')
+    axios.get(`${API_ROOT}/codes`)
     .then(resp => {
       var validation = resp.data.reduce((x,y) => {
         x.push(y.code)
@@ -79,7 +80,7 @@ export const Video = (props) => {
   const createCall = useCallback(() => {
     if (!userObject.state.user.is_admin) {
       return axios.get(
-        'http://localhost:3001/api/v1/video_client'
+        `${API_ROOT}/video_client`
       ).then((resp) => {
         console.log('response from server when video is live for client:', resp)
         if (resp.status == 200) {

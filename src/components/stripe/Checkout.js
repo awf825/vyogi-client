@@ -1,3 +1,4 @@
+import { API_ROOT } from '../../api-config.js';
 import React, { useContext } from 'react';
 import {ElementsConsumer, CardElement} from '@stripe/react-stripe-js';
 import CardSection from './CardSection'
@@ -45,7 +46,7 @@ export const Checkout = (props) => {
         account: account
       }
 
-      fetch('http://localhost:3001/api/v1/charges', {
+      fetch(`${API_ROOT}/charges`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
