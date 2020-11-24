@@ -91,7 +91,7 @@ function App() {
 
   const handleLogout = () => {
     fetch(`${API_ROOT}/logout`, {
-      method: 'DELETE',
+      method: 'POST',
       headers: {
         "Content-Type": 'application/json'
       }
@@ -100,7 +100,7 @@ function App() {
       if (resp.ok) {
         return resp.json()
       }
-      //throw resp;
+      throw resp;
     }).then(respJson => {
       console.log('second catch at logout:', respJson)
       dispatch({
