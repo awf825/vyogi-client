@@ -12,6 +12,7 @@ import Schedule from './components/Schedule'
 import AuthContext from './AuthContext'
 import Cookies from 'universal-cookie'
 import { API_ROOT } from './api-config.js';
+import axios from 'axios';
 const cookies = new Cookies();
 const currentUser = JSON.parse(sessionStorage.getItem('user'))
 const currentAccount = JSON.parse(sessionStorage.getItem('account'))
@@ -99,7 +100,7 @@ function App() {
       if (resp.ok) {
         return resp.json()
       }
-      throw resp;
+      //throw resp;
     }).then(respJson => {
       console.log('second catch at logout:', respJson)
       dispatch({
