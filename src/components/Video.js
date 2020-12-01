@@ -35,13 +35,13 @@ export const Video = (props) => {
   const userObject = useContext(AuthContext)
   console.log(['TESTUSER AT VIDEO:', userObject])
 
-  const handleVideoGeneration = () => {
-    var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
-    var tkn = suid(16)
-    cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
-  }
+  // const handleVideoGeneration = () => {
+  //   var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+  //   var tkn = suid(16)
+  //   cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
+  // }
 
-  const generateLessonSession = (ev) => {
+  const generateLessonSession = (ev, props) => {
     ev.preventDefault()
     // get lesson access codes
     axios.get(`${API_ROOT}/codes`)
@@ -50,16 +50,20 @@ export const Video = (props) => {
         x.push(y.code)
         return x
       }, []).find(el => el == data.codeInput)
-      
+
       if (validation) {
-        handleVideoGeneration()
+        // handleVideoGeneration()
         setData({
           ...data,
           showVideo: true,
           codeInput: ""
         })
+      } else if (resp.message) {
+        alert(resp.message)
       } else {
         alert('Code is invalid')
+        setRoomUrl(null);
+        setAppState(STATE_IDLE);
       }
     })
   }
@@ -271,8 +275,28 @@ export const Video = (props) => {
           <button
             disabled={!enableStartButton}
             onClick={(e) => {
-              generateLessonSession(e);
-              createCall().then((url) => startJoiningCall(url));
+              // generateLessonSession(e, props);
+              axios.get(`${API_ROOT}/codes`)
+              .then(resp => {
+                var validation = resp.data.reduce((x,y) => {
+                  x.push(y.code)
+                  return x
+                }, []).find(el => el == data.codeInput)
+          
+                if (validation) {
+                  // handleVideoGeneration()
+                  setData({
+                    ...data,
+                    showVideo: true,
+                    codeInput: ""
+                  })
+                  createCall().then((url) => startJoiningCall(url))
+                } else {
+                  alert('Code is invalid or lesson has not begun.')
+                  setRoomUrl(null);
+                  setAppState(STATE_IDLE);
+                }
+              })
             }}
           >
             Access
