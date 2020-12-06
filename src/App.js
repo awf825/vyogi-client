@@ -103,13 +103,12 @@ function App() {
       throw resp;
     }).then(respJson => {
       console.log('second catch at logout:', respJson)
-      debugger
       dispatch({
         type: "LOGOUT",
         payload: respJson
       })
     }).catch(err => {
-      alert(err)
+      console.err(err)
     })
   }
 
