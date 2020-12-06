@@ -103,6 +103,7 @@ function App() {
       throw resp;
     }).then(respJson => {
       console.log('second catch at logout:', respJson)
+      debugger
       dispatch({
         type: "LOGOUT",
         payload: respJson
@@ -143,6 +144,9 @@ function App() {
             )}/>
             <Route exact path='/about' render={props => (
               <About {...props} user={currentUser} />
+            )}/>
+            <Route exact path='/register' render={props => (
+              <Login {...props} />
             )}/>
           </Switch>
         </div>
