@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-// import './Tile.css';
+import './Tile.css';
 
 /**
  * Props

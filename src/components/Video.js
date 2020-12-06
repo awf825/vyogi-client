@@ -10,6 +10,7 @@ import { logDailyEvent } from '../logUtils';
 import { suid } from 'rand-token';
 import AuthContext from '../AuthContext'
 import Cookies from 'universal-cookie'
+import './Video.css'
 const cookies = new Cookies();
 const currentVideoSession = cookies.get('videoToken')
 

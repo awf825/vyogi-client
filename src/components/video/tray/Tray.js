@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react'
-// import './Tray.css'
+import './Tray.css'
 import TrayButton, {
   TYPE_MUTE_CAMERA,
   TYPE_MUTE_MIC,

@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useReducer, useCallback } from 'react'
 // import './Call.css';
 import Tile from '../tile/Tile'
 import CallMessage from '../callMessage/CallMessage'
+import './Call.css'
 import { CallObjectContext } from '../../Video';
 // import CallMessage from './CallMessage/CallMessage';
 import {
@@ -70,6 +71,7 @@ export default function Call() {
     };
   }, [callObject])
 
+  // fatal errors
   useEffect(() => {
     if (!callObject) return;
 
