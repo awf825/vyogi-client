@@ -56,7 +56,7 @@ const reducer = (state, action) => {
       };
     case "LOGOUT":
       sessionStorage.removeItem("user");
-      cookies.remove('videoToken')
+      //cookies.remove('videoToken')
       return {
         ...state,
         isLoggedIn: false,
@@ -89,26 +89,26 @@ function App() {
   // console.log('REDUCER STATE AT APP.JS:', state)
   let history = useHistory()
 
-  const handleLogout = () => {
-    fetch(`${API_ROOT}/logout`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": 'application/json'
-      }
-    }).then(resp => {
-      if (resp.ok) {
-        return resp.json()
-      }
-      throw resp;
-    }).then(respJson => {
-      dispatch({
-        type: "LOGOUT",
-        payload: respJson
-      })
-    }).catch(err => {
-      console.err(err)
-    })
-  }
+  // const handleLogout = () => {
+  //   fetch(`${API_ROOT}/logout`, {
+  //     method: 'POST',
+  //     headers: {
+  //       "Content-Type": 'application/json'
+  //     }
+  //   }).then(resp => {
+  //     if (resp.ok) {
+  //       return resp.json()
+  //     }
+  //     throw resp;
+  //   }).then(respJson => {
+  //     dispatch({
+  //       type: "LOGOUT",
+  //       payload: respJson
+  //     })
+  //   }).catch(err => {
+  //     console.err(err)
+  //   })
+  // }
 
   return (
     <AuthContext.Provider
@@ -122,7 +122,7 @@ function App() {
         <Login history={history}/> 
         :
         <div className="AppHome">
-          <Header handleLogout={handleLogout} />
+          <Header />
           <Switch>
             <Route exact path='/home' render={props => (
               <Home {...props} user={currentUser} account={currentAccount} />
