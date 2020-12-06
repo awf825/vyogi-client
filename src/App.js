@@ -86,7 +86,7 @@ const reducer = (state, action) => {
 
 function App() {
   const [state, dispatch] = React.useReducer(reducer, appState)
-  console.log('REDUCER STATE AT APP.JS:', state)
+  // console.log('REDUCER STATE AT APP.JS:', state)
   let history = useHistory()
 
   const handleLogout = () => {
@@ -96,13 +96,11 @@ function App() {
         "Content-Type": 'application/json'
       }
     }).then(resp => {
-      console.log('first catch at logout:', resp)
       if (resp.ok) {
         return resp.json()
       }
       throw resp;
     }).then(respJson => {
-      console.log('second catch at logout:', respJson)
       dispatch({
         type: "LOGOUT",
         payload: respJson

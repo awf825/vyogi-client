@@ -80,6 +80,7 @@ function getLocalCallItem(callItems) {
 
 function getCallItems(participants, prevCallItems) {
   let callItems = { ...initialCallState.callItems }; // Ensure we *always* have a local participant
+  // console.log('callItems at callState line 82:', callItems)
   for (const [id, participant] of Object.entries(participants)) {
     // Here we assume that a participant will join with audio/video enabled.
     // This assumption lets us show a "loading" state before we receive audio/video tracks.
@@ -108,14 +109,6 @@ function getCallItems(participants, prevCallItems) {
 // True if id corresponds to local participant (*not* their screen share)
 function isLocal(id) {
   return id === 'local';
-}
-
-function isScreenShare(id) {
-  return id.endsWith('-screen');
-}
-
-function containsScreenShare(callItems) {
-  return Object.keys(callItems).some((id) => isScreenShare(id));
 }
 
 function getMessage(callState) {
@@ -150,7 +143,5 @@ export {
   FATAL_ERROR,
   callReducer,
   isLocal,
-  isScreenShare,
-  containsScreenShare,
   getMessage,
 };

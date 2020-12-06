@@ -32,7 +32,6 @@ class PayForm extends Component {
   }
 
   render() {
-    console.log('state when payform renders:', this.state)
     return (
       <div className="payform">
         <h1>Stripe</h1>

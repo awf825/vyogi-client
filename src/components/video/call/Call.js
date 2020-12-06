@@ -1,10 +1,8 @@
 import React, { useEffect, useContext, useReducer, useCallback } from 'react'
-// import './Call.css';
+import './Call.css'
 import Tile from '../tile/Tile'
 import CallMessage from '../callMessage/CallMessage'
-import './Call.css'
 import { CallObjectContext } from '../../Video';
-// import CallMessage from './CallMessage/CallMessage';
 import {
   initialCallState,
   CLICK_ALLOW_TIMEOUT,
@@ -31,8 +29,12 @@ export default function Call() {
       "participant-left"
     ];
 
+    // console.log('participants at useEffect in Call.js line 25:', callObject.participants())
+
     function handleNewParticipantsState(event) {
-      event && logDailyEvent(event)
+      // event && logDailyEvent(event)
+      // console.log('event @ handleNewPartcipantsState (Call.js ln 34):', event, Date.now())
+      // console.log('callObject @ handleNewPartcipantsState:', callObject)
       dispatch({
         type: PARTICIPANTS_CHANGE,
         participants: callObject.participants()
@@ -90,7 +92,7 @@ export default function Call() {
     }
   }, [callObject]);
 
-  // access reminder popup
+  // access reminder popup, t is the amount of time taken to build the video
   useEffect(() => {
     const t = setTimeout(() => {
       dispatch({ type: CLICK_ALLOW_TIMEOUT });
@@ -104,7 +106,10 @@ export default function Call() {
   function getTiles() {
     let largeTiles = [];
     let smallTiles = [];
+    console.log('callState:', callState)
     Object.entries(callState.callItems).forEach(([id, callItem]) => {
+      //console.log('id (identity) of callState item in getTiles loop:', id)
+      console.log('callItem in getTilesLoop:', callItem)
       const isLarge = !isLocal(id)
       const tile = (
         <Tile 
@@ -134,7 +139,7 @@ export default function Call() {
         {
           !message
             ? largeTiles
-            : null /* Avoid showing large tiles to make room for the message */
+            : null 
         }
       </div>
       <div className="small-tiles">{smallTiles}</div>

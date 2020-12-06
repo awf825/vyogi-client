@@ -34,40 +34,6 @@ export const Video = (props) => {
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
   const userObject = useContext(AuthContext)
-  console.log(['TESTUSER AT VIDEO:', userObject])
-
-  // const handleVideoGeneration = () => {
-  //   var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
-  //   var tkn = suid(16)
-  //   cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
-  // }
-
-  const generateLessonSession = (ev, props) => {
-    ev.preventDefault()
-    // get lesson access codes
-    axios.get(`${API_ROOT}/codes`)
-    .then(resp => {
-      var validation = resp.data.reduce((x,y) => {
-        x.push(y.code)
-        return x
-      }, []).find(el => el == data.codeInput)
-
-      if (validation) {
-        // handleVideoGeneration()
-        setData({
-          ...data,
-          showVideo: true,
-          codeInput: ""
-        })
-      } else if (resp.message) {
-        alert(resp.message)
-      } else {
-        alert('Code is invalid')
-        setRoomUrl(null);
-        setAppState(STATE_IDLE);
-      }
-    })
-  }
   
   const handleInputChange = event => {
     setData({
@@ -76,18 +42,44 @@ export const Video = (props) => {
     })
   }
 
-  // ONLY TRAINER SHOULD BE ABLE TO 'CREATE' A CALL
-  // CLIENTS ENTERING CODE SHOULD BE PROMPTED TO 'JOIN' A CALL
-  // in jsx, you can see that createCall is async, so in then function 
-  // ot chains join call. So, 
-  // trainer = creating + joining
-  // client = joining
+  // const handleVideoGeneration = () => {
+  //   var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+  //   var tkn = suid(16)
+  //   cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
+  // }
+
+  // const generateLessonSession = (ev, props) => {
+  //   ev.preventDefault()
+  //   // get lesson access codes
+  //   axios.get(`${API_ROOT}/codes`)
+  //   .then(resp => {
+  //     var validation = resp.data.reduce((x,y) => {
+  //       x.push(y.code)
+  //       return x
+  //     }, []).find(el => el == data.codeInput)
+
+  //     if (validation) {
+  //       // handleVideoGeneration()
+  //       setData({
+  //         ...data,
+  //         showVideo: true,
+  //         codeInput: ""
+  //       })
+  //     } else if (resp.message) {
+  //       alert(resp.message)
+  //     } else {
+  //       alert('Code is invalid')
+  //       setRoomUrl(null);
+  //       setAppState(STATE_IDLE);
+  //     }
+  //   })
+  // }
+  
   const createCall = useCallback(() => {
     if (!userObject.state.user.is_admin) {
       return axios.get(
         `${API_ROOT}/video_client`
       ).then((resp) => {
-        console.log('response from server when video is live for client:', resp)
         if (resp.status == 200) {
           return resp.data.data.url
         } else {
@@ -172,7 +164,9 @@ export const Video = (props) => {
     const events = ['joined-meeting', 'left-meeting', 'error'];
     
     function handleNewMeetingState(event) {
-      event && logDailyEvent(event);
+      // event && logDailyEvent(event);
+      // console.log('event @ handleNewMeetingState:', event, Date.now())
+      // console.log('callObject @ handleNewMeetingState:', callObject)
       switch (callObject.meetingState()) {
         case 'joined-meeting':
           setAppState(STATE_JOINED);
@@ -213,7 +207,7 @@ export const Video = (props) => {
     
     function handleAppMessage(event) {
       if (event) {
-        logDailyEvent(event);
+        // logDailyEvent(event);
         console.log(`received app message from ${event.fromId}: `, event.data);
       }
     }
@@ -248,11 +242,6 @@ export const Video = (props) => {
    * !!!
    */
   const enableStartButton = videoAppState === STATE_IDLE;
-
-  // NOTE: for an app this size, it's not obvious that using a Context
-  // is the best choice. But for larger apps with deeply-nested components
-  // that want to access call object state and bind event listeners to the
-  // call object, this can be a helpful pattern.
             
   return (
     <div className="videoapp">
@@ -276,7 +265,6 @@ export const Video = (props) => {
           <button
             disabled={!enableStartButton}
             onClick={(e) => {
-              // generateLessonSession(e, props);
               axios.get(`${API_ROOT}/codes`)
               .then(resp => {
                 var validation = resp.data.reduce((x,y) => {
@@ -285,7 +273,6 @@ export const Video = (props) => {
                 }, []).find(el => el == data.codeInput)
           
                 if (validation) {
-                  // handleVideoGeneration()
                   setData({
                     ...data,
                     showVideo: true,

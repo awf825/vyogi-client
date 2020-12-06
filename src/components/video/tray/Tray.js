@@ -56,7 +56,9 @@ export default function Tray(props) {
     if (!callObject) return;
   
     function handleNewParticipantsState(event) {
-      event && logDailyEvent(event);
+      // event && logDailyEvent(event);
+      // console.log('event @ handleNewPartcipantsState (Tray.js line 58):', event, Date.now())
+      // console.log('callObject @ handleNewPartcipantsState (Tray):', callObject)
       const [isCameraMuted, isMicMuted] = getStreamStates(
         callObject
       );
