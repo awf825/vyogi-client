@@ -106,10 +106,10 @@ export default function Call() {
   function getTiles() {
     let largeTiles = [];
     let smallTiles = [];
-    console.log('callState:', callState)
+    // console.log('callState:', callState)
     Object.entries(callState.callItems).forEach(([id, callItem]) => {
       //console.log('id (identity) of callState item in getTiles loop:', id)
-      console.log('callItem in getTilesLoop:', callItem)
+      // console.log('callItem in getTilesLoop:', callItem)
       const isLarge = !isLocal(id)
       const tile = (
         <Tile 
@@ -128,6 +128,8 @@ export default function Call() {
         smallTiles.push(tile);
       }
     });
+    console.log('largeTiles before return in getTiles:', largeTiles)
+    console.log('smallTiles before return in getTiles:', smallTiles)
     return [largeTiles, smallTiles];
   }
 

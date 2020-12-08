@@ -14,6 +14,7 @@ const initialCallState = {
       isLoading: true,
       audioTrack: null,
       videoTrack: null,
+      isAdmin: null
     },
   },
   clickAllowTimeoutFired: false,
@@ -80,7 +81,12 @@ function getLocalCallItem(callItems) {
 
 function getCallItems(participants, prevCallItems) {
   let callItems = { ...initialCallState.callItems }; // Ensure we *always* have a local participant
-  // console.log('callItems at callState line 82:', callItems)
+  console.log('callItems at before loop in getCallItems:', callItems)
+  // identify admins browser as "alpha"
+    // if isLocal(id) and user_is_admin
+      // configure this browser to show their own screen as large tile and disable audio and video on clients
+      // clients should appear with email in box
+
   for (const [id, participant] of Object.entries(participants)) {
     // Here we assume that a participant will join with audio/video enabled.
     // This assumption lets us show a "loading" state before we receive audio/video tracks.
@@ -93,14 +99,15 @@ function getCallItems(participants, prevCallItems) {
       audioTrack: participant.audioTrack,
       videoTrack: participant.videoTrack,
     };
-    if (participant.screenVideoTrack || participant.screenAudioTrack) {
-      callItems[id + '-screen'] = {
-        isLoading: false,
-        videoTrack: participant.screenVideoTrack,
-        audioTrack: participant.screenAudioTrack,
-      };
-    }
+    // if (participant.screenVideoTrack || participant.screenAudioTrack) {
+    //   callItems[id + '-screen'] = {
+    //     isLoading: false,
+    //     videoTrack: participant.screenVideoTrack,
+    //     audioTrack: participant.screenAudioTrack,
+    //   };
+    // }
   }
+  console.log('callItems before return in getCallItems:', callItems)
   return callItems;
 }
 
