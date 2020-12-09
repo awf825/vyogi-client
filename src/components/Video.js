@@ -23,7 +23,7 @@ const STATE_JOINED = 'STATE_JOINED';
 const STATE_LEAVING = 'STATE_LEAVING';
 const STATE_ERROR = 'STATE_ERROR';
 
-export const Video = (props) => {
+export const Video = () => {
   const initialState = {
     showVideo: !!currentVideoSession,
     codeInput: ""
@@ -41,39 +41,6 @@ export const Video = (props) => {
       [event.target.name]: event.target.value
     })
   }
-
-  // const handleVideoGeneration = () => {
-  //   var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
-  //   var tkn = suid(16)
-  //   cookies.set('videoToken', tkn, { expires: inFifteenMinutes, path: '/' })
-  // }
-
-  // const generateLessonSession = (ev, props) => {
-  //   ev.preventDefault()
-  //   // get lesson access codes
-  //   axios.get(`${API_ROOT}/codes`)
-  //   .then(resp => {
-  //     var validation = resp.data.reduce((x,y) => {
-  //       x.push(y.code)
-  //       return x
-  //     }, []).find(el => el == data.codeInput)
-
-  //     if (validation) {
-  //       // handleVideoGeneration()
-  //       setData({
-  //         ...data,
-  //         showVideo: true,
-  //         codeInput: ""
-  //       })
-  //     } else if (resp.message) {
-  //       alert(resp.message)
-  //     } else {
-  //       alert('Code is invalid')
-  //       setRoomUrl(null);
-  //       setAppState(STATE_IDLE);
-  //     }
-  //   })
-  // }
   
   const createCall = useCallback(() => {
     if (!userObject.state.user.is_admin) {

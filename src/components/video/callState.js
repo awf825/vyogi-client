@@ -1,12 +1,11 @@
 /**
  * Call state is comprised of:
- * - "Call items" (inputs to the call, i.e. participants or shared screens)
+ * - "Call items" (inputs to the call, i.e. participants)
  * - UI state that depends on call items (for now, just whether to show "click allow" message)
  *
  * Call items are keyed by id:
  * - "local" for the current participant
  * - A session id for each remote participant
- * - "<id>-screen" for each shared screen
  */
 const initialCallState = {
   callItems: {
@@ -51,8 +50,6 @@ const CAM_OR_MIC_ERROR = 'CAM_OR_MIC_ERROR';
  */
 const FATAL_ERROR = 'FATAL_ERROR';
 
-// --- Reducer and helpers --
-
 function callReducer(callState, action) {
   switch (action.type) {
     case CLICK_ALLOW_TIMEOUT:
@@ -61,7 +58,7 @@ function callReducer(callState, action) {
         clickAllowTimeoutFired: true,
       };
     case PARTICIPANTS_CHANGE:
-      const callItems = getCallItems(action.participants, callState.callItems);
+      const callItems = getCallItems(action, callState.callItems);
       return {
         ...callState,
         callItems,
@@ -79,34 +76,29 @@ function getLocalCallItem(callItems) {
   return callItems['local'];
 }
 
-function getCallItems(participants, prevCallItems) {
+function getCallItems(action, prevCallItems) {
   let callItems = { ...initialCallState.callItems }; // Ensure we *always* have a local participant
-  console.log('callItems at before loop in getCallItems:', callItems)
-  // identify admins browser as "alpha"
-    // if isLocal(id) and user_is_admin
-      // configure this browser to show their own screen as large tile and disable audio and video on clients
-      // clients should appear with email in box
+  const { participants, isAdmin } = action 
 
+  console.log('callItems at before loop in getCallItems:', callItems)
+  
   for (const [id, participant] of Object.entries(participants)) {
+    // identify admins browser as "alpha"
+      // if isLocal(id) and user_is_admin
+        // configure this browser to show their own screen as large tile and disable audio and video on clients
+        // clients should appear with email in box
+    const hasLoaded = prevCallItems[id] && !prevCallItems[id].isLoading;
     // Here we assume that a participant will join with audio/video enabled.
     // This assumption lets us show a "loading" state before we receive audio/video tracks.
-    // This may not be true for all apps, but the call object doesn't yet support distinguishing
-    // between cases where audio/video are missing because they're still loading or muted.
-    const hasLoaded = prevCallItems[id] && !prevCallItems[id].isLoading;
     const missingTracks = !(participant.audioTrack || participant.videoTrack);
     callItems[id] = {
       isLoading: !hasLoaded && missingTracks,
       audioTrack: participant.audioTrack,
       videoTrack: participant.videoTrack,
+      isAdmin: isAdmin,
     };
-    // if (participant.screenVideoTrack || participant.screenAudioTrack) {
-    //   callItems[id + '-screen'] = {
-    //     isLoading: false,
-    //     videoTrack: participant.screenVideoTrack,
-    //     audioTrack: participant.screenAudioTrack,
-    //   };
-    // }
   }
+  // Maybe here I should void audio and video for non admin parties? Or inside of the loop?
   console.log('callItems before return in getCallItems:', callItems)
   return callItems;
 }

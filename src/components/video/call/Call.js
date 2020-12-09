@@ -3,6 +3,7 @@ import './Call.css'
 import Tile from '../tile/Tile'
 import CallMessage from '../callMessage/CallMessage'
 import { CallObjectContext } from '../../Video';
+import AuthContext from '../../../AuthContext';
 import {
   initialCallState,
   CLICK_ALLOW_TIMEOUT,
@@ -18,6 +19,7 @@ import { logDailyEvent } from '../../../logUtils'
 
 export default function Call() {
   const callObject = useContext(CallObjectContext);
+  const userObject = useContext(AuthContext);
   const [callState, dispatch] = useReducer(callReducer, initialCallState);
 
   useEffect(() => {
@@ -37,7 +39,8 @@ export default function Call() {
       // console.log('callObject @ handleNewPartcipantsState:', callObject)
       dispatch({
         type: PARTICIPANTS_CHANGE,
-        participants: callObject.participants()
+        participants: callObject.participants(),
+        isAdmin: userObject.state.user.is_admin
       })
     }
   
@@ -110,7 +113,9 @@ export default function Call() {
     Object.entries(callState.callItems).forEach(([id, callItem]) => {
       //console.log('id (identity) of callState item in getTiles loop:', id)
       // console.log('callItem in getTilesLoop:', callItem)
-      const isLarge = !isLocal(id)
+      // const isLarge = callItem.isAdmin || !isLocal(id)
+      const isLarge = callItem.isAdmin 
+      // TODO: REMOVE STUPID BACKGROUND 
       const tile = (
         <Tile 
           key={id}
@@ -121,7 +126,6 @@ export default function Call() {
           isLoading={callItem.isLoading}
         />
       );
-      // AT THIS POINT, PUSH ADMIN LARGE AND CLIENT SMALL; LOCK THAT POSITION
       if (isLarge) {
         largeTiles.push(tile);
       } else {
