@@ -20,7 +20,12 @@ function App(props) {
         {!!currentUser ? <Header /> : null}
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/dashboard" render={props => (
+            <Dashboard 
+              {...props}
+              user={currentUser}
+            />
+          )}/>
           <Route exact path='/video' render={props => (
             <Video 
             {...props} 
