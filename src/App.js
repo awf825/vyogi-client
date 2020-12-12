@@ -11,31 +11,36 @@ import {withRouter, Switch, Route, useHistory} from 'react-router-dom'
 import Schedule from './components/Schedule'
 import AuthContext from './AuthContext'
 import Cookies from 'universal-cookie'
-import { API_ROOT } from './api-config.js';
-import axios from 'axios';
-const cookies = new Cookies();
+// import { API_ROOT } from './api-config.js';
+// import axios from 'axios';
+// const cookies = new Cookies();
 const currentUser = JSON.parse(sessionStorage.getItem('user'))
 const currentAccount = JSON.parse(sessionStorage.getItem('account'))
-const currentVideoSession = cookies.get('videoToken')
+// const currentVideoSession = cookies.get('videoToken')
 const deadState = { 
   isLoggedIn: false, 
   user: {}, 
-  account: {},
-  videoRunning: !!currentVideoSession 
+  account: {}
+  // videoRunning: !!currentVideoSession 
 }
 const liveState = { 
   isLoggedIn: true, 
   user: currentUser, 
-  account: currentAccount,
-  videoRunning: !!currentVideoSession 
+  account: currentAccount
+  // videoRunning: !!currentVideoSession 
 }
-const appState = !currentUser ? deadState : liveState
+// const appState = !currentUser ? deadState : liveState
+const appState = {
+  isLoggedIn: false,
+  user: null,
+  account: null
+}
 
 const reducer = (state, action) => {
   switch(action.type) {
     case "LOGIN":
-      sessionStorage.setItem('user', JSON.stringify(action.payload.user));
-      sessionStorage.setItem('account', JSON.stringify(action.payload.account))
+      // sessionStorage.setItem('user', JSON.stringify(action.payload.user));
+      // sessionStorage.setItem('account', JSON.stringify(action.payload.account))
       // sessionStorage.setItem("token", JSON.stringify(action.payload.token));
       return {
         ...state,
@@ -45,8 +50,8 @@ const reducer = (state, action) => {
         // token: action.payload.token
       };
     case "REGISTER":
-      sessionStorage.setItem("user", JSON.stringify(action.payload.user));
-      sessionStorage.setItem('account', JSON.stringify(action.payload.account));
+      // sessionStorage.setItem("user", JSON.stringify(action.payload.user));
+      // sessionStorage.setItem('account', JSON.stringify(action.payload.account));
       return {
         ...state,
         isLoggedIn: true,
@@ -55,12 +60,12 @@ const reducer = (state, action) => {
         // token: action.payload.token
       };
     case "LOGOUT":
-      sessionStorage.removeItem("user");
-      //cookies.remove('videoToken')
+      // sessionStorage.removeItem("user");
       return {
         ...state,
         isLoggedIn: false,
-        user: null
+        user: null,
+        account: null
       }
     case "AWAKE":
       // var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
@@ -117,8 +122,9 @@ function App() {
         dispatch
       }}
       >
+      {/* !state.isLoggedIn  */}
       <div className="App">
-        {!state.isLoggedIn ? 
+        {!state.user ? 
         <Login history={history}/> 
         :
         <div className="AppHome">
@@ -142,9 +148,9 @@ function App() {
             <Route exact path='/about' render={props => (
               <About {...props} user={currentUser} />
             )}/>
-            <Route exact path='/register' render={props => (
+            {/* <Route exact path='/register' render={props => (
               <Login {...props} />
-            )}/>
+            )}/> */}
           </Switch>
         </div>
         }
