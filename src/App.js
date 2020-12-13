@@ -12,7 +12,11 @@ import Schedule from './components/Schedule'
 import { connect } from 'react-redux';
 
 function App(props) {
-  const currentUser = props.userDetails.user || JSON.parse(sessionStorage.getItem("user"))
+  const storage = JSON.parse(sessionStorage.getItem("user"))
+  // const currentUser = storage ? storage.login.userDetails.user : props.userDetails.user;
+  const [currentUser, currentAccount] = storage ? 
+    [storage.login.userDetails.user, storage.login.userDetails.account] :  
+    [props.userDetails.user, props.userDetails.account]
 
   return (
     <BrowserRouter>
@@ -24,13 +28,14 @@ function App(props) {
             <Dashboard 
               {...props}
               user={currentUser}
+              account={currentAccount}
             />
           )}/>
           <Route exact path='/video' render={props => (
             <Video 
-            {...props} 
-            user={currentUser} 
-            // account={currentAccount}
+              {...props} 
+              user={currentUser} 
+              // account={currentAccount}
             />
           )}/>
           <Route exact path="/schedule" render={props => (

@@ -7,7 +7,6 @@ import ConfigStore from './store/ConfigStore'
 
 const ProviderComponent = () => {
   const store = ConfigStore();
-  console.log('store:', store)
   return (
     <Provider store={store}>
       <App/>
