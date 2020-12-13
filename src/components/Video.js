@@ -47,10 +47,11 @@ export const Video = () => {
       return axios.get(
         `${API_ROOT}/video_client`
       ).then((resp) => {
-        if (resp.status == 200) {
-          return resp.data.data.url
+        console.log('resp at bucket:', resp)
+        if (resp.data.status == 404) {
+          return resp.data.message
         } else {
-          alert(resp.message)
+          return resp.data.data.url
         }
       })
     } else {
@@ -67,6 +68,16 @@ export const Video = () => {
   }, []);
   //THESE FUNCTIONS BOTH HAVE NO DEPENDENCIES BECAUSE THEY ARE CHAINED TOGETHER
   const startJoiningCall = useCallback((url) => {
+    debugger
+    if (url === "There is no live lesson at this time. Please try again later.") {
+      return
+    } else {
+      const newCallObject = DailyIframe.createCallObject();
+      setRoomUrl(url);
+      setCallObject(newCallObject);
+      setAppState(STATE_JOINING);
+      newCallObject.join({ url });
+    }
     // * !!!
     // * IMPORTANT: only one call object is meant to be used at a time. Creating a
     // * new call object with DailyIframe.createCallObject() *before* your previous
@@ -77,11 +88,15 @@ export const Video = () => {
     // SO HERE, WHEN LOOKING TO MAKE A NEW CALL, CHECK IF
     // USER IS TRAINER LOOKING TO MAKE A NEW LESSON (LAMBDA)
     // OR IF USER IS A CLIENT ENTERING CODE
-    const newCallObject = DailyIframe.createCallObject();
-    setRoomUrl(url);
-    setCallObject(newCallObject);
-    setAppState(STATE_JOINING);
-    newCallObject.join({ url });
+    // try {
+    //   const newCallObject = DailyIframe.createCallObject();
+    //   setRoomUrl(url);
+    //   setCallObject(newCallObject);
+    //   setAppState(STATE_JOINING);
+    //   newCallObject.join({ url });
+    // } catch(err) {
+    //   alert(err)
+    // }
   }, []);
   
   const showCall = [STATE_JOINING, STATE_JOINED, STATE_ERROR].includes(
