@@ -5,7 +5,6 @@ import CardSection from './CardSection'
 import AuthContext from '../../AuthContext'
 
 export const Checkout = (props) => {
-  const userObject = useContext(AuthContext)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const {
@@ -26,9 +25,9 @@ export const Checkout = (props) => {
     // not used in this example. 
     const card = elements.getElement(CardElement);
     const result = await stripe.createToken(card)
-    const userId = userObject.state.user.id
-    const email = userObject.state.user.email
-    const account = userObject.state.account
+    const userId = props.user.id
+    const email = props.user.email
+    const account = props.account
     
     if (result.error) {
       console.error(result.error.message)
@@ -39,10 +38,10 @@ export const Checkout = (props) => {
       const paymentData = {
         token: token.id,
         cost: cost,
-        userId: userId,
-        email: email,
         start: start,
         lesson: id,
+        userId: userId,
+        email: email,
         account: account
       }
 
@@ -84,6 +83,8 @@ export default function InjectCheckoutForm(props) {
           start={props.start}
           stripe={stripe} 
           elements={elements} 
+          user={props.user}
+          account={props.account}
         />
       )}
     </ElementsConsumer>

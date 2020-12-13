@@ -83,6 +83,8 @@ class Schedule extends Component {
     if (modalOpen && modalData) {
       this.children = (
         <BookModalContent 
+          user={user}
+          account={account}
           message={message}
           id={modalData.id}
           cost={modalData.cost}

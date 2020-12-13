@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 
 function App(props) {
   const storage = JSON.parse(sessionStorage.getItem("user"))
-  // const currentUser = storage ? storage.login.userDetails.user : props.userDetails.user;
   const [currentUser, currentAccount] = storage ? 
     [storage.login.userDetails.user, storage.login.userDetails.account] :  
     [props.userDetails.user, props.userDetails.account]
@@ -35,12 +34,14 @@ function App(props) {
             <Video 
               {...props} 
               user={currentUser} 
-              // account={currentAccount}
+              account={currentAccount}
             />
           )}/>
           <Route exact path="/schedule" render={props => (
             <Schedule 
               {...props}
+              user={currentUser} 
+              account={currentAccount}
             />
           )}/>
         </Switch>

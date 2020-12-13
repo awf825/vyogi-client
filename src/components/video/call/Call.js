@@ -3,7 +3,6 @@ import './Call.css'
 import Tile from '../tile/Tile'
 import CallMessage from '../callMessage/CallMessage'
 import { CallObjectContext } from '../../Video';
-import AuthContext from '../../../AuthContext';
 import {
   initialCallState,
   CLICK_ALLOW_TIMEOUT,
@@ -17,9 +16,8 @@ import {
 import { logDailyEvent } from '../../../logUtils'
 
 
-export default function Call() {
+export default function Call(props) {
   const callObject = useContext(CallObjectContext);
-  const userObject = useContext(AuthContext);
   const [callState, dispatch] = useReducer(callReducer, initialCallState);
 
   useEffect(() => {
@@ -40,7 +38,7 @@ export default function Call() {
       dispatch({
         type: PARTICIPANTS_CHANGE,
         participants: callObject.participants(),
-        isAdmin: userObject.state.user.is_admin
+        isAdmin: props.user.is_admin
       })
     }
   

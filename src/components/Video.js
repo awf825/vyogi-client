@@ -23,7 +23,7 @@ const STATE_JOINED = 'STATE_JOINED';
 const STATE_LEAVING = 'STATE_LEAVING';
 const STATE_ERROR = 'STATE_ERROR';
 
-export const Video = () => {
+export const Video = (props) => {
   const initialState = {
     showVideo: !!currentVideoSession,
     codeInput: ""
@@ -33,7 +33,6 @@ export const Video = () => {
   const [videoAppState, setAppState] = useState(!!currentVideoSession ? STATE_JOINED : STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
-  const userObject = useContext(AuthContext)
   
   const handleInputChange = event => {
     setData({
@@ -43,7 +42,7 @@ export const Video = () => {
   }
   
   const createCall = useCallback(() => {
-    if (!userObject.state.user.is_admin) {
+    if (!props.user.is_admin) {
       return axios.get(
         `${API_ROOT}/video_client`
       ).then((resp) => {
@@ -229,7 +228,11 @@ export const Video = () => {
     <div className="videoapp">
       {showCall ? (
         <CallObjectContext.Provider value={callObject}>
-          <Call roomUrl={roomUrl} />
+          <Call 
+            roomUrl={roomUrl}
+            user={props.user}
+            account={props.account}
+          />
           <Tray
             disabled={!enableCallButtons}
             onClickLeaveCall={startLeavingCall}
@@ -250,7 +253,7 @@ export const Video = () => {
               axios.get(`${API_ROOT}/codes`)
               .then(resp => {
                 var validation = resp.data.reduce((x,y) => {
-                  x.push(y.code)
+                  x.push(y)
                   return x
                 }, []).find(el => el == data.codeInput)
           

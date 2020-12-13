@@ -22,6 +22,8 @@ const BookModalContent = (props) => {
           description={props.description}
           start={props.start}
           title={props.title}
+          user={props.user}
+          account={props.account}
         /> 
         : null
       }
