@@ -1,28 +1,21 @@
-import React from 'react';
+import React from 'react'
 import { Nav } from 'react-bootstrap';
-import { API_ROOT } from '../api-config.js';
-import AuthContext from '../AuthContext';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { LogoutAction } from '../store/actions/LogoutAction';
 
-export const Header = () => {
-  const { dispatch } = React.useContext(AuthContext)
-
-  const handleLogout = () => {
-    axios.post(`${API_ROOT}/logout`, {})
-      .then(resp => {
-        dispatch({
-          type: "LOGOUT"
-        })
-        console.log('resp at logout', resp)
-      })
-      .catch(err => {
-        console.err(err)
-      })
+export const Header = (props) => {
+  const logout = () => {
+    props.logoutAction().then(res => {
+      sessionStorage.removeItem("user")
+    })
   }
 
   return (
     <div>
       <Nav justify variant="tabs" defaultActiveKey="/home">
+        <Nav.Item>
+          <Nav.Link href="/dashboard" >Dashboard</Nav.Link>
+        </Nav.Item>
         <Nav.Item>
           <Nav.Link href="/schedule" >Schedule</Nav.Link>
         </Nav.Item>
@@ -33,11 +26,21 @@ export const Header = () => {
           <Nav.Link href="/about" >About</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/register" onSelect={handleLogout}>Log Out</Nav.Link>
+          <Nav.Link href="/" onSelect={logout}>Log Out</Nav.Link>
         </Nav.Item>
-      </Nav>
+       </Nav>
     </div>
   )
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    userDetails: state.login.userDetails,
+  }
+}
+
+const mapDispatchToProps = {
+  logoutAction: LogoutAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

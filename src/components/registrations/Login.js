@@ -1,159 +1,146 @@
-import { API_ROOT } from '../../api-config.js';
-import React from 'react';
+import React, { useState } from 'react';
 import RegisModal from './RegisModal'
 import RegisModalContent from './RegisModalContent'
-import axios from 'axios';
-import AuthContext from '../../AuthContext'
+
+import { LoginAction } from '../../store/actions/LoginAction';
+import { connect } from 'react-redux'
 
 export const Login = (props) => {
-  const { dispatch } = React.useContext(AuthContext);
-  const initialState = {
-    email: '',
-    password: '',
-    passwordConf: '',
-    isSubmitting: false,
-    errorMessage: null,
-    errorLocale: "form",
-    showModal: false
+  // const [isLoading, setIsLoading] = useState(false)
+  const modalState = {
+    showModal: false,
+    errorLocale: "form"
   }
 
-  const [data, setData] = React.useState(initialState);
+  const [modal, setModal] = useState(modalState);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [modalEmail, setModalEmail] = useState('');
+  const [modalPassword, setModalPassword] = useState('');
+  const [modalPasswordConf, setModalPasswordConf] = useState('')
 
-  const loginReq = (user, sourceFlag) => {
-    const toggle = ((sourceFlag == "form") ? "LOGIN" : "REGISTER")
-    const mainUrl = (
-      (sourceFlag == "form") ? 
-      `${API_ROOT}/login` : 
-      `${API_ROOT}/users`
-    )
-    // BIG TODO FIND WAY TO CHAIN AXIOS CALLS: ACCOUNT URL IS DEPENDENT ON USER INFO
-    axios.post(mainUrl, user)
-      .then(resp => {
-        if (resp.data.logged_in || (resp.data.status == "created")) {
-          axios.get(`${API_ROOT}/accounts/${resp.data.user.id}`)
-            .then(secondResp => {
-              dispatch({
-                type: toggle,
-                payload: {
-                  user: resp.data.user,
-                  account: secondResp.data
-                }
-              })
-              props.history.push('/home')
-            }) 
-        } else {
-          setData({
-            ...data,
-            isSubmitting: false,
-            errorMessage: resp.data.errors
-          })
-        }
-      })
-      .catch(er => console.log('api errors:', er))
-  }
-
-  const handleInputChange = event => {
-    setData({
-      ...data,
-      [event.target.name]: event.target.value
+  const login = (email, password, modalFlag) => {
+    // setIsLoading(true);
+    let payload = { email: email, password: password, modalFlag: modalFlag }
+    props.loginAction(payload).then(res => {
+      props.history.push('/dashboard')
     })
+    // setIsLoading(false)
   }
 
-  const handleFormSubmit = event => {
-    event.preventDefault();
-    setData({
-      ...data,
-      isSumitting: true,
-      errorMessage: null
-    });
-    const user = ({email: data.email, password: data.password})
-    loginReq(user, "form")
+  const handleChange = (e) => {
+    return (
+      e.target.name === 'email' ? setEmail(e.target.value) :
+      e.target.name === 'password' ? setPassword(e.target.value) :
+      () => {}
+    )
+  }
+
+  const handleModalChange = (e) => {
+    return (
+      e.target.name === 'email' ? setModalEmail(e.target.value) :
+      e.target.name === 'password' ? setModalPassword(e.target.value) :
+      e.target.name === 'passwordConf' ? setModalPasswordConf(e.target.value) :
+      () => {}
+    )
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    email.length && password.length && login(email, password, false)
   }
 
   const handleModalSubmit = event => {
     event.preventDefault();
-    setData({
-      ...data,
+    setModal({
       errorMessage: null,
       showModal: false
     });
-    const user = ({email: data.email, password: data.password, password_confirmation: data.passwordConf})
-    loginReq(user, "modal")
+    modalEmail.length && modalPassword.length && modalPasswordConf.length && login(modalEmail, modalPassword, true)
   }
 
-  const displayModal = () => {
-    setData({
-      ...data,
+  const displayModal = (e) => {
+    e.preventDefault()
+    setModal({
       showModal: true,
       errorLocale: "modal"
     })
   }
 
   const hideModal = () => {
-    setData({
-      ...data,
+    setModal({
       showModal: false,
       errorLocale: ""
     })
   }
 
   return (
-    <div className="login-container">
-      <div className="card">
-        <div className="container">
-          <RegisModal show={data.showModal} handleClose={hideModal}>
-            <RegisModalContent 
-              handleRegistration={handleModalSubmit} 
-              handleInputChange={handleInputChange} 
-              data={data} 
+    <div classname="wrap">
+      <div className="login">
+        <RegisModal show={modal.showModal} handleClose={hideModal}>
+          <RegisModalContent 
+            handleRegistration={handleModalSubmit} 
+            handleInputChange={handleModalChange} 
+            data={modal} 
+            handleClick={handleClick}
+          />
+        </RegisModal>
+        <h2>Login Form</h2>
+        <form action="/" method="post">
+          <div classname="container">
+            <label for="email"><b>Email</b></label>
+            <input 
+              type="text" 
+              value={email}
+              name="email"
+              placeholder="Enter Email"
+              onChange={handleChange}
+              required
             />
-          </RegisModal>
-          <form onSubmit={handleFormSubmit}>
-            <h1>Login</h1>
-            <label htmlFor="email">
-              Email
-              <input
-                type="text"
-                value={data.email}
-                onChange={handleInputChange}
-                name="email"
-                id="email"
-              />
-            </label>
-            <label htmlFor="password">
-              Password
-              <input
-                type="password"
-                value={data.password}
-                onChange={handleInputChange}
-                name="password"
-                id="password"
-              />
-            </label>
-
-            {(data.errorMessage && (data.errorLocale == "form")) && (
-              <span className="form-error">{data.errorMessage}</span>
-            )}
-
-            <button disabled={data.isSubmitting}>
-              {data.isSubmitting ? (
-                "Loading..."
-              ) : (
-                "Login"
-              )}
+            <label for="password"><b>Password</b></label>
+            <input
+              type="text"
+              value={password}
+              name="password"
+              placeholder="Enter Password"
+              onChange={handleChange}
+              required
+            />
+            <button type="submit" onClick={handleClick}>
+              "Login"
+              {/* { !isLoading ? "Login" : "Loading..." } */}
             </button>
-          </form>
-          <div>
-            or
-            <button onClick={displayModal}>
-              Register
+            <button type="submit" onClick={displayModal}>
+              "Sign Up"
             </button>
           </div>
-
-        </div>
+        </form>
       </div>
     </div>
   )
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    userDetails: state.login.userDetails,
+  }
+}
+
+const mapDispatchToProps = {
+  loginAction: LoginAction
+}
+
+// in order to subscribe our Login component to store, we import connect from react-redux; 
+// connect is a higher order function that acts like a subscriber, 
+// it wraps the component we want to access the redux store state
+
+// mapStateToProps is a callback function that takes the current redux store state 
+// and returns an object that can be accessed from the props of the current component
+
+// mapDispatchToProps is an object that contains action creators as it 
+// properties and makes them accessible as props in the current component.
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+
+
