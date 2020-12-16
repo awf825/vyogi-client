@@ -8,7 +8,6 @@ import DailyIframe from '@daily-co/daily-js';
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../urlUtils';
 import { logDailyEvent } from '../logUtils';
 import { suid } from 'rand-token';
-import AuthContext from '../AuthContext'
 import Cookies from 'universal-cookie'
 import './Video.css'
 const cookies = new Cookies();

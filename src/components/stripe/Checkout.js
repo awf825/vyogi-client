@@ -2,7 +2,6 @@ import { API_ROOT } from '../../api-config.js';
 import React, { useContext } from 'react';
 import {ElementsConsumer, CardElement} from '@stripe/react-stripe-js';
 import CardSection from './CardSection'
-import AuthContext from '../../AuthContext'
 
 export const Checkout = (props) => {
   const handleSubmit = async (e) => {
