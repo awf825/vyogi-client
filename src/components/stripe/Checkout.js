@@ -1,5 +1,5 @@
 import { API_ROOT } from '../../api-config.js';
-import React, { useContext } from 'react';
+import React from 'react';
 import {ElementsConsumer, CardElement} from '@stripe/react-stripe-js';
 import CardSection from './CardSection'
 

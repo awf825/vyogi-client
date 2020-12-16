@@ -1,10 +1,11 @@
 import { API_ROOT } from '../api-config.js';
 import React, { Component } from 'react';
 import axios from 'axios';
-import Fade from 'react-reveal/Fade';
-import ScheduleCalender from './schedule/ScheduleCalender'
+import moment from 'moment'
 import BookModal from './book/BookModal'
 import BookModalContent from './book/BookModalContent'
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 class Schedule extends Component {
   constructor(props) {
@@ -75,6 +76,7 @@ class Schedule extends Component {
   render() {
     const { schedule, modalOpen, modalData, showPayForm } = this.state
     const { user, account } = this.props
+    const localizer = momentLocalizer(moment)
 
     const message = `This is lesson ${modalData.title}.
     It will start at ${modalData.start} and last an hour. Can you confirm
@@ -102,16 +104,19 @@ class Schedule extends Component {
         {
           schedule.length > 0 ? (
             <React.Fragment>
-              <Fade left>
-                <h1>Book Here</h1>
-              </Fade>
               <BookModal
                 visible={modalOpen}
                 dismiss={this.rejectModal}
                 children={this.children} 
               >
               </BookModal>
-              <ScheduleCalender dates={schedule} handleSelection={this.handleSelection} />
+              <Calendar
+                localizer={localizer}
+                events={schedule}
+                style={{ height: 800 }}
+                selectable={true}
+                onSelectEvent={event => this.handleSelection(event)}
+              />
             </React.Fragment>
           ) : (
             <div>

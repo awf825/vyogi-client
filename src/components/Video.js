@@ -1,5 +1,5 @@
 import { API_ROOT } from '../api-config.js';
-import React, { useCallback, useState, useEffect, useContext } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import Call from './video/call/Call';
 import Tray from './video/tray/Tray';
 import axios from 'axios'
@@ -7,7 +7,6 @@ import dailyApi from './video/dailyApi'
 import DailyIframe from '@daily-co/daily-js';
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../urlUtils';
 import { logDailyEvent } from '../logUtils';
-import { suid } from 'rand-token';
 import Cookies from 'universal-cookie'
 import './Video.css'
 const cookies = new Cookies();
@@ -46,8 +45,8 @@ export const Video = (props) => {
         `${API_ROOT}/video_client`
       ).then((resp) => {
         console.log('resp at bucket:', resp)
-        if (resp.data.status == 404) {
-          return resp.data.message
+        if (resp.data.status === 404) {
+          alert(resp.data.message)
         } else {
           return resp.data.data.url
         }
@@ -66,8 +65,7 @@ export const Video = (props) => {
   }, []);
   //THESE FUNCTIONS BOTH HAVE NO DEPENDENCIES BECAUSE THEY ARE CHAINED TOGETHER
   const startJoiningCall = useCallback((url) => {
-    debugger
-    if (url === "There is no live lesson at this time. Please try again later.") {
+    if (url === undefined) {
       return
     } else {
       const newCallObject = DailyIframe.createCallObject();
@@ -254,7 +252,7 @@ export const Video = (props) => {
                 var validation = resp.data.reduce((x,y) => {
                   x.push(y)
                   return x
-                }, []).find(el => el == data.codeInput)
+                }, []).find(el => el === data.codeInput)
           
                 if (validation) {
                   setData({

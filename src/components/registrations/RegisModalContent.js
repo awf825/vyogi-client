@@ -36,7 +36,7 @@ export const RegisModalContent = ({ handleRegistration, handleInputChange, data 
           />
         </label>
 
-        {(data.errorMessage && (data.errorLocale == "modal")) && (
+        {(data.errorMessage && (data.errorLocale === "modal")) && (
           <span className="form-error">{data.errorMessage}</span>
         )}
         
