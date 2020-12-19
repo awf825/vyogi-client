@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 export const Dashboard = (props) => {
-  // debugger
   var initialState = {
     user: {}
   }

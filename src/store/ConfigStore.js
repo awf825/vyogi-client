@@ -6,8 +6,8 @@ import LogoutReducer from './reducers/LogoutReducer';
 const ConfigStore = () => {
   var initialState = {}
   try {
-    initialState = sessionStorage.getItem("user") ?
-      JSON.parse(sessionStorage.getItem("user")) : {}
+    initialState = sessionStorage.getItem("session") ?
+      JSON.parse(sessionStorage.getItem("session")) : {}
   } catch (err) {
     console.log('error:', err)
   }
@@ -19,9 +19,17 @@ const ConfigStore = () => {
   const saver = (store) => next => action => {
     let result = next(action);
     let stateToSave = store.getState();
-    sessionStorage.setItem("user", JSON.stringify({
-      ...stateToSave
-    }))
+    if (action.type === "LOGIN_ACTION_KEY") {
+      sessionStorage.setItem("session", JSON.stringify({
+        ...stateToSave.login
+      }))
+    } else if (action.type === "LOGOUT_ACTION_KEY") {
+      sessionStorage.setItem("session", JSON.stringify({
+        ...stateToSave.logout
+      }))
+    } else {
+      console.log('default at store saver')
+    }
     return result;
   }
   // first we use combineReducers a function from redux to combine 

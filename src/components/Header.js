@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Nav } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { LogoutAction } from '../store/actions/LogoutAction';
 
 export const Header = (props) => {
   const logout = () => {
-    props.logoutAction().then(res => {
-      sessionStorage.removeItem("user")
-    })
+    //sessionStorage.removeItem("user")
+    props.logoutAction().then(res => {})
   }
 
   return (
