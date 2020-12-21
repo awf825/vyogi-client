@@ -32,6 +32,12 @@ export default function Call(props) {
     // console.log('participants at useEffect in Call.js line 25:', callObject.participants())
 
     function handleNewParticipantsState(event) {
+      //debugger
+      // event.participant.owner = true if event.participant.local AND user.is_admin? 
+      if (event) {
+        event.participant.owner = true
+      }
+      console.log('callObject.partis @ handlenewparticipants:', callObject.participants())
       // event && logDailyEvent(event)
       // console.log('event @ handleNewPartcipantsState (Call.js ln 34):', event, Date.now())
       // console.log('callObject @ handleNewPartcipantsState:', callObject)
@@ -110,9 +116,11 @@ export default function Call(props) {
     // console.log('callState:', callState)
     Object.entries(callState.callItems).forEach(([id, callItem]) => {
       //console.log('id (identity) of callState item in getTiles loop:', id)
-      // console.log('callItem in getTilesLoop:', callItem)
+      console.log('callItem in getTiles Loop:', callItem)
       // const isLarge = callItem.isAdmin || !isLocal(id)
-      const isLarge = callItem.isAdmin 
+      // ALL CALL ITEMS ARE COMING BACK AS ADMIN IF USER IS ADMIN AND VICE VERSA
+      // ID A CALL ITEM AS THE OWNER INSTEAD OF ADMIN
+      const isLarge = callItem.isMainScreen
       // TODO: REMOVE STUPID BACKGROUND 
       const tile = (
         <Tile 
@@ -130,8 +138,8 @@ export default function Call(props) {
         smallTiles.push(tile);
       }
     });
-    console.log('largeTiles before return in getTiles:', largeTiles)
-    console.log('smallTiles before return in getTiles:', smallTiles)
+    // console.log('largeTiles before return in getTiles:', largeTiles)
+    // console.log('smallTiles before return in getTiles:', smallTiles)
     return [largeTiles, smallTiles];
   }
 
