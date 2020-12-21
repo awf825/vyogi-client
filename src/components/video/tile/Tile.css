@@ -5,13 +5,13 @@
 }
 
 .tile.large {
+  text-align: center;
   position: relative;
   margin: 2px;
 }
 
 .tile video {
   width: 100%;
-  position: absolute;
   top: 0px;
 }
 
@@ -25,13 +25,13 @@
   transform: scale(-1, 1);
 }
 
-.tile.small video {
+/* .tile.small video {
   border-radius: 4px;
 }
 
 .tile.small .background {
   border-radius: 4px;
-}
+} */
 
 .tile .loading {
   position: absolute;

@@ -26,8 +26,8 @@ class Schedule extends Component {
             id: lesson["id"],
             title: lesson["title"],
             description: lesson["description"],
-            start: new Date(lesson["start"] * 1000),
-            end: new Date((lesson["start"]+3600) * 1000),
+            start: new Date((lesson["start"]+600) * 1000),
+            end: new Date((lesson["start"]+3300) * 1000),
             level: lesson["level"],
             cost: lesson["cost"],
             allDay: false

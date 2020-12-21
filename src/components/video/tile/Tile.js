@@ -56,7 +56,6 @@ export default function Tile(props) {
 
   return (
     <div className={getClassNames()} onClick={props.onClick}>
-      <div className="background" />
       {getLoadingComponent()}
       {getVideoComponent()}
       {getAudioComponent()}

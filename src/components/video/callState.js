@@ -84,6 +84,10 @@ function getCallItems(action, prevCallItems) {
   // console.log('callItems at before loop in getCallItems:', callItems)
   
   for (const [id, participant] of Object.entries(participants)) {
+    // if (isAdmin && isLocal(id)) {
+    //   change event participant to owner
+    // }
+
     // identify admins browser as "alpha"
       // if isLocal(id) and user_is_admin
         // configure this browser to show their own screen as large tile and disable audio and video on clients
