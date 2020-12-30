@@ -1,5 +1,6 @@
 {
-  "name": "yoga-proto-client",
+  "name": "vyogi-client",
+  "homepage": "./",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
