@@ -5,7 +5,7 @@ import { LogoutAction } from '../store/actions/LogoutAction';
 
 export const Header = (props) => {
   const logout = () => {
-    //sessionStorage.removeItem("user")
+    //localStorage.removeItem("user")
     props.logoutAction().then(res => {})
   }
 

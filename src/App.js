@@ -12,7 +12,7 @@ import Schedule from './components/Schedule'
 import { connect } from 'react-redux';
 
 function App(props) {
-  const storage = JSON.parse(sessionStorage.getItem("session"))
+  const storage = JSON.parse(localStorage.getItem("session"))
   const isLive = storage ? !(JSON.stringify(storage.userDetails.user) === "{}") : false
 
   const [currentUser, currentAccount] = isLive ? 

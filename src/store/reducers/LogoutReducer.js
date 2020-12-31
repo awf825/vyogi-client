@@ -1,7 +1,7 @@
 import { LOGOUT_ACTION_KEY } from '../actions/constant';
 
 const initial_state = {
-  userDetails: JSON.parse(sessionStorage.getItem("session"))
+  userDetails: JSON.parse(localStorage.getItem("session"))
 }
 
 const LogoutReducer = (state = initial_state, action) => {

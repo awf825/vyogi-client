@@ -6,8 +6,8 @@ import LogoutReducer from './reducers/LogoutReducer';
 const ConfigStore = () => {
   var initialState = {}
   try {
-    initialState = sessionStorage.getItem("session") ?
-      JSON.parse(sessionStorage.getItem("session")) : {}
+    initialState = localStorage.getItem("session") ?
+      JSON.parse(localStorage.getItem("session")) : {}
   } catch (err) {
     console.log('error:', err)
   }
@@ -20,11 +20,11 @@ const ConfigStore = () => {
     let result = next(action);
     let stateToSave = store.getState();
     if (action.type === "LOGIN_ACTION_KEY") {
-      sessionStorage.setItem("session", JSON.stringify({
+      localStorage.setItem("session", JSON.stringify({
         ...stateToSave.login
       }))
     } else if (action.type === "LOGOUT_ACTION_KEY") {
-      sessionStorage.setItem("session", JSON.stringify({
+      localStorage.setItem("session", JSON.stringify({
         ...stateToSave.logout
       }))
     } else {
