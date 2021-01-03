@@ -4,10 +4,10 @@ const hostname = window && window.location && window.location.hostname
 
 if(hostname === 'localhost') {
   backendHost = 'http://localhost:3001'
-} else {
+} else if (hostname === 'www.yogastaging.net') {
   backendHost = 'https://vyogi.herokuapp.com'
 }
-// } else if (hostname === 'www.yogastaging.net') {
+// else {
 //   backendHost = 'https://vyogi.herokuapp.com'
 // }
 
