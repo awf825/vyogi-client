@@ -5,7 +5,6 @@ import Dashboard from './components/Dashboard'
 import Header from './components/Header'
 // import Home from './components/Home'
 import Video from './components/Video'
-import About from './components/About'
 import Login from './components/registrations/Login'
 import {BrowserRouter, Switch, Route } from 'react-router-dom'
 import Schedule from './components/Schedule'
@@ -15,34 +14,33 @@ function App(props) {
   const storage = JSON.parse(localStorage.getItem("session"))
   const isLive = storage ? !(JSON.stringify(storage.userDetails.user) === "{}") : false
 
-  const [currentUser, currentAccount] = isLive ? 
-    [storage.userDetails.user, storage.userDetails.account] :  
+  const [currentUser, currentAccount] = isLive ?
+    [storage.userDetails.user, storage.userDetails.account] :
     [props.userDetails.user, props.userDetails.account]
 
   return (
     <BrowserRouter>
       <div className="App">
-        {!!currentUser ? <Header /> : null}
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/dashboard" render={props => (
-            <Dashboard 
+          <Route exact path="/register" component={Login} />
+          <Route exact path="/" render={props => (
+            <Dashboard
               {...props}
               user={currentUser}
               account={currentAccount}
             />
           )}/>
           <Route exact path='/video' render={props => (
-            <Video 
-              {...props} 
-              user={currentUser} 
+            <Video
+              {...props}
+              user={currentUser}
               account={currentAccount}
             />
           )}/>
           <Route exact path="/schedule" render={props => (
-            <Schedule 
+            <Schedule
               {...props}
-              user={currentUser} 
+              user={currentUser}
               account={currentAccount}
             />
           )}/>

@@ -23,7 +23,7 @@ export const Login = (props) => {
     // setIsLoading(true);
     let payload = { email: email, password: password, modalFlag: modalFlag }
     props.loginAction(payload).then(res => {
-      props.history.push('/dashboard')
+      props.history.push('/')
     })
     // setIsLoading(false)
   }
@@ -78,10 +78,10 @@ export const Login = (props) => {
     <div classname="wrap">
       <div className="login">
         <RegisModal show={modal.showModal} handleClose={hideModal}>
-          <RegisModalContent 
-            handleRegistration={handleModalSubmit} 
-            handleInputChange={handleModalChange} 
-            data={modal} 
+          <RegisModalContent
+            handleRegistration={handleModalSubmit}
+            handleInputChange={handleModalChange}
+            data={modal}
             handleClick={handleClick}
           />
         </RegisModal>
@@ -89,8 +89,8 @@ export const Login = (props) => {
         <form action="/" method="post">
           <div classname="container">
             <label for="email"><b>Email</b></label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={email}
               name="email"
               placeholder="Enter Email"
@@ -130,17 +130,14 @@ const mapDispatchToProps = {
   loginAction: LoginAction
 }
 
-// in order to subscribe our Login component to store, we import connect from react-redux; 
-// connect is a higher order function that acts like a subscriber, 
+// in order to subscribe our Login component to store, we import connect from react-redux;
+// connect is a higher order function that acts like a subscriber,
 // it wraps the component we want to access the redux store state
 
-// mapStateToProps is a callback function that takes the current redux store state 
+// mapStateToProps is a callback function that takes the current redux store state
 // and returns an object that can be accessed from the props of the current component
 
-// mapDispatchToProps is an object that contains action creators as it 
+// mapDispatchToProps is an object that contains action creators as it
 // properties and makes them accessible as props in the current component.
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-
-
-

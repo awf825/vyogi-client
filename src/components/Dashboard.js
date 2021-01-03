@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Header from './Header'
 
 export const Dashboard = (props) => {
   var initialState = {
@@ -20,6 +21,7 @@ export const Dashboard = (props) => {
 
   return (
     <div className="wrap">
+      <Header user={props.user}/>
       <h1>TEST</h1>
       <p>{state.user ? state.user.email : "Loading..."}</p>
       {/* <p>{props.user.email}</p> */}
