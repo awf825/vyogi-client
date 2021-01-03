@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { LogoutAction } from '../store/actions/LogoutAction';
 
 export const Header = (props) => {
+  console.log('PROPS AT HEADER.JS:', props)
   // var initialUser = {}
   // try {
   //   initialUser = localStorage.getItem("session") ?
@@ -33,7 +34,7 @@ export const Header = (props) => {
         <Nav.Item>
           <Nav.Link href="/about" >About</Nav.Link>
         </Nav.Item>
-        { props.user ?
+        { props.user.length ?
           <Nav.Item>
             <Nav.Link href="/" onSelect={logout}>Log Out</Nav.Link>
           </Nav.Item> :
