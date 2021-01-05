@@ -20,12 +20,60 @@ export const Login = (props) => {
   const [modalPasswordConf, setModalPasswordConf] = useState('')
 
   const login = (email, password, modalFlag) => {
+    const mainUrl = !modalFlag ? `${API_ROOT}/login` : `${API_ROOT}/users`;
+    return
+      axios.post(mainUrl, { email: email, password: password })
+        .then(resp => {
+          console.log(resp)
+          // validate in the server
+          // start the session in the server (send 200 back)
+          // push to dashboard
+          //   props.history.push('/dashboard')
+        }).catch(err => {
+          console.log('error fetching user and account:', err)
+          // explain the error
+          // reset page
+        });
     // setIsLoading(true);
-    let payload = { email: email, password: password, modalFlag: modalFlag }
-    props.loginAction(payload).then(res => {
-      props.history.push('/')
-    })
-    // setIsLoading(false)
+    // let payload = { email: email, password: password, modalFlag: modalFlag }
+    // props.loginAction(payload).then(res => {
+    //   props.history.push('/dashboard')
+    }
+
+// HERE IS OLD CODE FROM EARLIER IN TRYING REDUX 12/13/2020
+
+// import {LOGIN_ACTION_KEY} from './constant';
+// import { API_ROOT } from '../../api-config.js';
+// import axios from 'axios';
+
+// The parameter (payload) can be any data required to perform some task
+  // The dispatch (default) function is use to return the required action to the redux-store
+  // when the asynchronous task is completed, while the getState (default) function
+  // is used to get current store state.
+
+  // Here is login in from original reducer method
+
+// export const LoginAction = (payload) => (dispatch, getState) => {
+//   let result = {...payload}
+//   const mainUrl = (
+//     !result.modalFlag ?
+//     `${API_ROOT}/login` :
+//     `${API_ROOT}/users`
+//   )
+//   return axios.post(mainUrl, result).then(resp => {
+//           axios.get(`${API_ROOT}/accounts/${resp.data.user.id}`).then(secondResp => {
+//             dispatch({
+//               type: LOGIN_ACTION_KEY,
+//               payload: {
+//                 user: resp.data.user,
+//                 account: secondResp.data
+//               }
+//             })
+//           })
+//          }).catch(err => {
+//            console.log('error fetching user and account:')
+//          })
+// }
   }
 
   const handleChange = (e) => {
