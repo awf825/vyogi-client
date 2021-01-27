@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import RegisModal from './RegisModal'
 import RegisModalContent from './RegisModalContent'
-
-import { LoginAction } from '../../store/actions/LoginAction';
-import { connect } from 'react-redux'
+import axios from 'axios'
+import { API_ROOT } from '../../api-config.js';
 
 export const Login = (props) => {
   // const [isLoading, setIsLoading] = useState(false)
@@ -21,11 +20,24 @@ export const Login = (props) => {
 
   const login = (email, password, modalFlag) => {
     // setIsLoading(true);
-    let payload = { email: email, password: password, modalFlag: modalFlag }
-    props.loginAction(payload).then(res => {
-      props.history.push('/')
+    let payload = { 
+      email: email, 
+      password: password
+    };
+
+    const mainUrl = (
+      !payload.modalFlag ?
+      `${API_ROOT}/signin` :
+      `${API_ROOT}/signup`
+    );
+
+    axios.post(mainUrl, {...payload}).then(resp => {
+      console.log('axios.post(mainUrl, {...payload}', resp);
+      localStorage.setItem('token', resp.data.token);
     })
-    // setIsLoading(false)
+      .then( _ => { props.history.push('/register') } )
+      .catch(err => { console.log('SIGNUP BLEW UP'); }
+    );
   }
 
   const handleChange = (e) => {
@@ -120,24 +132,4 @@ export const Login = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    userDetails: state.login.userDetails,
-  }
-}
-
-const mapDispatchToProps = {
-  loginAction: LoginAction
-}
-
-// in order to subscribe our Login component to store, we import connect from react-redux;
-// connect is a higher order function that acts like a subscriber,
-// it wraps the component we want to access the redux store state
-
-// mapStateToProps is a callback function that takes the current redux store state
-// and returns an object that can be accessed from the props of the current component
-
-// mapDispatchToProps is an object that contains action creators as it
-// properties and makes them accessible as props in the current component.
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

@@ -1,39 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Nav } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { LogoutAction } from '../store/actions/LogoutAction';
+import { API_ROOT } from '../api-config.js';
+import axios from 'axios';
 
 export const Header = (props) => {
-  // var initialUser = {}
-  // try {
-  //   initialUser = localStorage.getItem("session") ?
-  //     JSON.parse(localStorage.getItem("session")) : {}
-  // } catch (err) {
-  //   console.log('error:', err)
-  // }
-  // const [user, setUser] = useState(initialUser)
   const logout = () => {
-    //localStorage.removeItem("user")
-    props.logoutAction().then(res => {})
-  }
+    axios.post(`${API_ROOT}/signout`).then(resp => {
+      if (resp.status === 204) {
+        alert('NON-GENERIC goodbye');
+      }
+    })
+      .then( _ => { localStorage.removeItem('token') } )
+      .then( _ => { props.history.push('/') } )
+      .catch(err => { console.log('ERROR AT SIGNOUT:', err) } )
+  };
 
   return (
 
     <div>
       <Nav justify variant="tabs" defaultActiveKey="/home">
         <Nav.Item>
-          <Nav.Link href="/dashboard" >Dashboard</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
           <Nav.Link href="/schedule" >Schedule</Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link href="/video" >Go To Lesson</Nav.Link>
         </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="/about" >About</Nav.Link>
-        </Nav.Item>
-        { props.user ?
+        { 
+          props.session ?
           <Nav.Item>
             <Nav.Link href="/" onSelect={logout}>Log Out</Nav.Link>
           </Nav.Item> :
@@ -46,14 +39,4 @@ export const Header = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    userDetails: state.login.userDetails,
-  }
-}
-
-const mapDispatchToProps = {
-  logoutAction: LogoutAction
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

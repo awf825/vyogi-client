@@ -3,7 +3,7 @@ let backendHost;
 const hostname = window && window.location && window.location.hostname
 
 if(hostname === 'localhost') {
-  backendHost = 'http://localhost:3001'
+  backendHost = 'http://localhost:3090'
 } else if (hostname === 'www.yogastaging.net') {
   backendHost = 'https://vyogi.herokuapp.com'
 }
