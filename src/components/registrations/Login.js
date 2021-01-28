@@ -3,12 +3,13 @@ import RegisModal from './RegisModal'
 import RegisModalContent from './RegisModalContent'
 import axios from 'axios'
 import { API_ROOT } from '../../api-config.js';
+import { serverErrorHandler, clientErrorHandler } from './gatekeeper.js'
 
 export const Login = (props) => {
-  // const [isLoading, setIsLoading] = useState(false)
   const modalState = {
     showModal: false,
     errorLocale: "form"
+    // errorMessage: null
   }
 
   const [modal, setModal] = useState(modalState);
@@ -16,27 +17,30 @@ export const Login = (props) => {
   const [password, setPassword] = useState('');
   const [modalEmail, setModalEmail] = useState('');
   const [modalPassword, setModalPassword] = useState('');
-  const [modalPasswordConf, setModalPasswordConf] = useState('')
+  const [modalPasswordConf, setModalPasswordConf] = useState('');
+  // const [isLoading, setIsLoading] = useState('');
 
-  const login = (email, password, modalFlag) => {
+  const login = (email, password, modalFlag, passwordConf=null) => {
     // setIsLoading(true);
     let payload = { 
       email: email, 
-      password: password
+      password: password,
+      passwordConf: passwordConf
     };
 
     const mainUrl = (
-      !payload.modalFlag ?
-      `${API_ROOT}/signin` :
-      `${API_ROOT}/signup`
+       modalFlag ?
+      `${API_ROOT}/signup` :
+      `${API_ROOT}/signin`
     );
 
     axios.post(mainUrl, {...payload}).then(resp => {
-      console.log('axios.post(mainUrl, {...payload}', resp);
       localStorage.setItem('token', resp.data.token);
     })
-      .then( _ => { props.history.push('/register') } )
-      .catch(err => { console.log('SIGNUP BLEW UP'); }
+      .then( _ => { props.history.push('/') } )
+      .catch(err => {
+        serverErrorHandler(err)
+      }
     );
   }
 
@@ -59,16 +63,22 @@ export const Login = (props) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    email.length && password.length && login(email, password, false)
-  }
+    clientErrorHandler({ 
+      email: email, 
+      password: password
+    });
+  };
 
   const handleModalSubmit = event => {
     event.preventDefault();
     setModal({
-      errorMessage: null,
       showModal: false
     });
-    modalEmail.length && modalPassword.length && modalPasswordConf.length && login(modalEmail, modalPassword, true)
+    clientErrorHandler({ 
+      email: modalEmail, 
+      password: modalPassword,
+      passwordConf: modalPasswordConf
+    });
   }
 
   const displayModal = (e) => {
@@ -82,7 +92,7 @@ export const Login = (props) => {
   const hideModal = () => {
     setModal({
       showModal: false,
-      errorLocale: ""
+      errorLocale: "form"
     })
   }
 
