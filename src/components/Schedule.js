@@ -1,4 +1,4 @@
-import { API_ROOT } from '../api-config.js';
+import { API_ROOT, RAILS_ROOT } from '../api-config.js';
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment'
@@ -19,7 +19,7 @@ class Schedule extends Component {
   }
 
   componentDidMount() {     
-    axios.get(`${API_ROOT}/lessons`)
+    axios.get(`${RAILS_ROOT}/lessons`)
       .then(resp => {
         var evts = resp.data.reduce((arr, lesson) => {
           let obj = {

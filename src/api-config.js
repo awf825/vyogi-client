@@ -1,17 +1,21 @@
 let backendHost;
+let originalHost = 'http://localhost:3001';
 
-const hostname = window && window.location && window.location.hostname
+const hostname = window && window.location && window.location.hostname;
+
+originalHost = 'http://localhost:3001';
 
 if(hostname === 'localhost') {
   backendHost = 'http://localhost:3090'
 } else if (hostname === 'www.yogastaging.net') {
   backendHost = 'https://vyogi.herokuapp.com'
-}
-// else {
-//   backendHost = 'https://vyogi.herokuapp.com'
-// }
+};
 
-// for static deploying
-// const backendHost = 'http://localhost:3001'
+const API_ROOT = backendHost;
+// run rails from my machine if I need to
+const RAILS_ROOT = originalHost;
 
-export const API_ROOT = backendHost;
+export {
+	API_ROOT,
+	RAILS_ROOT
+} 

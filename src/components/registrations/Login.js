@@ -67,6 +67,7 @@ export const Login = (props) => {
       email: email, 
       password: password
     });
+    login(email, password, false)
   };
 
   const handleModalSubmit = event => {
@@ -74,11 +75,12 @@ export const Login = (props) => {
     setModal({
       showModal: false
     });
-    clientErrorHandler({ 
+    var errHandle = clientErrorHandler({ 
       email: modalEmail, 
       password: modalPassword,
       passwordConf: modalPasswordConf
     });
+    login(modalEmail, modalPassword, true, modalPasswordConf)
   }
 
   const displayModal = (e) => {

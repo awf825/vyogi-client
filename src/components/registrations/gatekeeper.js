@@ -7,15 +7,15 @@ function serverErrorHandler(err) {
 	switch (err.response.status) {
       case 422:
         alert('EMAIL IS ALREADY IN USE');
-        return
-      case 400:
+        return 
+      case 406:
       	alert('PASSWORD AND PASSWORD CONF DON\'T MATCH)')
-      	return
+      	return 
       case 401:
         alert('UNAUTHORIZED')
         return
       default:
-        throw new Error();
+        return;
   	}
 };
 
@@ -23,7 +23,7 @@ function clientErrorHandler(input) {
   for (const prop in input) {
   	if (input[prop].length < 1) {
   		alert(`Please provide a ${prop}.`)
-  		return
+  		return 
   	}
   }	 
 };
