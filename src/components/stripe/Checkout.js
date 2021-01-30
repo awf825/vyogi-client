@@ -12,7 +12,7 @@ export const Checkout = (props) => {
       oneLesson,
       elements,
       closeModal
-    } = props
+    } = props;
     
     if (!stripe || !elements) {
       return;
@@ -26,14 +26,16 @@ export const Checkout = (props) => {
     if (result.error) {
       alert(`I'm sorry, your card number is either incomplete or invalid`)
     } else {
-      const token = result.token;
-      const browserToken = localStorage.getItem('token');
+      const stripeToken = result.token;
+      const browserToken = sessionStorage.getItem('token');
+      const user = sessionStorage.getItem('user'); 
 
       const paymentData = {
-        token: token.id,
+        token: stripeToken.id,
         cost: oneLesson.cost,
         start: oneLesson.start,
         lesson: oneLesson._id,
+        user: user
       }
 
       const headers = {

@@ -24,7 +24,7 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
-    const token = localStorage.getItem('token');     
+    const token = sessionStorage.getItem('token');     
     axios.get(`${API_ROOT}/lessons`, {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -34,6 +34,7 @@ class Schedule extends Component {
         var payload = resp.data.lessons;
         console.log(payload)
         payload.forEach((p, i) => { 
+          console.log(p)
           var start = new Date(p.startTime)
           p.start = start;
           p.end = start.addHours(1);
@@ -97,11 +98,6 @@ class Schedule extends Component {
         <BookModalContent 
           message={message}
           oneLesson={modalData}
-          // id={modalData._id}
-          // cost={modalData.cost}
-          // description={modalData.description}
-          // start={modalData.start}
-          // title={modalData.title}
           handleLessonConfirmation={this.handleLessonConfirmation}
           handleLessonRejection={this.handleLessonRejection}
           showPayForm={showPayForm}

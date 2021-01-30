@@ -35,7 +35,8 @@ export const Login = (props) => {
     );
 
     axios.post(mainUrl, {...payload}).then(resp => {
-      localStorage.setItem('token', resp.data.token);
+      sessionStorage.setItem('token', resp.data.token);
+      sessionStorage.setItem('user', resp.data._id);
     })
       .then( _ => { props.history.push('/') } )
       .catch(err => {

@@ -8,14 +8,7 @@ import Login from './components/registrations/Login'
 import {BrowserRouter, Switch, Route } from 'react-router-dom'
 import Schedule from './components/Schedule'
 
-function App(props) {
-  // const storage = JSON.parse(localStorage.getItem("session"))
-  // const isLive = storage ? !(JSON.stringify(storage.userDetails.user) === "{}") : false
-
-  // const [currentUser, currentAccount] = isLive ?
-  //   [storage.userDetails.user, storage.userDetails.account] :
-  //   [props.userDetails.user, props.userDetails.account]
-
+function App() {
   return (
     <BrowserRouter>
       <div className="App">
@@ -28,7 +21,7 @@ function App(props) {
             <Video {...props} />
           )}/>
           <Route exact path="/schedule" render={props => (
-            <Schedule {...props} />
+            <Schedule session{...props} />
           )}/>
         </Switch>
       </div>

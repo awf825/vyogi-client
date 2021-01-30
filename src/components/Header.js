@@ -10,7 +10,7 @@ export const Header = (props) => {
         alert('NON-GENERIC goodbye');
       }
     })
-      .then( _ => { localStorage.removeItem('token') } )
+      .then( _ => { sessionStorage.clear() } )
       .then( _ => { props.history.push('/') } )
       .catch(err => { console.log('ERROR AT SIGNOUT:', err) } )
   };
