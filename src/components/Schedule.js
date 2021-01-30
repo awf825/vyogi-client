@@ -1,4 +1,4 @@
-import { API_ROOT, RAILS_ROOT } from '../api-config.js';
+import { API_ROOT } from '../api-config.js';
 import React, { Component } from 'react';
 import axios from 'axios';
 import moment from 'moment'
@@ -6,6 +6,11 @@ import BookModal from './book/BookModal'
 import BookModalContent from './book/BookModalContent'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+
+Date.prototype.addHours = function(h) {
+   this.setTime(this.getTime() + (h*60*60*1000));
+   return this;
+};
 
 class Schedule extends Component {
   constructor(props) {
@@ -18,42 +23,48 @@ class Schedule extends Component {
     }
   }
 
-  componentDidMount() {     
-    axios.get(`${RAILS_ROOT}/lessons`)
-      .then(resp => {
-        var evts = resp.data.reduce((arr, lesson) => {
-          let obj = {
-            id: lesson["id"],
-            title: lesson["title"],
-            description: lesson["description"],
-            start: new Date((lesson["start"]+600) * 1000),
-            end: new Date((lesson["start"]+3300) * 1000),
-            level: lesson["level"],
-            cost: lesson["cost"],
-            allDay: false
-          }
-          arr.push(obj)
-          return arr
-        }, [])
-
+  componentDidMount() {
+    const token = localStorage.getItem('token');     
+    axios.get(`${API_ROOT}/lessons`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(resp => { 
+        var payload = resp.data.lessons;
+        console.log(payload)
+        payload.forEach((p, i) => { 
+          var start = new Date(p.startTime)
+          p.start = start;
+          p.end = start.addHours(1);
+          p.allDay = false; 
+        } )
         this.setState({
-          schedule: evts
+          schedule: payload
         })
 
-      });
+      }).catch(err => {
+        console.log('SCHEDULE ERROR:', err)
+      })
   }
 
   handleSelection = (e) => {
-    var lessonIds = this.props.account.bookings.map(x => x.lesson_id)
-    if (lessonIds.includes(e.id)) {
-      this.rejectModal()
-      alert('You are already booked for this time.')
-    } else {
-      this.setState({
-        modalOpen: true,
-        modalData: e
-      })
-    }
+    // Can't wipe out this logic, its important //
+    // var lessonIds = this.props.account.bookings.map(x => x.lesson_id)
+    // if (lessonIds.includes(e.id)) {
+    //   this.rejectModal()
+    //   alert('You are already booked for this time.')
+    // } else {
+    //   this.setState({
+    //     modalOpen: true,
+    //     modalData: e
+    //   })
+    // }
+    this.setState({
+      modalOpen: true,
+      modalData: e
+    })
+
   }
 
   rejectModal = () => {
@@ -75,7 +86,6 @@ class Schedule extends Component {
 
   render() {
     const { schedule, modalOpen, modalData, showPayForm } = this.state
-    const { user, account } = this.props
     const localizer = momentLocalizer(moment)
 
     const message = `This is lesson ${modalData.title}.
@@ -85,14 +95,13 @@ class Schedule extends Component {
     if (modalOpen && modalData) {
       this.children = (
         <BookModalContent 
-          user={user}
-          account={account}
           message={message}
-          id={modalData.id}
-          cost={modalData.cost}
-          description={modalData.description}
-          start={modalData.start}
-          title={modalData.title}
+          oneLesson={modalData}
+          // id={modalData._id}
+          // cost={modalData.cost}
+          // description={modalData.description}
+          // start={modalData.start}
+          // title={modalData.title}
           handleLessonConfirmation={this.handleLessonConfirmation}
           handleLessonRejection={this.handleLessonRejection}
           showPayForm={showPayForm}

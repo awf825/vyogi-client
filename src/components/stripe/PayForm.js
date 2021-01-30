@@ -17,7 +17,12 @@ class PayForm extends Component {
   }
 
   componentDidMount() {
-    axios.get(`${API_ROOT}/stripe`)
+    const token = localStorage.getItem('token'); 
+    axios.get(`${API_ROOT}/stripe`, {
+      headers : {
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then(resp => {
         this.setState({
           stripeToken: loadStripe(resp.data)
