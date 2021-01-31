@@ -9,8 +9,6 @@ import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../urlUtils';
 import { logDailyEvent } from '../logUtils';
 import Cookies from 'universal-cookie'
 import './Video.css'
-const cookies = new Cookies();
-const currentVideoSession = cookies.get('videoToken')
 
 export const CallObjectContext = React.createContext();
 
@@ -23,12 +21,12 @@ const STATE_ERROR = 'STATE_ERROR';
 
 export const Video = (props) => {
   const initialState = {
-    showVideo: !!currentVideoSession,
     codeInput: ""
   }
   
   const [data, setData] = useState(initialState);
-  const [videoAppState, setAppState] = useState(!!currentVideoSession ? STATE_JOINED : STATE_IDLE);
+  // const [videoAppState, setAppState] = useState(!!currentVideoSession ? STATE_JOINED : STATE_IDLE);
+  const [videoAppState, setAppState] = useState(STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
   
@@ -38,30 +36,59 @@ export const Video = (props) => {
       [event.target.name]: event.target.value
     })
   }
+
+  // Old Code handling logic: 
+  //             .then(resp => {
+              // var validation = resp.data.reduce((x,y) => {
+              //   x.push(y)
+              //   return x
+              // }, []).find(el => el === data.codeInput)
+
+  const handleCodeSubmission = event => {
+    return axios.get(`${API_ROOT}/codes`)
+            .then(resp => {
+              if (true) {
+                setData({
+                  ...data,
+                  showVideo: true,
+                  codeInput: ""
+                })
+                createCall().then((url) => startJoiningCall(url))
+              } else {
+                alert('Code is invalid or lesson has not begun.')
+                setRoomUrl(null);
+                setAppState(STATE_IDLE);
+              }
+            }).catch(err => {
+              alert('code is invalid');
+            }
+          )
+  }               
+  // OLD LOGIC TO HANDLE ADMIN STATUS
+    //  if (!props.user.is_admin) {
+    //   return axios.get(
+    //     `${API_ROOT}/video_client`
+    //   ).then((resp) => {
+    //     console.log('resp at bucket:', resp)
+    //     if (resp.data.status === 404) {
+    //       alert(resp.data.message)
+    //     } else {
+    //       return resp.data.data.url
+    //     }
+    //   })
+    // }
   
   const createCall = useCallback(() => {
-    if (!props.user.is_admin) {
-      return axios.get(
-        `${API_ROOT}/video_client`
-      ).then((resp) => {
-        console.log('resp at bucket:', resp)
-        if (resp.data.status === 404) {
-          alert(resp.data.message)
-        } else {
-          return resp.data.data.url
-        }
-      })
-    } else {
-      setAppState(STATE_CREATING);
-      return dailyApi
-      .createRoom()
-      .then((room) => room.url)
-      .catch((error) => {
-        console.log('Error creating room', error);
-        setRoomUrl(null);
-        setAppState(STATE_IDLE);
-      });
-    }
+    setAppState(STATE_CREATING);
+    return dailyApi
+    .createRoom()
+    .then((room) => room.url)
+    .catch((error) => {
+      console.log('Error creating room', error);
+      alert('You are unauthorized to perform this action.')
+      setRoomUrl(null);
+      setAppState(STATE_IDLE);
+    });
   }, []);
   //THESE FUNCTIONS BOTH HAVE NO DEPENDENCIES BECAUSE THEY ARE CHAINED TOGETHER
   const startJoiningCall = useCallback((url) => {
@@ -246,28 +273,7 @@ export const Video = (props) => {
           />
           <button
             disabled={!enableStartButton}
-            onClick={(e) => {
-              axios.get(`${API_ROOT}/codes`)
-              .then(resp => {
-                var validation = resp.data.reduce((x,y) => {
-                  x.push(y)
-                  return x
-                }, []).find(el => el === data.codeInput)
-          
-                if (validation) {
-                  setData({
-                    ...data,
-                    showVideo: true,
-                    codeInput: ""
-                  })
-                  createCall().then((url) => startJoiningCall(url))
-                } else {
-                  alert('Code is invalid or lesson has not begun.')
-                  setRoomUrl(null);
-                  setAppState(STATE_IDLE);
-                }
-              })
-            }}
+            onClick={handleCodeSubmission}
           >
             Access
           </button>

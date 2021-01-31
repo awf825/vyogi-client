@@ -11,12 +11,22 @@ const newRoomEndpoint =
  * to use the Daily REST API to create rooms.
  */
 async function createRoom() {
-  let response = await fetch(newRoomEndpoint),
-  room = await response.json();
-  return room;
+  const user = sessionStorage.getItem('user');
+  const token = sessionStorage.getItem('token');
+  let options = {
+  	method: 'POST',
+  	headers: {
+  		Authorization: `Bearer ${token}`
+  	},
+  	body: JSON.stringify({
+  		user: user
+  	})
+  };
 
-  // Comment out the above and uncomment the below, using your own URL
-  // return { url: "https://your-domain.daily.co/hello" };
+  let response = await fetch(newRoomEndpoint, options),
+  	room = await response.json()
+
+  return room;
 }
 
 export default { createRoom };

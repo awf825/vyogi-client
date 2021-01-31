@@ -44,7 +44,6 @@ export default function Call(props) {
       dispatch({
         type: PARTICIPANTS_CHANGE,
         participants: callObject.participants(),
-        isAdmin: props.user.is_admin
       })
     }
   

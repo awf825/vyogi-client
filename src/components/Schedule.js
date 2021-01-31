@@ -32,9 +32,8 @@ class Schedule extends Component {
     })
       .then(resp => { 
         var payload = resp.data.lessons;
-        console.log(payload)
+        console.log('axios.get(`${API_ROOT}/lessons`:', payload)
         payload.forEach((p, i) => { 
-          console.log(p)
           var start = new Date(p.startTime)
           p.start = start;
           p.end = start.addHours(1);

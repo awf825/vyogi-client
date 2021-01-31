@@ -79,11 +79,9 @@ function getLocalCallItem(callItems) {
 function getCallItems(action, prevCallItems) {
   //debugger
   let callItems = { ...initialCallState.callItems }; // Ensure we *always* have a local participant
-  const { participants, isAdmin } = action 
-
   // console.log('callItems at before loop in getCallItems:', callItems)
   
-  for (const [id, participant] of Object.entries(participants)) {
+  for (const [id, participant] of Object.entries(action.participants)) {
     // if (isAdmin && isLocal(id)) {
     //   change event participant to owner
     // }
@@ -100,7 +98,7 @@ function getCallItems(action, prevCallItems) {
       isLoading: !hasLoaded && missingTracks,
       audioTrack: participant.audioTrack,
       videoTrack: participant.videoTrack,
-      isMainScreen: isAdmin && isLocal(id)
+      isMainScreen: isLocal(id)
     };
   }
   // Maybe here I should void audio and video for non admin parties? Or inside of the loop?

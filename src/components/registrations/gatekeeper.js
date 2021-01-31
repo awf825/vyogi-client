@@ -14,6 +14,8 @@ function serverErrorHandler(err) {
       case 401:
         alert('UNAUTHORIZED')
         return
+      // case 500: 
+      //   alert('I\'m sorry, we cannot process your request at this time. Please try again later.')
       default:
         return;
   	}
