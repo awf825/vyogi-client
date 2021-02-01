@@ -1,6 +1,7 @@
 import { API_ROOT } from '../../api-config.js';
 
 const newRoomEndpoint =
+	
   `${API_ROOT}/video`;
 
 /**

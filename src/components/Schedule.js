@@ -36,7 +36,7 @@ class Schedule extends Component {
         payload.forEach((p, i) => { 
           var start = new Date(p.startTime)
           p.start = start;
-          p.end = start.addHours(1);
+          p.end = start;
           p.allDay = false; 
         } )
         this.setState({

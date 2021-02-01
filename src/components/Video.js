@@ -37,46 +37,44 @@ export const Video = (props) => {
     })
   }
 
-  // Old Code handling logic: 
-  //             .then(resp => {
-              // var validation = resp.data.reduce((x,y) => {
-              //   x.push(y)
-              //   return x
-              // }, []).find(el => el === data.codeInput)
-
   const handleCodeSubmission = event => {
-    return axios.get(`${API_ROOT}/codes`)
+    const isAdmin = sessionStorage.getItem('admin');
+    const token = sessionStorage.getItem('token'); 
+    const user = sessionStorage.getItem('user');
+    // EVENTUALLY PUT ADMIN LAUNCH ON ITS OWN CHANNEL 
+    //if (data.codeInput === "thisisatest") { createCall().then((url) => startJoiningCall(url)) }
+    return axios.post(`${API_ROOT}/video_client`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              code: data.codeInput
+            })
+          })
             .then(resp => {
-              if (true) {
+              debugger
+              return
+              const bookings = resp.data.lesson[0].bookings
+              var codeArray = bookings.map(bkg => bkg.code)
+              if (codeArray.includes(data.codeInput)) {
                 setData({
                   ...data,
                   showVideo: true,
                   codeInput: ""
                 })
-                createCall().then((url) => startJoiningCall(url))
+                // debugger
+                // DON'T CREATE CALL, JOIN. ROUTE CONDITION TO dailyApi
+                //createCall().then((url) => startJoiningCall(url))
               } else {
-                alert('Code is invalid or lesson has not begun.')
+                alert('Code is Invalid')
                 setRoomUrl(null);
                 setAppState(STATE_IDLE);
               }
             }).catch(err => {
-              alert('code is invalid');
+              alert('We could not handle your request at this time.');
             }
           )
   }               
-  // OLD LOGIC TO HANDLE ADMIN STATUS
-    //  if (!props.user.is_admin) {
-    //   return axios.get(
-    //     `${API_ROOT}/video_client`
-    //   ).then((resp) => {
-    //     console.log('resp at bucket:', resp)
-    //     if (resp.data.status === 404) {
-    //       alert(resp.data.message)
-    //     } else {
-    //       return resp.data.data.url
-    //     }
-    //   })
-    // }
   
   const createCall = useCallback(() => {
     setAppState(STATE_CREATING);

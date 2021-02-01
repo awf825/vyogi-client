@@ -38,6 +38,7 @@ export const Login = (props) => {
       console.log('axios.post(mainUrl, {...payload}).then(resp =>', resp)
       sessionStorage.setItem('token', resp.data.token);
       sessionStorage.setItem('user', resp.data._id);
+      sessionStorage.setItem('admin', resp.data.isAdmin);
     })
       .then( _ => { props.history.push('/') } )
       .catch(err => {
