@@ -2,13 +2,12 @@ import { API_ROOT } from '../api-config.js';
 import React, { useCallback, useState, useEffect } from 'react'
 import Call from './video/call/Call';
 import Tray from './video/tray/Tray';
-import axios from 'axios'
 import dailyApi from './video/dailyApi'
 import DailyIframe from '@daily-co/daily-js';
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../urlUtils';
 import { logDailyEvent } from '../logUtils';
-import Cookies from 'universal-cookie'
 import './Video.css'
+
 // TODO: USE GLOBAL CONTEXT
 const isAdmin = sessionStorage.getItem('admin');
 const token = sessionStorage.getItem('token'); 
@@ -30,7 +29,6 @@ export const Video = (props) => {
   }
   
   const [data, setData] = useState(initialState);
-  // const [videoAppState, setAppState] = useState(!!currentVideoSession ? STATE_JOINED : STATE_IDLE);
   const [videoAppState, setAppState] = useState(STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
@@ -42,42 +40,29 @@ export const Video = (props) => {
     })
   }
 
-  const handleCodeSubmission = event => {
+  const handleCodeSubmission = async event => {
     const token = sessionStorage.getItem('token'); 
     const code = data.codeInput
-    // EVENTUALLY PUT ADMIN LAUNCH ON ITS OWN CHANNEL 
-    //if (data.codeInput === "thisisatest") { createCall().then((url) => startJoiningCall(url)) }
-    return axios.post(`${API_ROOT}/video_client`, {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-              code: code
-            })
-          })
-            .then(resp => {
-              debugger
-              return
-              const bookings = resp.data.lesson[0].bookings
-              var codeArray = bookings.map(bkg => bkg.code)
-              if (codeArray.includes(data.codeInput)) {
-                setData({
-                  ...data,
-                  showVideo: true,
-                  codeInput: ""
-                })
-                debugger
-                // DON'T CREATE CALL, JOIN. ROUTE CONDITION TO dailyApi
-                //createCall().then((url) => startJoiningCall(url))
-              } else {
-                alert('Code is Invalid')
-                setRoomUrl(null);
-                setAppState(STATE_IDLE);
-              }
-            }).catch(err => {
-              alert('We could not handle your request at this time.');
-            }
-          )
+    let options = {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          code: code
+        })
+    }
+
+    let response = await fetch(`${API_ROOT}/video_client`, options),
+      payload = await response.json()
+    
+    if (payload) {
+      startJoiningCall(payload)
+    } else {
+      alert('We could not handle your request at this time.');
+      setRoomUrl(null);
+      setAppState(STATE_IDLE);
+    }
   }  
 
   const handleVideoLaunch = event => {
@@ -98,6 +83,7 @@ export const Video = (props) => {
   }, []);
   //THESE FUNCTIONS BOTH HAVE NO DEPENDENCIES BECAUSE THEY ARE CHAINED TOGETHER
   const startJoiningCall = useCallback((url) => {
+    debugger
     if (url === undefined) {
       return
     } else {
@@ -114,18 +100,6 @@ export const Video = (props) => {
     // * Disabling the start button until then avoids that scenario.
     // * !!!
     // */
-    // SO HERE, WHEN LOOKING TO MAKE A NEW CALL, CHECK IF
-    // USER IS TRAINER LOOKING TO MAKE A NEW LESSON (LAMBDA)
-    // OR IF USER IS A CLIENT ENTERING CODE
-    // try {
-    //   const newCallObject = DailyIframe.createCallObject();
-    //   setRoomUrl(url);
-    //   setCallObject(newCallObject);
-    //   setAppState(STATE_JOINING);
-    //   newCallObject.join({ url });
-    // } catch(err) {
-    //   alert(err)
-    // }
   }, []);
   
   const showCall = [STATE_JOINING, STATE_JOINED, STATE_ERROR].includes(
@@ -295,4 +269,4 @@ export const Video = (props) => {
   )
 }
 
-export default Video
+export default Video;
