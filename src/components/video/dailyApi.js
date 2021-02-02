@@ -1,7 +1,9 @@
 import { API_ROOT } from '../../api-config.js';
+const isAdmin = sessionStorage.getItem('admin');
+const token = sessionStorage.getItem('token'); 
+const user = sessionStorage.getItem('user');
 
 const newRoomEndpoint =
-	
   `${API_ROOT}/video`;
 
 /**
@@ -11,6 +13,7 @@ const newRoomEndpoint =
  * See https://docs.daily.co/reference#create-room for more information on how
  * to use the Daily REST API to create rooms.
  */
+
 async function createRoom() {
   const user = sessionStorage.getItem('user');
   const token = sessionStorage.getItem('token');
@@ -25,9 +28,13 @@ async function createRoom() {
   };
 
   let response = await fetch(newRoomEndpoint, options),
-  	room = await response.json()
+  	payload = await response.json()
 
-  return room;
+  if (payload.bucket) {
+    return payload.room
+  } else {
+    return new Error()
+  }
 }
 
 export default { createRoom };

@@ -9,6 +9,10 @@ import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../urlUtils';
 import { logDailyEvent } from '../logUtils';
 import Cookies from 'universal-cookie'
 import './Video.css'
+// TODO: USE GLOBAL CONTEXT
+const isAdmin = sessionStorage.getItem('admin');
+const token = sessionStorage.getItem('token'); 
+const user = sessionStorage.getItem('user');
 
 export const CallObjectContext = React.createContext();
 
@@ -21,7 +25,8 @@ const STATE_ERROR = 'STATE_ERROR';
 
 export const Video = (props) => {
   const initialState = {
-    codeInput: ""
+    codeInput: "",
+    showVideo: false
   }
   
   const [data, setData] = useState(initialState);
@@ -38,9 +43,8 @@ export const Video = (props) => {
   }
 
   const handleCodeSubmission = event => {
-    const isAdmin = sessionStorage.getItem('admin');
     const token = sessionStorage.getItem('token'); 
-    const user = sessionStorage.getItem('user');
+    const code = data.codeInput
     // EVENTUALLY PUT ADMIN LAUNCH ON ITS OWN CHANNEL 
     //if (data.codeInput === "thisisatest") { createCall().then((url) => startJoiningCall(url)) }
     return axios.post(`${API_ROOT}/video_client`, {
@@ -48,7 +52,7 @@ export const Video = (props) => {
               'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-              code: data.codeInput
+              code: code
             })
           })
             .then(resp => {
@@ -62,7 +66,7 @@ export const Video = (props) => {
                   showVideo: true,
                   codeInput: ""
                 })
-                // debugger
+                debugger
                 // DON'T CREATE CALL, JOIN. ROUTE CONDITION TO dailyApi
                 //createCall().then((url) => startJoiningCall(url))
               } else {
@@ -74,7 +78,11 @@ export const Video = (props) => {
               alert('We could not handle your request at this time.');
             }
           )
-  }               
+  }  
+
+  const handleVideoLaunch = event => {
+    createCall().then((url) => startJoiningCall(url))
+  }             
   
   const createCall = useCallback(() => {
     setAppState(STATE_CREATING);
@@ -274,6 +282,12 @@ export const Video = (props) => {
             onClick={handleCodeSubmission}
           >
             Access
+          </button>
+          <button 
+            disabled={!sessionStorage.getItem('admin')}
+            onClick={handleVideoLaunch}
+          >
+            Launch as admin
           </button>
         </div>
       )}
