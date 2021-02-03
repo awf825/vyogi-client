@@ -1,4 +1,13 @@
-## IMPORTANT SCRIPTS, GOTCHAS, AND THINGS TO KNOW
+Setup:
+```
+git checkout beta 
+git pull origin beta 
+git checkout -b <your-branch>
+npm install
+npm run start
+```
+ONLY WORK ON YOUR BRANCH. 
+
 (IF S3 DEPLOY IS NOT WORKING)
 It's likely Cloudfront caching the previous deployment.
 
