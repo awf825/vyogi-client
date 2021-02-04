@@ -22,6 +22,10 @@ const RegistrationLogin = (props) => {
     return;
   }
 
+  if (!props.location.openModal) {
+    history.push("/");
+  }
+
   return (
     <div className="wrap">
       <RegistrationModal show={showModal} handleClose={closeModal} head="Login">

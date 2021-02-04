@@ -19,6 +19,10 @@ const RegistrationSignUp = (props) => {
     setShowModal(true);
     return;
   }
+
+  if (!props.location.openModal) {
+    history.push("/");
+  }
   return (
     <div className="wrap">
       <RegistrationModal
