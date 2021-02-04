@@ -1,0 +1,15 @@
+In these files I have moved some things around for the registration of users.  
+I npm installed react-hook-form, and react-icons. 
+The react-icons was used just to spruce up some of the components looks.
+The react-hook-form is being used to handle the login and sign up logic.  It makes it much cleaner and easier to use.
+The documentation for this library is fantastic.  
+The modal works very well.  There is a warning in the console but that is because of the Strict mode tags around the App component in the index.  
+I haven't tested trying to create or login as a user yet. I'm a little confused on the logic for the login/signup so I'll let you look it over first before I redo anything.
+I also have all the styles inline right now.  I can change these in the future just wanted basic styles.
+
+
+NOTE!
+    THE MODAL FOR LOGIN AND SIGN UP WILL ONLY WORK IF YOU COME FROM THE NAV LINK OR GO TO /registration FIRST!
+
+
+Let me know what you think!
