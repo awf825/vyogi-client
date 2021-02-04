@@ -8,6 +8,8 @@ npm run start
 ```
 ONLY WORK ON YOUR BRANCH. 
 
+Make sure you signed in as a test user so you can make authenticated requests. 
+
 (IF S3 DEPLOY IS NOT WORKING)
 It's likely Cloudfront caching the previous deployment.
 

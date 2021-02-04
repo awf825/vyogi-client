@@ -13,7 +13,10 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Switch>
+          // Login from the header/nav presents the login component
           <Route exact path="/register" component={Login} />
+          // Right now, header/nav is always in dashboard but non existent elsewhere,
+          // you can play with that if you want
           <Route exact path="/" render={props => (
             <Dashboard {...props} />
           )}/>

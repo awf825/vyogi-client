@@ -2,6 +2,13 @@
 	SIMPLE LIBRARY TO CLEAN UP SOME
 	OF THE AUTH CODE IN LOGIN.JS THAT 
 	CHECKS FOR SUCCESS/FAILURE.
+
+  You can definitely have a lot of fun with this. None of these codes are set
+  in stone and its gonna take a little digging to make sure all "unexpected"
+  errors don't do any unexpected things in this file. The better side of this 
+  is that you can go into the backend yourself and link up the errors yourself,
+  I'm not married to anything and there are a lot of cool http status codes you
+  can choose from
 */
 function serverErrorHandler(err) {
 	switch (err.response.status) {
@@ -21,6 +28,7 @@ function serverErrorHandler(err) {
   	}
 };
 
+// 
 function clientErrorHandler(input) {
   for (const prop in input) {
   	if (input[prop].length < 1) {

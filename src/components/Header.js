@@ -4,19 +4,24 @@ import { API_ROOT } from '../api-config.js';
 import axios from 'axios';
 
 export const Header = (props) => {
+  // Logout right now makes a call to backend that
+  // simply sends back 204. The alert at line 18
+  // is what you want to target. For now, don't worry about this  
+  // particular error handle.
   const logout = () => {
-    axios.post(`${API_ROOT}/signout`).then(resp => {
-      if (resp.status === 204) {
-        alert('NON-GENERIC goodbye');
-      }
-    })
+    axios.post(`${API_ROOT}/signout`)
+      .then(resp => {
+        if (resp.status === 204) {
+          alert('goodbye');
+        }
+      })
       .then( _ => { sessionStorage.clear() } )
       .then( _ => { props.history.push('/') } )
       .catch(err => { console.log('ERROR AT SIGNOUT:', err) } )
   };
 
   return (
-
+    // 
     <div>
       <Nav justify variant="tabs" defaultActiveKey="/home">
         <Nav.Item>
