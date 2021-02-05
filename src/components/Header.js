@@ -32,6 +32,8 @@ export const Header = (props) => {
   //     });
   // };
 
+  // I commented out the original signout and abstracted it to the signout method.
+  // I also added an Icon for the registration section let me know what you think.
   const history = useHistory();
   const logout = () => {
     signout(() => history.pushState("/"));
