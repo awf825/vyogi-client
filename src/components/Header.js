@@ -17,7 +17,7 @@ export const Header = (props) => {
         }
       })
       .then((_) => {
-        sessionStorage.clear();
+        localStorage.clear();
       })
       .then((_) => {
         props.history.push("/");

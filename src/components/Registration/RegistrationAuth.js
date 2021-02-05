@@ -1,6 +1,6 @@
 const authenticate = (data, next) => {
-  if (typeof window !== "undefined") {
-    localStorage.setItem("jwt", JSON.stringify(data));
+  if ((typeof window !== "undefined") && (data.token)) {
+    localStorage.setItem("jwt", JSON.stringify(data.token));
     next();
   }
 };

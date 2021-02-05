@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import axios from "axios";
+import { API_ROOT } from "../../api-config.js";
 import { useHistory } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -10,18 +11,29 @@ const RegistrationSignUpForm = () => {
   const password = useRef({});
   password.current = watch("password", "");
 
-  const createUser = async (data) => {
-    try {
-      const resp = await axios.post("URL", data);
-      console.log(resp);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const createUser = async (data) => {
+  //   try {
+  //     const resp = await axios.post(`${API_ROOT}/signup`, data);
+  //     console.log(resp);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  // function onSubmit(data) {
+  //   createUser(data);
+  //   history.push("/");
+  // }
 
   function onSubmit(data) {
-    createUser(data);
-    history.push("/");
+    axios.post(`${API_ROOT}/signup`, data)
+      .then(resp => {
+        if (resp.data.token) {
+          localStorage.setItem('token', resp.data.token)
+        }
+      })
+      .then( _ => history.push('/'))
+      .catch(err => console.log(err))
   }
 
   function isEmail(email) {
@@ -71,13 +83,13 @@ const RegistrationSignUpForm = () => {
             requred: true,
             validate: (value) => value === password.current,
           })}
-          name="passwordComf"
+          name="passwordConf"
           type="password"
           placeholder="Password"
         />
         <h1>
-          {errors.passwordComf?.type === "required" && "Password is required!"}
-          {errors.passwordComf?.type === "validate" &&
+          {errors.passwordConf?.type === "required" && "Password is required!"}
+          {errors.passwordConf?.type === "validate" &&
             "Passwords Do Not Match!"}
         </h1>
       </Form.Group>

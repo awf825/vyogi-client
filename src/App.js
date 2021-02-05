@@ -19,7 +19,7 @@ function App() {
           // Login from the header/nav presents the login component
           <Route exact path="/register" component={Login} />
           // Right now, header/nav is always in dashboard but non existent
-          elsewhere, // you can play with that if you want
+          //elsewhere,you can play with that if you want
           <Route exact path="/registration" component={RegistrationRouter} />
           <Route
             exact
@@ -36,7 +36,7 @@ function App() {
           <Route
             exact
             path="/schedule"
-            render={(props) => <Schedule session {...props} />}
+            render={(props) => <Schedule {...props} />}
           />
         </Switch>
       </div>
