@@ -8,6 +8,7 @@ export const Header = (props) => {
   // simply sends back 204. The alert at line 18
   // is what you want to target. For now, don't worry about this
   // particular error handle.
+
   const logout = () => {
     axios
       .post(`${API_ROOT}/signout`)
@@ -28,7 +29,6 @@ export const Header = (props) => {
   };
 
   return (
-    // I added the registration link just to show you what I've been working on we can reroute everything later on if you like what I did
     <div>
       <Nav justify variant="tabs" defaultActiveKey="/home">
         <Nav.Item>

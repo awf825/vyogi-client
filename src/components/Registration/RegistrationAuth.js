@@ -1,6 +1,6 @@
-const authenticate = (data, next) => {
-  if ((typeof window !== "undefined") && (data.token)) {
-    localStorage.setItem("jwt", JSON.stringify(data.token));
+export const authenticate = (data, next) => {
+  if (typeof window !== "undefined" && data.token) {
+    localStorage.setItem("token", JSON.stringify(data.token));
     next();
   }
 };
@@ -11,19 +11,14 @@ const authenticate = (data, next) => {
 //   if (typeof window == "undefined") {
 //     return false;
 //   }
-//   if (localStorage.getItem("jwt")) {
-//     return JSON.parse(localStorage.getItem("jwt"));
+//   if (localStorage.getItem("token")) {
+//     return JSON.parse(localStorage.getItem("token"));
 //   } else {
 //     return false;
 //   }
 // };
 
-const signout = (next) => {
+export const signout = (next) => {
   if (typeof window !== "undefined") localStorage.removeItem("jwt");
   next();
-};
-
-export default {
-  authenticate,
-  signout,
 };

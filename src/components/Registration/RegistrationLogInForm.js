@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import axios from "axios";
 import { API_ROOT } from "../../api-config.js";
-import authenticate from "./RegistrationAuth";
+import { authenticate } from "./RegistrationAuth";
 import { useHistory } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -14,26 +14,26 @@ const RegistrationLoginForm = () => {
   password.current = watch("password", "");
 
   // Login User function has not been tested.  We can change it however you want.
-  // const loginUser = async (data) => {
-  //   try {
-  //     const resp = await axios.post(`${API_ROOT}/signin`, data);
-  //     authenticate(resp.data, () => {
-  //       history.push("/");
-  //     });
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
   const loginUser = async (data) => {
-    axios.post(`${API_ROOT}/signin`, data)
-      .then(resp => {
-        if (resp.data.token) {
-          localStorage.setItem('token', resp.data.token);
-        }
-      })
-      .then( _ => history.push("/"))
-      .catch(err => console.log(err))
+    try {
+      const resp = await axios.post(`${API_ROOT}/signin`, data);
+      if (resp) authenticate(resp.data, () => history.push("/"));
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+  // const loginUser = async (data) => {
+  //   axios
+  //     .post(`${API_ROOT}/signin`, data)
+  //     .then((resp) => {
+  //       if (resp.data.token) {
+  //         localStorage.setItem("token", resp.data.token);
+  //       }
+  //     })
+  //     .then((_) => history.push("/"))
+  //     .catch((err) => console.log(err));
+  // };
 
   function onSubmit(data) {
     loginUser(data);

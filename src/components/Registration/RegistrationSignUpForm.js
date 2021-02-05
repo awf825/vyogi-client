@@ -4,6 +4,7 @@ import { API_ROOT } from "../../api-config.js";
 import { useHistory } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { authenticate } from "./RegistrationAuth";
 
 const RegistrationSignUpForm = () => {
   const { register, handleSubmit, errors, watch } = useForm();
@@ -11,30 +12,32 @@ const RegistrationSignUpForm = () => {
   const password = useRef({});
   password.current = watch("password", "");
 
-  // const createUser = async (data) => {
-  //   try {
-  //     const resp = await axios.post(`${API_ROOT}/signup`, data);
-  //     console.log(resp);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
-  // function onSubmit(data) {
-  //   createUser(data);
-  //   history.push("/");
-  // }
+  const createUser = async (data) => {
+    try {
+      const resp = await axios.post(`${API_ROOT}/signup`, data);
+      if (resp) {
+        authenticate(resp.data, () => history.push("/"));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   function onSubmit(data) {
-    axios.post(`${API_ROOT}/signup`, data)
-      .then(resp => {
-        if (resp.data.token) {
-          localStorage.setItem('token', resp.data.token)
-        }
-      })
-      .then( _ => history.push('/'))
-      .catch(err => console.log(err))
+    createUser(data);
+    history.push("/");
   }
+
+  // function onSubmit(data) {
+  //   axios.post(`${API_ROOT}/signup`, data)
+  //     .then(resp => {
+  //       if (resp.data.token) {
+  //         localStorage.setItem('token', resp.data.token)
+  //       }
+  //     })
+  //     .then( _ => history.push('/'))
+  //     .catch(err => console.log(err))
+  // }
 
   function isEmail(email) {
     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
