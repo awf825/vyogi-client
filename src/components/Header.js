@@ -1,7 +1,11 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
-import { API_ROOT } from "../api-config.js";
-import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { signout } from "./Registration/RegistrationAuth";
+import { GoPerson } from "react-icons/go";
+
+// import { API_ROOT } from "../api-config.js";
+// import axios from "axios";
 
 export const Header = (props) => {
   // Logout right now makes a call to backend that
@@ -9,23 +13,28 @@ export const Header = (props) => {
   // is what you want to target. For now, don't worry about this
   // particular error handle.
 
+  // const logout = () => {
+  //   axios
+  //     .post(`${API_ROOT}/signout`)
+  //     .then((resp) => {
+  //       if (resp.status === 204) {
+  //         alert("goodbye");
+  //       }
+  //     })
+  //     .then((_) => {
+  //       localStorage.clear();
+  //     })
+  //     .then((_) => {
+  //       props.history.push("/");
+  //     })
+  //     .catch((err) => {
+  //       console.log("ERROR AT SIGNOUT:", err);
+  //     });
+  // };
+
+  const history = useHistory();
   const logout = () => {
-    axios
-      .post(`${API_ROOT}/signout`)
-      .then((resp) => {
-        if (resp.status === 204) {
-          alert("goodbye");
-        }
-      })
-      .then((_) => {
-        localStorage.clear();
-      })
-      .then((_) => {
-        props.history.push("/");
-      })
-      .catch((err) => {
-        console.log("ERROR AT SIGNOUT:", err);
-      });
+    signout(() => history.pushState("/"));
   };
 
   return (
@@ -37,9 +46,7 @@ export const Header = (props) => {
         <Nav.Item>
           <Nav.Link href="/video">Go To Lesson</Nav.Link>
         </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="/registration">Register</Nav.Link>
-        </Nav.Item>
+
         {props.session ? (
           <Nav.Item>
             <Nav.Link href="/" onSelect={logout}>
@@ -47,8 +54,13 @@ export const Header = (props) => {
             </Nav.Link>
           </Nav.Item>
         ) : (
+          // <Nav.Item>
+          //   <Nav.Link href="/register">Log In</Nav.Link>
+          // </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="/register">Log In</Nav.Link>
+            <Nav.Link href="/registration">
+              <GoPerson />
+            </Nav.Link>
           </Nav.Item>
         )}
       </Nav>

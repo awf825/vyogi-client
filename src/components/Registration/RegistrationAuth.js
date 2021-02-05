@@ -19,6 +19,6 @@ export const authenticate = (data, next) => {
 // };
 
 export const signout = (next) => {
-  if (typeof window !== "undefined") localStorage.removeItem("jwt");
+  if (typeof window !== "undefined") localStorage.clear();
   next();
 };
