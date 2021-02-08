@@ -31,6 +31,7 @@ const RegistrationLoginForm = () => {
     }
   };
 
+  // Handles errors from the server such as a 401
   if (showErrors) {
     return (
       <Alert variant="danger" onClose={() => setShowErrors(false)} dismissible>
@@ -49,6 +50,7 @@ const RegistrationLoginForm = () => {
     return regex.test(email);
   }
 
+  // The h4 handles errors in the form
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)}>
