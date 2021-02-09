@@ -8,7 +8,7 @@ originalHost = 'http://localhost:3001';
 if(hostname === 'localhost') {
   backendHost = 'http://localhost:3090'
 } else if (hostname === 'www.yogastaging.net') {
-  backendHost = 'http://eb-vyogi-dev.us-east-1.elasticbeanstalk.com'
+  backendHost = 'https://api.yogastaging.net'
 };
 
 const API_ROOT = backendHost;
