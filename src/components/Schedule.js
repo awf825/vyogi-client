@@ -25,7 +25,7 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     axios
       .get(`${API_ROOT}/lessons`, {
         headers: {

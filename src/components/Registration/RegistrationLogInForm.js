@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 
 const RegistrationLoginForm = () => {
   // Initial State
-  const { register, handleSubmit, errors, watch } = useForm();
+  const { register, handleSubmit, errors, watch, reset } = useForm();
   const [showErrors, setShowErrors] = useState(false);
   const [errorHandling, setErrorHandling] = useState("");
   const history = useHistory();
@@ -31,10 +31,27 @@ const RegistrationLoginForm = () => {
     }
   };
 
+  if (errors && errorHandling === "") {
+    if (errors.password) {
+      setErrorHandling(`${errors.password.message}`);
+      setShowErrors(true);
+    }
+    if (errors.email) {
+      setErrorHandling(`${errors.email.message}`);
+      setShowErrors(true);
+    }
+  }
+
   // Handles errors from the server such as a 401
   if (showErrors) {
     return (
-      <Alert variant="danger" onClose={() => setShowErrors(false)} dismissible>
+      <Alert
+        variant="danger"
+        onClose={() => (
+          setShowErrors(false), setErrorHandling(""), reset(errors)
+        )}
+        dismissible
+      >
         <Alert.Heading>{errorHandling}</Alert.Heading>
       </Alert>
     );
@@ -54,16 +71,14 @@ const RegistrationLoginForm = () => {
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <h4 style={{ color: "red" }}>
-          {errors.email?.type === "required" && "Email is required!"}
-          {errors.password?.type === "required" && "Password is required!"}
-          {errors.password?.type === "minLength" && errors.password?.message}
-        </h4>
         <Form.Group>
           <Form.Label>Email</Form.Label>
           <Form.Control
             ref={register({
-              required: true,
+              required: {
+                value: true,
+                message: "Email is required!",
+              },
               validate: (input) => isEmail(input),
             })}
             name="email"
@@ -75,7 +90,10 @@ const RegistrationLoginForm = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             ref={register({
-              requred: true,
+              required: {
+                value: true,
+                message: "Password is required!",
+              },
               minLength: {
                 value: 5,
                 message: "Password is too short!",

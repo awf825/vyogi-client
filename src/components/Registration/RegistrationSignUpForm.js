@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { authenticate } from "./RegistrationAuth";
 
 const RegistrationSignUpForm = () => {
-  const { register, handleSubmit, errors, watch } = useForm();
+  const { register, handleSubmit, errors, watch, reset } = useForm();
   const [showErrors, setShowErrors] = useState(false);
   const [errorHandling, setErrorHandling] = useState("");
   const history = useHistory();
@@ -34,35 +34,54 @@ const RegistrationSignUpForm = () => {
     createUser(data);
   }
 
-  // Hanldes if there is a server error such as a 402
+  // Checks to see if there is an error
+  if (errors && errorHandling === "") {
+    if (errors.password) {
+      setErrorHandling(`${errors.password.message}`);
+      setShowErrors(true);
+    }
+    if (errors.email) {
+      setErrorHandling(`${errors.email.message}`);
+      setShowErrors(true);
+    }
+
+    if (errors.passwordConf) {
+      setErrorHandling(`${errors.passwordConf.message}`);
+      setShowErrors(true);
+    }
+  }
+
+  // Hanldes showing all errors
   if (showErrors) {
     return (
-      <Alert variant="danger" onClose={() => setShowErrors(false)} dismissible>
+      <Alert
+        variant="danger"
+        onClose={() => (
+          setShowErrors(false), setErrorHandling(""), reset(errors)
+        )}
+        dismissible
+      >
         <Alert.Heading>{errorHandling}</Alert.Heading>
       </Alert>
     );
   }
 
+  // Email validation
   function isEmail(email) {
     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regex.test(email);
   }
 
-  // The h4 handles all the form errors
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <h4 style={{ color: "red" }}>
-        {errors.email?.type === "required" && "Email is required!"}
-        {errors.password?.type === "required" && "Password is required!"}
-        {errors.password?.type === "minLength" && errors.password?.message}
-        {errors.passwordConf?.type === "required" && "Password is required!"}
-        {errors.passwordConf?.type === "validate" && "Passwords Do Not Match!"}
-      </h4>
       <Form.Group>
         <Form.Label>Email</Form.Label>
         <Form.Control
           ref={register({
-            required: true,
+            required: {
+              value: true,
+              message: "Email is required!",
+            },
             validate: (input) => isEmail(input),
           })}
           name="email"
@@ -74,7 +93,10 @@ const RegistrationSignUpForm = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control
           ref={register({
-            requred: true,
+            required: {
+              value: true,
+              message: "Password is required!",
+            },
             minLength: {
               value: 5,
               message: "Password is too short!",
@@ -90,12 +112,18 @@ const RegistrationSignUpForm = () => {
         <Form.Label>Confirm Password</Form.Label>
         <Form.Control
           ref={register({
-            requred: true,
-            validate: (value) => value === password.current,
+            required: {
+              value: true,
+              message: "Please confirm password!",
+            },
+            matched: {
+              validate: (value) => value === password.current,
+              message: "Passwords do not match!",
+            },
           })}
           name="passwordConf"
           type="password"
-          placeholder="Password"
+          placeholder="Confirm Password"
         />
       </Form.Group>
       <Button type="submit">Submit</Button>
