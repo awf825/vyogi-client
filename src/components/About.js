@@ -1,0 +1,47 @@
+import React from "react";
+import aboutPic from "./pictures/placeholder_about.jpg";
+
+const About = () => {
+  return (
+    <div className="about">
+      <h1 className="about__heading">About Us</h1>
+      <div className="about__main">
+        <img className="about__img" src={aboutPic} alt="about picture" />
+        <p className="about__text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+          ut augue vel nisl gravida sagittis. Donec sollicitudin egestas orci,
+          et dignissim ex commodo ut. Donec scelerisque hendrerit risus et
+          maximus. Nam et dictum magna. Donec ac suscipit ex. Donec suscipit
+          lorem ac ex volutpat, sit amet bibendum velit elementum. Quisque
+          mattis scelerisque dolor, sit amet eleifend mauris efficitur vitae. In
+          ut erat quis odio vulputate lobortis id ut lorem. Sed sit amet arcu in
+          odio mattis malesuada. Curabitur porta, magna at vestibulum eleifend,
+          risus est tincidunt erat, id venenatis urna elit at erat. Phasellus
+          rutrum dictum elit sit amet volutpat. Duis ligula dui, scelerisque
+          vitae pharetra id, congue dapibus eros. Etiam at odio venenatis,
+          commodo odio at, posuere turpis. Phasellus mollis auctor libero, non
+          mollis quam dapibus in. Ut eu nisi eget velit laoreet cursus. Fusce at
+          dictum justo. Ut ante enim, malesuada dignissim mauris ac, sodales
+          rutrum dui. Fusce vitae felis a nibh interdum tempor. Vivamus
+          vulputate at augue non molestie. Sed eget eros nisi. Quisque congue,
+          libero vel auctor suscipit, turpis nisl tincidunt purus, at tempor
+          urna ligula et turpis. Vestibulum ante ipsum primis in faucibus orci
+          luctus et ultrices posuere cubilia curae; Nulla ligula ipsum, pharetra
+          et congue id, vulputate eu augue. Ut fermentum, lorem eu sollicitudin
+          pretium, arcu elit ultricies lacus, et varius quam tortor at enim.
+          Aenean purus turpis, sagittis vel ullamcorper sed, volutpat eu purus.
+          Cras viverra, diam a aliquet placerat, justo lectus mollis quam, in
+          imperdiet enim orci mattis lectus. Pellentesque eu ligula dignissim
+          eros mollis tempus id vitae nunc. Nunc eget vulputate neque, a aliquam
+          nisi. Suspendisse potenti. Class aptent taciti sociosqu ad litora
+          torquent per conubia nostra, per inceptos himenaeos. Donec a elit
+          tincidunt, rutrum tellus ac, aliquam elit. Morbi gravida arcu sit amet
+          magna lacinia, eget fringilla arcu tincidunt. Donec porttitor turpis
+          at lorem rhoncus, ac venenatis mi interdum. Morbi in varius urna.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default About;

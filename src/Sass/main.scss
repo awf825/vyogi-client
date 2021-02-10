@@ -13,5 +13,8 @@
 
 // Sass Layouts
 @import "./layouts/loader";
+@import "./layouts/header";
 
 // Sass Pages
+@import "./pages/about";
+@import "./pages/home";

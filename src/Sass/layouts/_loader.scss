@@ -1,17 +1,47 @@
 .loader {
-  height: 200px;
-  position: relative;
-  width: 200px;
+  align-items: center;
+  background-color: #f7f7f7;
+  display: flex;
+  font-family: sans-serif;
+  height: 100vh;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+
+  &__body {
+    height: 200px;
+    position: relative;
+    width: 200px;
+  }
 
   &__ring {
-    animation: rotate 1s linear infinite;
-    border-left: 4px solid #262626;
+    animation: rotate 2s linear infinite;
+    border-left: 4px solid red;
     border-radius: 50%;
     height: 100%;
     width: 100%;
   }
 
+  &__ring_two {
+    animation: rotate 1.75s linear infinite;
+    border-left: 4px solid blue;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    margin-top: -200px;
+  }
+
+  &__ring_three {
+    animation: rotate 1.5s linear infinite;
+    border-left: 4px solid yellow;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    margin-top: -200px;
+  }
+
   &__text {
+    animation: pulse 2s linear infinite;
     font-size: 20px;
     font-weight: bold;
     height: 100%;

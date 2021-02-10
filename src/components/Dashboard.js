@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./Header";
+import About from "./About";
 
 export const Dashboard = (props) => {
   // Since the dashboard is the push point for both authenticated and unauthenticated users
@@ -14,6 +15,7 @@ export const Dashboard = (props) => {
   return (
     <div className="wrap">
       <Header session={session} />
+      <About />
       <h1>TEST</h1>
       <h1>TEST</h1>
     </div>
