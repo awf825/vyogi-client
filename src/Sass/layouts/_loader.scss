@@ -1,0 +1,26 @@
+.loader {
+  height: 200px;
+  position: relative;
+  width: 200px;
+
+  &__ring {
+    animation: rotate 1s linear infinite;
+    border-left: 4px solid #262626;
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+  }
+
+  &__text {
+    font-size: 20px;
+    font-weight: bold;
+    height: 100%;
+    left: 0;
+    line-height: 200px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    top: 0;
+    width: 100%;
+  }
+}

@@ -1,51 +1,53 @@
-import { API_ROOT } from '../api-config.js';
-import React, { Component } from 'react';
-import axios from 'axios';
-import moment from 'moment'
-import BookModal from './book/BookModal'
-import BookModalContent from './book/BookModalContent'
-import { Calendar, momentLocalizer } from 'react-big-calendar'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
+import { API_ROOT } from "../api-config.js";
+import React, { Component } from "react";
+import axios from "axios";
+import moment from "moment";
+import BookModal from "./book/BookModal";
+import BookModalContent from "./book/BookModalContent";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import Loader from "./Loader";
 
-Date.prototype.addHours = function(h) {
-   this.setTime(this.getTime() + (h*60*60*1000));
-   return this;
+Date.prototype.addHours = function (h) {
+  this.setTime(this.getTime() + h * 60 * 60 * 1000);
+  return this;
 };
 
 class Schedule extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       schedule: [],
       modalData: {},
       modalOpen: false,
-      showPayForm: false
-    }
+      showPayForm: false,
+    };
   }
 
   componentDidMount() {
-    const token = sessionStorage.getItem('token');     
-    axios.get(`${API_ROOT}/lessons`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(resp => { 
+    const token = localStorage.getItem("token");
+    axios
+      .get(`${API_ROOT}/lessons`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((resp) => {
         var payload = resp.data.lessons;
-        console.log('axios.get(`${API_ROOT}/lessons`:', payload)
-        payload.forEach((p, i) => { 
-          var start = new Date(p.startTime)
+        console.log("axios.get(`${API_ROOT}/lessons`:", payload);
+        payload.forEach((p, i) => {
+          var start = new Date(p.startTime);
           p.start = start;
           p.end = start;
-          p.allDay = false; 
-        } )
+          p.allDay = false;
+        });
         this.setState({
-          schedule: payload
-        })
-
-      }).catch(err => {
-        console.log('SCHEDULE ERROR:', err)
+          schedule: payload,
+        });
       })
+      .catch((err) => {
+        console.log("SCHEDULE ERROR:", err);
+      });
   }
 
   handleSelection = (e) => {
@@ -62,74 +64,68 @@ class Schedule extends Component {
     // }
     this.setState({
       modalOpen: true,
-      modalData: e
-    })
-
-  }
+      modalData: e,
+    });
+  };
 
   rejectModal = () => {
     this.setState({
       modalOpen: false,
-      showPayForm: false
-    }) 
-  }
+      showPayForm: false,
+    });
+  };
 
   handleLessonConfirmation = () => {
     this.setState({
-      showPayForm: true
-    })
-  }
+      showPayForm: true,
+    });
+  };
 
   handleLessonRejection = () => {
-    this.rejectModal()
-  }
+    this.rejectModal();
+  };
 
   render() {
-    const { schedule, modalOpen, modalData, showPayForm } = this.state
-    const localizer = momentLocalizer(moment)
+    const { schedule, modalOpen, modalData, showPayForm } = this.state;
+    const localizer = momentLocalizer(moment);
 
     const message = `This is lesson ${modalData.title}.
     It will start at ${modalData.start} and last an hour. Can you confirm
-    this?`
+    this?`;
 
     if (modalOpen && modalData) {
       this.children = (
-        <BookModalContent 
+        <BookModalContent
           message={message}
           oneLesson={modalData}
           handleLessonConfirmation={this.handleLessonConfirmation}
           handleLessonRejection={this.handleLessonRejection}
           showPayForm={showPayForm}
         />
-      )
+      );
     }
     return (
       <div>
-        {
-          schedule.length > 0 ? (
-            <React.Fragment>
-              <BookModal
-                visible={modalOpen}
-                dismiss={this.rejectModal}
-                children={this.children} 
-              >
-              </BookModal>
-              <Calendar
-                localizer={localizer}
-                events={schedule}
-                style={{ height: 800 }}
-                selectable={true}
-                onSelectEvent={event => this.handleSelection(event)}
-              />
-            </React.Fragment>
-          ) : (
-            <div>
-              <h1>LOADING...</h1>
-            </div>
-          )
-        }
+        {schedule.length > 0 ? (
+          <React.Fragment>
+            <BookModal
+              visible={modalOpen}
+              dismiss={this.rejectModal}
+              children={this.children}
+            ></BookModal>
+            <Calendar
+              localizer={localizer}
+              events={schedule}
+              style={{ height: 800 }}
+              selectable={true}
+              onSelectEvent={(event) => this.handleSelection(event)}
+            />
+          </React.Fragment>
+        ) : (
+          <Loader />
+        )}
       </div>
-    )
+    );
   }
 }
 
