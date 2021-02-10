@@ -1,12 +1,12 @@
 import React from "react";
-import aboutPic from "./pictures/placeholder_about.jpg";
 
 const About = () => {
   return (
     <div className="about">
       <h1 className="about__heading">About Us</h1>
       <div className="about__main">
-        <img className="about__img" src={aboutPic} alt="about picture" />
+        <div className="about__img"></div>
+        <h2 className="about__instructor">Firstname & Lastname</h2>
         <p className="about__text">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
           ut augue vel nisl gravida sagittis. Donec sollicitudin egestas orci,

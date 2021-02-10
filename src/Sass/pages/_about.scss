@@ -1,4 +1,5 @@
 .about {
+  background-color: aliceblue;
   height: 100vh;
   width: 100vw;
 
@@ -7,14 +8,43 @@
   }
 
   &__main {
-    background-color: aliceblue;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 1%;
+    box-shadow: 5px 5px 5px black;
+    left: 50%;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+  }
+
+  &__instructor {
+    font-size: 30px;
+    text-align: center;
+    padding: 0;
   }
 
   &__img {
+    background: url("../../components/pictures/placeholder_about.jpg");
+    background-position: 45% 50%;
+    background-repeat: no-repeat;
     border-radius: 50%;
+    box-shadow: 3px 3px 3px black;
+    float: left;
+    height: 200px;
+    margin: 60px 30px 30px 0;
+    shape-outside: circle();
+    width: 200px;
   }
 
   &__text {
     font-size: 16px;
+    line-height: 22px;
+    hyphens: auto;
+    margin: 0;
+    text-align: justify;
+    padding: 0;
   }
 }
