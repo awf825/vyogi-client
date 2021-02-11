@@ -33,7 +33,8 @@ class Schedule extends Component {
         },
       })
       .then((resp) => {
-        var payload = resp.data.lessons;
+        // debugger
+        var payload = resp.data;
         console.log("axios.get(`${API_ROOT}/lessons`:", payload);
         payload.forEach((p, i) => {
           var start = new Date(p.startTime);
