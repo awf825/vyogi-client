@@ -41,7 +41,7 @@ export const Video = (props) => {
   }
 
   const handleCodeSubmission = async event => {
-    const token = sessionStorage.getItem('token'); 
+    const token = localStorage.getItem('token'); 
     const code = data.codeInput
     let options = {
         method: 'POST',
@@ -83,7 +83,6 @@ export const Video = (props) => {
   }, []);
   //THESE FUNCTIONS BOTH HAVE NO DEPENDENCIES BECAUSE THEY ARE CHAINED TOGETHER
   const startJoiningCall = useCallback((url) => {
-    debugger
     if (url === undefined) {
       return
     } else {

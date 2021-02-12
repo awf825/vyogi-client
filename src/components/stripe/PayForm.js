@@ -17,7 +17,7 @@ class PayForm extends Component {
   }
 
   componentDidMount() {
-    const token = sessionStorage.getItem('token'); 
+    const token = localStorage.getItem('token'); 
     axios.get(`${API_ROOT}/stripe`, {
       headers : {
         'Authorization': `Bearer ${token}`
