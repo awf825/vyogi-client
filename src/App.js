@@ -4,7 +4,7 @@ import "./index.css";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
 import Video from "./components/Video";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Schedule from "./components/Schedule";
 import RegistrationRouter from "./components/Registration/RegistrationRouter";
 import RegistrationLogin from "./components/Registration/RegistrationLogin";

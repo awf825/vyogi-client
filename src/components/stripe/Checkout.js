@@ -27,8 +27,8 @@ export const Checkout = (props) => {
       alert(`I'm sorry, your card number is either incomplete or invalid`)
     } else {
       const stripeToken = result.token;
-      const browserToken = sessionStorage.getItem('token');
-      const user = sessionStorage.getItem('user'); 
+      const browserToken = localStorage.getItem('token');
+      const user = localStorage.getItem('_id'); 
 
       const paymentData = {
         token: stripeToken.id,
@@ -56,27 +56,6 @@ export const Checkout = (props) => {
       })
 
       closeModal()
-
-      // fetch(`${API_ROOT}/charges`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Authorization': `Bearer ${browserToken}`,
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify(paymentData)
-      // }).then(function(resp){
-      //   if (resp.ok) {
-      //     alert("Thank you! You should be emailed your access code shortly; please contact us if it hasn't arrived in the next 10 minutes")
-      //   } else {
-      //     alert('Something went wrong.')
-      //   }
-      //   return resp
-      // }).catch(err => {
-      //   console.log('STRIPE ERROR');
-      //   alert("Stripe error");
-      //   closeModal();
-      // })
-      // closeModal()
     }
   
   };
@@ -96,9 +75,6 @@ export default function InjectCheckoutForm(props) {
         <Checkout 
           closeModal={props.closeModal}
           oneLesson={props.oneLesson}
-          // id={props._id} 
-          // cost={props.cost}
-          // start={props.start}
           stripe={stripe} 
           elements={elements} 
         />

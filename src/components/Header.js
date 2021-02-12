@@ -10,14 +10,24 @@ export const Header = (props) => {
     signout(() => history.pushState("/"));
   };
 
+  const authorizeSelection = (e) => {
+    if (!localStorage.getItem("token")) {
+      // this is one way of doing this, but it freezes the button and 
+      // makes shit look stupid 
+      e.preventDefault();
+      alert("Nuh uh uh!");
+      return history.push("/");
+    }
+  }
+
   return (
     <div>
       <Nav justify variant="tabs" defaultActiveKey="/home">
-        <Nav.Item>
-          <Nav.Link href="/schedule">Schedule</Nav.Link>
+        <Nav.Item >
+          <Nav.Link href="/schedule" onClick={(e) => authorizeSelection(e)}>Schedule</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href="/video">Go To Lesson</Nav.Link>
+          <Nav.Link href="/video" onClick={(e) => authorizeSelection(e)}>Go To Lesson</Nav.Link>
         </Nav.Item>
 
         {props.session ? (
