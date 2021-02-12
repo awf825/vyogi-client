@@ -1,0 +1,104 @@
+.navigation {
+  position: fixed;
+  top: 10px;
+  left: 30px;
+  transition: all 1s;
+  z-index: 300;
+
+  &__opener {
+    border-radius: 50%;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    transition: all 0.5s;
+    z-index: 300;
+
+    &:hover {
+      transform: scaleY(2);
+    }
+  }
+
+  &__closer {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    transition: all 0.5s;
+    z-index: 300;
+    &:hover {
+      transform: scale(1.5);
+    }
+  }
+
+  &__icon {
+    height: 3vh;
+    width: 3vw;
+  }
+
+  &__scale {
+    :hover {
+      background-color: lightyellow;
+      height: 50px;
+      width: 50px;
+    }
+  }
+
+  &__links {
+    font-size: 24px;
+    font-weight: 300;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.5s;
+    :hover {
+      box-shadow: 5px 5px 5px black;
+      transform: scale(1);
+    }
+  }
+
+  &__home {
+    animation: homeIcon 0.25s linear;
+    background-color: lightskyblue;
+    border-radius: 50%;
+    height: 30px;
+    position: fixed;
+    top: 5px;
+    left: 120px;
+    transition: all 0.25s;
+    width: 30px;
+  }
+
+  &__vid {
+    animation: vidIcon 0.25s linear;
+    background-color: lightskyblue;
+    border-radius: 50%;
+    position: fixed;
+    top: 50px;
+    left: 105px;
+    height: 30px;
+    width: 30px;
+    transition: all 0.25s;
+  }
+
+  &__cal {
+    animation: vidIcon 0.25s linear;
+    background-color: lightskyblue;
+    border-radius: 50%;
+    height: 30px;
+    position: fixed;
+    top: 70px;
+    left: 60px;
+    width: 30px;
+    transition: all 0.25s;
+  }
+
+  &__reg {
+    animation: registerIcon 0.25s linear;
+    background-color: lightskyblue;
+    border-radius: 50%;
+    position: fixed;
+    top: 75px;
+    left: 10px;
+    height: 30px;
+    width: 30px;
+    transition: all 0.25s;
+  }
+}

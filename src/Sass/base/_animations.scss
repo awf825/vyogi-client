@@ -20,3 +20,45 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes homeIcon {
+  0% {
+    transform: translateX(-200%);
+  }
+
+  90% {
+    transform: translateX(10%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes vidIcon {
+  0% {
+    transform: translateX(-150%) translateY(-150%);
+  }
+
+  90% {
+    transform: translateX(10%) translateY(10%);
+  }
+
+  100% {
+    transform: translateX(0%) translateY(0%);
+  }
+}
+
+@keyframes registerIcon {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  90% {
+    transform: translateY(10%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
