@@ -2,15 +2,16 @@
   position: fixed;
   top: 10px;
   left: 30px;
-  transition: all 1s;
+  transition: all 0.25s;
   z-index: 300;
 
   &__opener {
     border-radius: 50%;
+    color: $color_dark_blue;
     cursor: pointer;
     height: 50px;
     width: 50px;
-    transition: all 0.5s;
+    transition: all 0.25s;
     z-index: 300;
 
     &:hover {
@@ -19,12 +20,19 @@
   }
 
   &__closer {
+    background-color: $color_dark_blue;
+    border-radius: 50%;
+    color: $color_pale_yellow;
     cursor: pointer;
     height: 50px;
     width: 50px;
-    transition: all 0.5s;
+    transition: all 0.25s;
     z-index: 300;
     &:hover {
+      background-color: $color_pale_yellow;
+      color: $color_dark_blue;
+      box-shadow: 1px 1px 1px $color_black;
+      border-radius: 50%;
       transform: scale(1.5);
     }
   }
@@ -36,27 +44,30 @@
 
   &__scale {
     :hover {
-      background-color: lightyellow;
+      background-color: $color_dark_blue;
       height: 50px;
       width: 50px;
     }
   }
 
   &__links {
+    color: $color_pale_yellow;
     font-size: 24px;
     font-weight: 300;
     text-decoration: none;
     text-transform: uppercase;
-    transition: all 0.5s;
+    transition: all 0.25s;
     :hover {
-      box-shadow: 5px 5px 5px black;
+      background-color: $color_pale_yellow;
+      color: $color_dark_blue;
+      box-shadow: 3px 3px 3px $color_black;
       transform: scale(1);
     }
   }
 
   &__home {
     animation: homeIcon 0.25s linear;
-    background-color: lightskyblue;
+    background-color: $color_dark_blue;
     border-radius: 50%;
     height: 30px;
     position: fixed;
@@ -68,7 +79,7 @@
 
   &__vid {
     animation: vidIcon 0.25s linear;
-    background-color: lightskyblue;
+    background-color: $color_dark_blue;
     border-radius: 50%;
     position: fixed;
     top: 50px;
@@ -80,11 +91,11 @@
 
   &__cal {
     animation: vidIcon 0.25s linear;
-    background-color: lightskyblue;
+    background-color: $color_dark_blue;
     border-radius: 50%;
     height: 30px;
     position: fixed;
-    top: 70px;
+    top: 75px;
     left: 60px;
     width: 30px;
     transition: all 0.25s;
@@ -92,7 +103,7 @@
 
   &__reg {
     animation: registerIcon 0.25s linear;
-    background-color: lightskyblue;
+    background-color: $color_dark_blue;
     border-radius: 50%;
     position: fixed;
     top: 75px;

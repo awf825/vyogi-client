@@ -2,7 +2,6 @@ import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Dashboard from "./components/Dashboard";
-import Header from "./components/Header";
 import Navigation from "./components/Navigation";
 import Video from "./components/Video";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";

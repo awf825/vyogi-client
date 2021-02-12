@@ -37,11 +37,17 @@ const Navigation = () => {
       {open ? (
         <div className="navigation__navbar">
           <div onClick={() => setOpen(false)}>
-            <IoIosCloseCircleOutline className="navigation__closer" />
+            <IoIosCloseCircleOutline
+              className="navigation__closer"
+              title="Close"
+            />
 
             <div className="navigation__scale">
               <Link to="/" className="navigation__links">
-                <IoIosHome className="navigation__icon navigation__home" />
+                <IoIosHome
+                  className="navigation__icon navigation__home"
+                  title="Home"
+                />
               </Link>
             </div>
 
@@ -51,7 +57,10 @@ const Navigation = () => {
                 onClick={(e) => authorizeSelection(e)}
                 className="navigation__links"
               >
-                <IoIosTv className="navigation__icon navigation__vid" />
+                <IoIosTv
+                  className="navigation__icon navigation__vid"
+                  title="Videos"
+                />
               </Link>
             </div>
 
@@ -61,19 +70,28 @@ const Navigation = () => {
                 onClick={(e) => authorizeSelection(e)}
                 className="navigation__links"
               >
-                <IoIosCalendar className="navigation__icon navigation__cal" />
+                <IoIosCalendar
+                  className="navigation__icon navigation__cal"
+                  title="Schedule"
+                />
               </Link>
             </div>
             {user ? (
               <div className="navigation__scale">
                 <Link to="/" className="navigation__links" onClick={logout}>
-                  <IoLogOutOutline className="navigation__icon navigation__reg" />
+                  <IoLogOutOutline
+                    className="navigation__icon navigation__reg"
+                    title="Sign Out"
+                  />
                 </Link>
               </div>
             ) : (
               <div className="navigation__scale">
                 <Link to="/registration" className="navigation__links">
-                  <IoMdPerson className="navigation__icon navigation__reg" />
+                  <IoMdPerson
+                    className="navigation__icon navigation__reg"
+                    title="Sign Up / Sign In"
+                  />
                 </Link>
               </div>
             )}
@@ -81,7 +99,7 @@ const Navigation = () => {
         </div>
       ) : (
         <div onClick={() => setOpen(true)}>
-          <IoIosMenu className="navigation__opener" />
+          <IoIosMenu className="navigation__opener" title="Navigation" />
         </div>
       )}
     </div>

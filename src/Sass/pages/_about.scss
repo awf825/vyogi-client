@@ -1,5 +1,5 @@
 .about {
-  background-color: aliceblue;
+  background-color: $color_alice_blue;
   height: 100vh;
   width: 100vw;
 
@@ -8,10 +8,10 @@
   }
 
   &__main {
-    background: #fff;
+    background: $color_white;
     box-sizing: border-box;
     border-radius: 1%;
-    box-shadow: 5px 5px 5px black;
+    box-shadow: 5px 5px 5px $color_black;
     left: 50%;
     padding: 30px;
     position: absolute;
@@ -31,7 +31,7 @@
     background-position: 45% 50%;
     background-repeat: no-repeat;
     border-radius: 50%;
-    box-shadow: 3px 3px 3px black;
+    box-shadow: 3px 3px 3px $color_black;
     float: left;
     height: 200px;
     margin: 60px 30px 30px 0;
