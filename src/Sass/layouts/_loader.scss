@@ -1,6 +1,6 @@
 .loader {
   align-items: center;
-  background-color: #f7f7f7;
+  background-color: $color_off_white;
   display: flex;
   font-family: sans-serif;
   height: 100vh;
@@ -16,7 +16,7 @@
 
   &__ring {
     animation: rotate 2s linear infinite;
-    border-left: 4px solid red;
+    border-left: 4px solid $color_red;
     border-radius: 50%;
     height: 100%;
     width: 100%;
@@ -24,7 +24,7 @@
 
   &__ring_two {
     animation: rotate 1.75s linear infinite;
-    border-left: 4px solid blue;
+    border-left: 4px solid $color_blue;
     border-radius: 50%;
     height: 100%;
     width: 100%;
@@ -33,7 +33,7 @@
 
   &__ring_three {
     animation: rotate 1.5s linear infinite;
-    border-left: 4px solid yellow;
+    border-left: 4px solid $color_yellow;
     border-radius: 50%;
     height: 100%;
     width: 100%;
