@@ -9,6 +9,13 @@ import {
   IoIosCloseCircleOutline,
 } from "react-icons/io";
 
-const Navigation = () => {};
+const Navigation = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="navigation">
+      <h1>Nav</h1>
+    </div>
+  );
+};
 
 export default Navigation;
