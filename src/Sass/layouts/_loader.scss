@@ -52,5 +52,10 @@
     text-transform: uppercase;
     top: 0;
     width: 100%;
+
+    ::selection {
+      background-color: none;
+      color: none;
+    }
   }
 }
