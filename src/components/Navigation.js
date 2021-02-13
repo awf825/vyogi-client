@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { signout } from "./Registration/RegistrationAuth";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import {
   IoIosMenu,
   IoIosHome,
@@ -37,17 +38,26 @@ const Navigation = () => {
       {open === "_open" ? (
         <div className="navigation__navbar">
           <div onClick={() => setOpen("_closed")}>
-            <IoIosCloseCircleOutline
-              className={"navigation__closer" + open}
-              title="Close"
-            />
-
+            <OverlayTrigger
+              placement="right"
+              delay={{ show: 200, hide: 400 }}
+              overlay={<Tooltip>Close</Tooltip>}
+            >
+              <IoIosCloseCircleOutline
+                className={"navigation__closer" + open}
+              />
+            </OverlayTrigger>
             <div className="navigation__scale">
               <Link to="/" className="navigation__links">
-                <IoIosHome
-                  className={"navigation__icon navigation__home" + open}
-                  title="Home"
-                />
+                <OverlayTrigger
+                  placement="right"
+                  delay={{ show: 200, hide: 400 }}
+                  overlay={<Tooltip>Home</Tooltip>}
+                >
+                  <IoIosHome
+                    className={"navigation__icon navigation__home" + open}
+                  />
+                </OverlayTrigger>
               </Link>
             </div>
 
@@ -57,10 +67,15 @@ const Navigation = () => {
                 onClick={(e) => authorizeSelection(e)}
                 className="navigation__links"
               >
-                <IoIosTv
-                  className={"navigation__icon navigation__vid" + open}
-                  title="Videos"
-                />
+                <OverlayTrigger
+                  placement="right"
+                  delay={{ show: 200, hide: 400 }}
+                  overlay={<Tooltip>Videos</Tooltip>}
+                >
+                  <IoIosTv
+                    className={"navigation__icon navigation__vid" + open}
+                  />
+                </OverlayTrigger>
               </Link>
             </div>
 
@@ -70,28 +85,43 @@ const Navigation = () => {
                 onClick={(e) => authorizeSelection(e)}
                 className="navigation__links"
               >
-                <IoIosCalendar
-                  className={"navigation__icon navigation__cal" + open}
-                  title="Schedule"
-                />
+                <OverlayTrigger
+                  placement="right"
+                  delay={{ show: 200, hide: 400 }}
+                  overlay={<Tooltip>Schedule</Tooltip>}
+                >
+                  <IoIosCalendar
+                    className={"navigation__icon navigation__cal" + open}
+                  />
+                </OverlayTrigger>
               </Link>
             </div>
             {user ? (
               <div className="navigation__scale">
                 <Link to="/" className="navigation__links" onClick={logout}>
-                  <IoLogOutOutline
-                    className={"navigation__icon navigation__reg" + open}
-                    title="Sign Out"
-                  />
+                  <OverlayTrigger
+                    placement="bottom"
+                    delay={{ show: 200, hide: 400 }}
+                    overlay={<Tooltip>Sign Out</Tooltip>}
+                  >
+                    <IoLogOutOutline
+                      className={"navigation__icon navigation__reg" + open}
+                    />
+                  </OverlayTrigger>
                 </Link>
               </div>
             ) : (
               <div className="navigation__scale">
                 <Link to="/registration" className="navigation__links">
-                  <IoMdPerson
-                    className={"navigation__icon navigation__reg" + open}
-                    title="Sign Up / Sign In"
-                  />
+                  <OverlayTrigger
+                    placement="bottom"
+                    delay={{ show: 200, hide: 400 }}
+                    overlay={<Tooltip>Sign Up / Sign In</Tooltip>}
+                  >
+                    <IoMdPerson
+                      className={"navigation__icon navigation__reg" + open}
+                    />
+                  </OverlayTrigger>
                 </Link>
               </div>
             )}
@@ -100,17 +130,19 @@ const Navigation = () => {
       ) : (
         <>
           <div onClick={() => setOpen("_open")}>
-            <IoIosMenu
-              className={"navigation__opener" + open}
-              title="Navigation"
-            />
+            <OverlayTrigger
+              placement="bottom"
+              delay={{ show: 200, hide: 400 }}
+              overlay={<Tooltip>Navigation</Tooltip>}
+            >
+              <IoIosMenu className={"navigation__opener" + open} />
+            </OverlayTrigger>
           </div>
 
           <div className="navigation__scale">
             <Link to="/" className="navigation__links">
               <IoIosHome
                 className={"navigation__icon navigation__home" + open}
-                title="Home"
               />
             </Link>
           </div>
@@ -121,10 +153,7 @@ const Navigation = () => {
               onClick={(e) => authorizeSelection(e)}
               className="navigation__links"
             >
-              <IoIosTv
-                className={"navigation__icon navigation__vid" + open}
-                title="Videos"
-              />
+              <IoIosTv className={"navigation__icon navigation__vid" + open} />
             </Link>
           </div>
 
@@ -136,7 +165,6 @@ const Navigation = () => {
             >
               <IoIosCalendar
                 className={"navigation__icon navigation__cal" + open}
-                title="Schedule"
               />
             </Link>
           </div>
@@ -145,7 +173,6 @@ const Navigation = () => {
               <Link to="/" className="navigation__links" onClick={logout}>
                 <IoLogOutOutline
                   className={"navigation__icon navigation__reg" + open}
-                  title="Sign Out"
                 />
               </Link>
             </div>
@@ -154,7 +181,6 @@ const Navigation = () => {
               <Link to="/registration" className="navigation__links">
                 <IoMdPerson
                   className={"navigation__icon navigation__reg" + open}
-                  title="Sign Up / Sign In"
                 />
               </Link>
             </div>
