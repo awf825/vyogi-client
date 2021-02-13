@@ -5,7 +5,7 @@
   transition: all 0.25s;
   z-index: 300;
 
-  &__opener {
+  &__opener_closed {
     border-radius: 50%;
     color: $color_dark_blue;
     cursor: pointer;
@@ -19,7 +19,7 @@
     }
   }
 
-  &__closer {
+  &__closer_open {
     background-color: $color_dark_blue;
     border-radius: 50%;
     color: $color_pale_yellow;
@@ -65,7 +65,23 @@
     }
   }
 
-  &__home {
+  &__home_start {
+    display: none;
+  }
+
+  &__vid_start {
+    display: none;
+  }
+
+  &__cal_start {
+    display: none;
+  }
+
+  &__reg_start {
+    display: none;
+  }
+
+  &__home_open {
     animation: homeIcon 0.25s linear;
     background-color: $color_dark_blue;
     border-radius: 50%;
@@ -77,7 +93,19 @@
     width: 30px;
   }
 
-  &__vid {
+  &__home_closed {
+    animation: homeIconReverse 0.25s linear forwards;
+    background-color: $color_dark_blue;
+    border-radius: 50%;
+    height: 30px;
+    position: fixed;
+    top: 5px;
+    left: 120px;
+    transition: all 0.25s;
+    width: 30px;
+  }
+
+  &__vid_open {
     animation: vidIcon 0.25s linear;
     background-color: $color_dark_blue;
     border-radius: 50%;
@@ -89,7 +117,19 @@
     transition: all 0.25s;
   }
 
-  &__cal {
+  &__vid_closed {
+    animation: vidIconReverse 0.25s linear forwards;
+    background-color: $color_dark_blue;
+    border-radius: 50%;
+    position: fixed;
+    top: 50px;
+    left: 105px;
+    height: 30px;
+    width: 30px;
+    transition: all 0.25s;
+  }
+
+  &__cal_open {
     animation: vidIcon 0.25s linear;
     background-color: $color_dark_blue;
     border-radius: 50%;
@@ -101,8 +141,32 @@
     transition: all 0.25s;
   }
 
-  &__reg {
+  &__cal_closed {
+    animation: vidIconReverse 0.25s linear forwards;
+    background-color: $color_dark_blue;
+    border-radius: 50%;
+    height: 30px;
+    position: fixed;
+    top: 75px;
+    left: 60px;
+    width: 30px;
+    transition: all 0.25s;
+  }
+
+  &__reg_open {
     animation: registerIcon 0.25s linear;
+    background-color: $color_dark_blue;
+    border-radius: 50%;
+    position: fixed;
+    top: 75px;
+    left: 10px;
+    height: 30px;
+    width: 30px;
+    transition: all 0.25s;
+  }
+
+  &__reg_closed {
+    animation: registerIconReverse 0.25s linear forwards;
     background-color: $color_dark_blue;
     border-radius: 50%;
     position: fixed;

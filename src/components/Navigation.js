@@ -12,7 +12,7 @@ import {
 import { IoLogOutOutline } from "react-icons/io5";
 
 const Navigation = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState("_start");
   const history = useHistory();
 
   // For the nav to check if there is a user or not
@@ -34,18 +34,18 @@ const Navigation = () => {
 
   return (
     <div className="navigation">
-      {open ? (
+      {open === "_open" ? (
         <div className="navigation__navbar">
-          <div onClick={() => setOpen(false)}>
+          <div onClick={() => setOpen("_closed")}>
             <IoIosCloseCircleOutline
-              className="navigation__closer"
+              className={"navigation__closer" + open}
               title="Close"
             />
 
             <div className="navigation__scale">
               <Link to="/" className="navigation__links">
                 <IoIosHome
-                  className="navigation__icon navigation__home"
+                  className={"navigation__icon navigation__home" + open}
                   title="Home"
                 />
               </Link>
@@ -58,7 +58,7 @@ const Navigation = () => {
                 className="navigation__links"
               >
                 <IoIosTv
-                  className="navigation__icon navigation__vid"
+                  className={"navigation__icon navigation__vid" + open}
                   title="Videos"
                 />
               </Link>
@@ -71,7 +71,7 @@ const Navigation = () => {
                 className="navigation__links"
               >
                 <IoIosCalendar
-                  className="navigation__icon navigation__cal"
+                  className={"navigation__icon navigation__cal" + open}
                   title="Schedule"
                 />
               </Link>
@@ -80,7 +80,7 @@ const Navigation = () => {
               <div className="navigation__scale">
                 <Link to="/" className="navigation__links" onClick={logout}>
                   <IoLogOutOutline
-                    className="navigation__icon navigation__reg"
+                    className={"navigation__icon navigation__reg" + open}
                     title="Sign Out"
                   />
                 </Link>
@@ -89,7 +89,7 @@ const Navigation = () => {
               <div className="navigation__scale">
                 <Link to="/registration" className="navigation__links">
                   <IoMdPerson
-                    className="navigation__icon navigation__reg"
+                    className={"navigation__icon navigation__reg" + open}
                     title="Sign Up / Sign In"
                   />
                 </Link>
@@ -98,9 +98,68 @@ const Navigation = () => {
           </div>
         </div>
       ) : (
-        <div onClick={() => setOpen(true)}>
-          <IoIosMenu className="navigation__opener" title="Navigation" />
-        </div>
+        <>
+          <div onClick={() => setOpen("_open")}>
+            <IoIosMenu
+              className={"navigation__opener" + open}
+              title="Navigation"
+            />
+          </div>
+
+          <div className="navigation__scale">
+            <Link to="/" className="navigation__links">
+              <IoIosHome
+                className={"navigation__icon navigation__home" + open}
+                title="Home"
+              />
+            </Link>
+          </div>
+
+          <div className="navigation__scale">
+            <Link
+              to="/video"
+              onClick={(e) => authorizeSelection(e)}
+              className="navigation__links"
+            >
+              <IoIosTv
+                className={"navigation__icon navigation__vid" + open}
+                title="Videos"
+              />
+            </Link>
+          </div>
+
+          <div className="navigation__scale">
+            <Link
+              to="/schedule"
+              onClick={(e) => authorizeSelection(e)}
+              className="navigation__links"
+            >
+              <IoIosCalendar
+                className={"navigation__icon navigation__cal" + open}
+                title="Schedule"
+              />
+            </Link>
+          </div>
+          {user ? (
+            <div className="navigation__scale">
+              <Link to="/" className="navigation__links" onClick={logout}>
+                <IoLogOutOutline
+                  className={"navigation__icon navigation__reg" + open}
+                  title="Sign Out"
+                />
+              </Link>
+            </div>
+          ) : (
+            <div className="navigation__scale">
+              <Link to="/registration" className="navigation__links">
+                <IoMdPerson
+                  className={"navigation__icon navigation__reg" + open}
+                  title="Sign Up / Sign In"
+                />
+              </Link>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
