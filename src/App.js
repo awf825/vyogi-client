@@ -9,7 +9,7 @@ import Schedule from "./components/Schedule";
 import RegistrationRouter from "./components/Registration/RegistrationRouter";
 import RegistrationLogin from "./components/Registration/RegistrationLogin";
 import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
-import SocialFooter from "./components/SocialFooter";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
             render={(props) => <Schedule {...props} />}
           />
         </Switch>
-        <SocialFooter />
+        <Footer />
       </div>
     </BrowserRouter>
   );
