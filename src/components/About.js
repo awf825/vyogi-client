@@ -1,4 +1,10 @@
 import React from "react";
+import {
+  IoLogoFacebook,
+  IoLogoInstagram,
+  IoIosMail,
+  IoMdCall,
+} from "react-icons/io";
 
 const About = () => {
   return (
@@ -39,6 +45,28 @@ const About = () => {
           magna lacinia, eget fringilla arcu tincidunt. Donec porttitor turpis
           at lorem rhoncus, ac venenatis mi interdum. Morbi in varius urna.
         </p>
+        <ul className="about__list">
+          <li className="about_item">
+            <a className="about__link" href="#">
+              <IoLogoFacebook className="about__icon about__fb" />
+            </a>
+          </li>
+          <li className="about_item">
+            <a className="about__link" href="#">
+              <IoLogoInstagram className="about__icon about__insta" />
+            </a>
+          </li>
+          <li className="about_item">
+            <a className="about__link" href="#">
+              <IoIosMail className="about__icon about__mail" />
+            </a>
+          </li>
+          <li className="about_item">
+            <a className="about__link" href="#">
+              <IoMdCall className="about__icon about__phone" />
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   );
