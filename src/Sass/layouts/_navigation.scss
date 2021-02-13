@@ -19,6 +19,20 @@
     }
   }
 
+  &__opener_start {
+    border-radius: 50%;
+    color: $color_dark_blue;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    transition: all 0.25s;
+    z-index: 300;
+
+    &:hover {
+      transform: scaleY(1.5);
+    }
+  }
+
   &__closer_open {
     background-color: $color_dark_blue;
     border-radius: 50%;
