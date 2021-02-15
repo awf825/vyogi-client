@@ -1,0 +1,27 @@
+.contact {
+  background-color: lightslategrey;
+  height: 75vh;
+  width: 100vw;
+
+  &__header {
+    text-align: center;
+  }
+
+  &__form_container {
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px black;
+
+    margin: 5%;
+  }
+
+  &__label {
+    font-weight: 800;
+    padding-left: 40%;
+    padding-right: 40%;
+  }
+
+  &__form {
+    padding: 50px;
+  }
+}

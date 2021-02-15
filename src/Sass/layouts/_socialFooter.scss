@@ -1,0 +1,91 @@
+.socialFooter {
+  background-color: lightgray;
+  bottom: 0px;
+  height: 5vh;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: fixed;
+  width: 100vw;
+  z-index: 200;
+
+  &__list {
+    display: flex;
+    justify-content: space-around;
+    height: 5vh;
+    list-style: none;
+  }
+
+  &__item {
+    align-self: center;
+  }
+
+  &__link {
+    text-decoration: none;
+    height: 3vh;
+    width: 3vw;
+    transition: all 1s;
+    :hover {
+      cursor: pointer;
+      transform: scale(1.5);
+    }
+  }
+
+  &__icon {
+    height: 25px;
+    width: 25px;
+    transition: all 1s;
+    :hover {
+      transform: scale(1);
+    }
+  }
+
+  &__fb {
+    background-color: white;
+    border-radius: 30%;
+    color: #4967aa;
+  }
+
+  &__insta {
+    background: #f09433;
+    background: -moz-linear-gradient(
+      45deg,
+      #f09433 0%,
+      #e6683c 25%,
+      #dc2743 50%,
+      #cc2366 75%,
+      #bc1888 100%
+    );
+    background: -webkit-linear-gradient(
+      45deg,
+      #f09433 0%,
+      #e6683c 25%,
+      #dc2743 50%,
+      #cc2366 75%,
+      #bc1888 100%
+    );
+    background: linear-gradient(
+      45deg,
+      #f09433 0%,
+      #e6683c 25%,
+      #dc2743 50%,
+      #cc2366 75%,
+      #bc1888 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+    border-radius: 30%;
+    color: white;
+  }
+
+  &__mail {
+    background-color: black;
+    border-radius: 30%;
+    color: red;
+  }
+
+  &__phone {
+    background-color: lightgreen;
+    border-radius: 30%;
+    color: white;
+  }
+}
