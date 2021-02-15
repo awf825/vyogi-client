@@ -1,5 +1,4 @@
 import React from "react";
-import Header from "./Header";
 import About from "./About";
 import Contact from "./Contact";
 
@@ -11,11 +10,8 @@ export const Dashboard = (props) => {
 
   return (
     <div className="wrap">
-      {/* <Header session={session} /> */}
       <About />
       <Contact />
-      <h1>TEST</h1>
-      <h1>TEST</h1>
     </div>
   );
 };
