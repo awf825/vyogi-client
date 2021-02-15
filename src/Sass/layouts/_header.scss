@@ -5,15 +5,15 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  background-color: #f42b4b;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: $color_red_pink;
+  box-shadow: 0 4px 8px 0 rgba($color_black, 0.2);
   height: 70px;
   top: 0;
   padding-right: 5px;
   padding-left: 5px;
 }
 #navigation h1 {
-  color: white;
+  color: $color_white;
 }
 #navigation button {
   background-color: transparent;

@@ -76,7 +76,7 @@
 }
 /* On mouse-over, add a deeper shadow */
 .home .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba($color_black, 0.2);
 }
 .home .card > img {
   width: 100%;
@@ -86,7 +86,7 @@
   bottom: 0;
   z-index: 9;
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba($color_white, 0.7);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -96,7 +96,7 @@
   transition: 0.5s;
 }
 .home .content:hover {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba($color_white, 1);
   height: 50%;
   cursor: pointer;
 }

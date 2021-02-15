@@ -10,7 +10,7 @@ export const Dashboard = (props) => {
 
   return (
     <div className="wrap">
-      <Header session={session} />
+      {/* <Header session={session} /> */}
       <About />
       <h1>TEST</h1>
       <h1>TEST</h1>
