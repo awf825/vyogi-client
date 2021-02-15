@@ -1,6 +1,6 @@
 .contact {
   background-color: lightslategrey;
-  height: 100vh;
+  height: 75vh;
   width: 100vw;
 
   &__header {
@@ -13,6 +13,12 @@
     box-shadow: 3px 3px 3px black;
 
     margin: 5%;
+  }
+
+  &__label {
+    font-weight: 800;
+    padding-left: 40%;
+    padding-right: 40%;
   }
 
   &__form {
