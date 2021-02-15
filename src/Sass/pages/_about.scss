@@ -14,8 +14,8 @@
     box-shadow: 5px 5px 5px $color_black;
     left: 50%;
     padding: 30px;
-    position: absolute;
-    top: 50%;
+    position: relative;
+    top: 40%;
     transform: translate(-50%, -50%);
     width: 90vw;
   }

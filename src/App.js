@@ -3,6 +3,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Dashboard from "./components/Dashboard";
 import Navigation from "./components/Navigation";
+import Quotes from "./components/Quotes/Quotes";
 import Video from "./components/Video";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Schedule from "./components/Schedule";
@@ -16,6 +17,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Navigation />
+        <Quotes />
         <Switch>
           <Route exact path="/" render={(props) => <Dashboard {...props} />} />
           <Route exact path="/registration" component={RegistrationRouter} />
