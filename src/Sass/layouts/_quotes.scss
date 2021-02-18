@@ -1,7 +1,9 @@
 .quotes {
   background-color: $color_white;
-  height: 15vh;
+  height: 10vh;
+  position: fixed;
   width: 100vw;
+  z-index: 299;
 
   &__carousel {
     background-color: $color_alice_blue;

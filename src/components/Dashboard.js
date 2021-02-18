@@ -10,7 +10,7 @@ export const Dashboard = (props) => {
   const session = !!localStorage.getItem("token");
 
   return (
-    <div className="wrap">
+    <div>
       <Quotes />
       <About />
       <Contact />
