@@ -12,12 +12,13 @@ const Quotes = () => {
             className="quotes__carousel"
             controls={false}
             indicators={false}
+            fade={true}
           >
             {quotes.map((q) => (
               <Carousel.Item pause={"hover"} interval={500} key={q.year}>
-                <h3 className="quotes__quote">{q.quote}</h3>
-                <h6 className="quotes__name">{q.name}</h6>
-                <h6 className="quotes__year">{q.year}</h6>
+                <h3 className="quotes__quote">
+                  {q.quote} - {q.name}, {q.year}
+                </h3>
               </Carousel.Item>
             ))}
           </Carousel>

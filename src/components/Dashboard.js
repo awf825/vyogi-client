@@ -1,4 +1,5 @@
 import React from "react";
+import Quotes from "./Quotes/Quotes";
 import About from "./About";
 import Contact from "./Contact";
 
@@ -10,6 +11,7 @@ export const Dashboard = (props) => {
 
   return (
     <div className="wrap">
+      <Quotes />
       <About />
       <Contact />
     </div>
