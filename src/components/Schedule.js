@@ -129,9 +129,7 @@ class Schedule extends Component {
             <Loader />
           )
         ) : (
-          <div>
-            <h1>Nothing</h1>
-          </div>
+          <></>
         )}
       </div>
     );
