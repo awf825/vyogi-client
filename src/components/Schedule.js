@@ -33,9 +33,9 @@ class Schedule extends Component {
         },
       })
       .then((resp) => {
-        // duplicated
-        // var payload = resp.data.lessons;
-        var payload = resp.data;
+        // Payload that works for Nate
+        var payload = resp.data.lessons;
+        // var payload = resp.data;
         console.log("axios.get(`${API_ROOT}/lessons`:", payload);
         payload.forEach((p, i) => {
           var start = new Date(p.startTime);
@@ -90,6 +90,7 @@ class Schedule extends Component {
   render() {
     const { schedule, modalOpen, modalData, showPayForm } = this.state;
     const localizer = momentLocalizer(moment);
+    const user = localStorage.getItem("token");
 
     const message = `This is lesson ${modalData.title}.
     It will start at ${modalData.start} and last an hour. Can you confirm
@@ -108,23 +109,29 @@ class Schedule extends Component {
     }
     return (
       <div>
-        {schedule.length > 0 ? (
-          <React.Fragment>
-            <BookModal
-              visible={modalOpen}
-              dismiss={this.rejectModal}
-              children={this.children}
-            ></BookModal>
-            <Calendar
-              localizer={localizer}
-              events={schedule}
-              style={{ height: 800 }}
-              selectable={true}
-              onSelectEvent={(event) => this.handleSelection(event)}
-            />
-          </React.Fragment>
+        {user ? (
+          schedule.length > 0 ? (
+            <React.Fragment>
+              <BookModal
+                visible={modalOpen}
+                dismiss={this.rejectModal}
+                children={this.children}
+              ></BookModal>
+              <Calendar
+                localizer={localizer}
+                events={schedule}
+                style={{ height: 800 }}
+                selectable={true}
+                onSelectEvent={(event) => this.handleSelection(event)}
+              />
+            </React.Fragment>
+          ) : (
+            <Loader />
+          )
         ) : (
-          <Loader />
+          <div>
+            <h1>Nothing</h1>
+          </div>
         )}
       </div>
     );
