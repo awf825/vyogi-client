@@ -1,0 +1,11 @@
+.dashboard {
+  &__container {
+    display: flex;
+    height: 85vh;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 12%);
+    width: 100%;
+  }
+}

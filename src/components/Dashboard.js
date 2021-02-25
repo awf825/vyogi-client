@@ -12,8 +12,10 @@ export const Dashboard = (props) => {
   return (
     <div>
       <Quotes />
-      <About />
-      <Contact />
+      <div className="dashboard__container">
+        <About />
+        <Contact />
+      </div>
     </div>
   );
 };
