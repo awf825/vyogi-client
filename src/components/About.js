@@ -12,7 +12,7 @@ const About = () => {
       <h1 className="about__heading">About Us</h1>
       <div className="about__main">
         <div className="about__img"></div>
-        <h2 className="about__instructor">Firstname & Lastname</h2>
+        <h2 className="about__instructor">Testname & Test</h2>
         <p className="about__text">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
           ut augue vel nisl gravida sagittis. Donec sollicitudin egestas orci,
