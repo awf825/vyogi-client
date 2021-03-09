@@ -1,7 +1,4 @@
 import { API_ROOT } from '../../api-config.js';
-const isAdmin = sessionStorage.getItem('admin');
-const token = sessionStorage.getItem('token'); 
-const user = sessionStorage.getItem('user');
 
 const newRoomEndpoint =
   `${API_ROOT}/video`;
@@ -15,8 +12,8 @@ const newRoomEndpoint =
  */
 
 async function createRoom() {
-  const user = sessionStorage.getItem('user');
-  const token = sessionStorage.getItem('token');
+  const user = localStorage.getItem('_id');
+  const token = localStorage.getItem('token');
   let options = {
   	method: 'POST',
   	headers: {
@@ -31,6 +28,7 @@ async function createRoom() {
   	payload = await response.json()
 
   if (payload.bucket) {
+    console.log('payload.bucket:', payload.bucket)
     return payload.room
   } else {
     return new Error()

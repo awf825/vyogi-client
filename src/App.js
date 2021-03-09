@@ -36,7 +36,6 @@ function App() {
             render={(props) => <Schedule {...props} />}
           />
         </Switch>
-        <Footer />
       </div>
     </BrowserRouter>
   );

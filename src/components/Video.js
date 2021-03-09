@@ -76,7 +76,7 @@ export const Video = (props) => {
     .then((room) => room.url)
     .catch((error) => {
       console.log('Error creating room', error);
-      alert('You are unauthorized to perform this action.')
+      //alert('You are unauthorized to perform this action.')
       setRoomUrl(null);
       setAppState(STATE_IDLE);
     });
@@ -257,7 +257,6 @@ export const Video = (props) => {
             Access
           </button>
           <button 
-            disabled={!sessionStorage.getItem('admin')}
             onClick={handleVideoLaunch}
           >
             Launch as admin
