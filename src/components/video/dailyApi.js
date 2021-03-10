@@ -24,14 +24,25 @@ async function createRoom() {
   	})
   };
 
+  //debugger
+  // call to backend is made here
   let response = await fetch(newRoomEndpoint, options),
   	payload = await response.json()
 
-  if (payload.bucket) {
+  // if (response && payload) {
+  //   debugger
+  //   console.log('payload.bucket:', payload.bucket)
+  //   return payload.room
+  // } else {
+  //   alert("You are not authorized to perform this action.")
+  //   return new Error()
+  // }
+  if (payload.message) {
+    alert(payload.message)
+    return undefined
+  } else {
     console.log('payload.bucket:', payload.bucket)
     return payload.room
-  } else {
-    return new Error()
   }
 }
 

@@ -8,11 +8,6 @@ import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../urlUtils';
 import { logDailyEvent } from '../logUtils';
 import './Video.css'
 
-// TODO: USE GLOBAL CONTEXT
-const isAdmin = sessionStorage.getItem('admin');
-const token = sessionStorage.getItem('token'); 
-const user = sessionStorage.getItem('user');
-
 export const CallObjectContext = React.createContext();
 
 const STATE_IDLE = 'STATE_IDLE';
@@ -56,12 +51,12 @@ export const Video = (props) => {
     let response = await fetch(`${API_ROOT}/video_client`, options),
       payload = await response.json()
     
-    if (payload) {
-      startJoiningCall(payload)
-    } else {
-      alert('We could not handle your request at this time.');
+    if (payload.message) {
+      alert(payload.message)
       setRoomUrl(null);
       setAppState(STATE_IDLE);
+    } else {
+      startJoiningCall(payload)
     }
   }  
 
