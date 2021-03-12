@@ -34,7 +34,7 @@ export const Checkout = (props) => {
         token: stripeToken.id,
         cost: oneLesson.cost,
         start: oneLesson.start,
-        lesson: oneLesson._id,
+        lesson: oneLesson.id,
         user: user
       }
 

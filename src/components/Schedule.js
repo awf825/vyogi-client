@@ -25,21 +25,26 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
+    // const url = `${API_ROOT}/lessons`
+    const url = `${API_ROOT}/calendar`
     const token = localStorage.getItem("token");
     axios
-      .get(`${API_ROOT}/lessons`, {
+      .get(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((resp) => {
+        //debugger
         var payload = resp.data;
         console.log("axios.get(`${API_ROOT}/lessons`:", payload);
         payload.forEach((p, i) => {
-          var start = new Date(p.startTime);
+          var start = new Date(p.start);
+          var end = new Date(p.end)
           p.start = start;
-          p.end = start;
+          p.end = end;
           p.allDay = false;
+          p.cost = 8.5;
         });
         this.setState({
           schedule: payload,
@@ -51,7 +56,8 @@ class Schedule extends Component {
   }
 
   handleSelection = (e) => {
-    // Can't wipe out this logic, its important //
+    // Can't wipe out this logic //
+
     // var lessonIds = this.props.account.bookings.map(x => x.lesson_id)
     // if (lessonIds.includes(e.id)) {
     //   this.rejectModal()
