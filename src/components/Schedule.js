@@ -121,7 +121,17 @@ class Schedule extends Component {
 
     return (
       <div id="schedule">
-        {user ? (
+        <iframe
+          src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZmFpZGVuNDU0QGdtYWlsLmNvbQ&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%237986CB&amp;color=%237986CB"
+          style={{
+            border: "solid 1px #777",
+            width: "100vw",
+            height: "100vh",
+            frameborder: "0",
+            scrolling: "no",
+          }}
+        ></iframe>
+        {/* {user ? (
           schedule.length > 0 ? (
             <React.Fragment>
               <BookModal
@@ -145,7 +155,7 @@ class Schedule extends Component {
           )
         ) : (
           <></>
-        )}
+        )} */}
       </div>
     );
   }
