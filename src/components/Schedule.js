@@ -27,7 +27,7 @@ class Schedule extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem("token");
-
+    // SUCCESSFUL GCALENDAR CALL
     axios
       .get(`${API_ROOT}/calendar`)
       .then((resp) => {
