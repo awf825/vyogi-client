@@ -9,6 +9,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import Loader from "./Loader";
 
 Date.prototype.addHours = function (h) {
+  // Date.now() also works in this function
   this.setTime(this.getTime() + h * 60 * 60 * 1000);
   return this;
 };
@@ -107,6 +108,7 @@ class Schedule extends Component {
         />
       );
     }
+
     return (
       <div>
         {user ? (
@@ -120,7 +122,10 @@ class Schedule extends Component {
               <Calendar
                 localizer={localizer}
                 events={schedule}
-                style={{ height: 800 }}
+                style={{
+                  height: "90%",
+                  width: "100vw",
+                }}
                 selectable={true}
                 onSelectEvent={(event) => this.handleSelection(event)}
               />
