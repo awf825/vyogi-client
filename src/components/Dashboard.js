@@ -19,14 +19,18 @@ export const Dashboard = (props) => {
   */
 
   return (
-    <div>
-      <Quotes />
+    <div className="dashboard">
+      <div className="dashboard__header">
+        <Quotes />
+      </div>
       <div className="dashboard__container">
         <About />
         <Contact />
         <Schedule />
       </div>
-      <Footer />
+      <div className="dashboard__footer">
+        <Footer />
+      </div>
     </div>
   );
 };
