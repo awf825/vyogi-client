@@ -9,6 +9,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import Loader from "./Loader";
 
 Date.prototype.addHours = function (h) {
+  // Date.now() also works in this function
   this.setTime(this.getTime() + h * 60 * 60 * 1000);
   return this;
 };
@@ -26,28 +27,40 @@ class Schedule extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem("token");
+    // SUCCESSFUL GCALENDAR CALL
     axios
-      .get(`${API_ROOT}/lessons`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`${API_ROOT}/calendar`)
       .then((resp) => {
-        var payload = resp.data;
-        console.log("axios.get(`${API_ROOT}/lessons`:", payload);
-        payload.forEach((p, i) => {
-          var start = new Date(p.startTime);
-          p.start = start;
-          p.end = start;
-          p.allDay = false;
-        });
-        this.setState({
-          schedule: payload,
-        });
+        console.log("DONE");
+        console.log(resp);
       })
-      .catch((err) => {
-        console.log("SCHEDULE ERROR:", err);
-      });
+      .catch((err) => console.error(err));
+
+    // axios
+    //   .get(`${API_ROOT}/lessons`, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //   .then((resp) => {
+    //     // Payload that works for Nate
+    //     var payload = resp.data.lessons;
+    //     // var payload = resp.data;
+
+    //     console.log("axios.get(`${API_ROOT}/lessons`:", payload);
+    //     payload.forEach((p, i) => {
+    //       var start = new Date(p.startTime);
+    //       p.start = start;
+    //       p.end = start;
+    //       p.allDay = false;
+    //     });
+    //     this.setState({
+    //       schedule: payload,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log("SCHEDULE ERROR:", err);
+    //   });
   }
 
   handleSelection = (e) => {
@@ -88,6 +101,7 @@ class Schedule extends Component {
   render() {
     const { schedule, modalOpen, modalData, showPayForm } = this.state;
     const localizer = momentLocalizer(moment);
+    const user = localStorage.getItem("token");
 
     const message = `This is lesson ${modalData.title}.
     It will start at ${modalData.start} and last an hour. Can you confirm
@@ -104,26 +118,44 @@ class Schedule extends Component {
         />
       );
     }
+
     return (
-      <div>
-        {schedule.length > 0 ? (
-          <React.Fragment>
-            <BookModal
-              visible={modalOpen}
-              dismiss={this.rejectModal}
-              children={this.children}
-            ></BookModal>
-            <Calendar
-              localizer={localizer}
-              events={schedule}
-              style={{ height: 800 }}
-              selectable={true}
-              onSelectEvent={(event) => this.handleSelection(event)}
-            />
-          </React.Fragment>
+      <div id="schedule">
+        <iframe
+          src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZmFpZGVuNDU0QGdtYWlsLmNvbQ&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%237986CB&amp;color=%237986CB"
+          style={{
+            border: "solid 1px #777",
+            width: "100vw",
+            height: "100vh",
+            frameborder: "0",
+            scrolling: "no",
+          }}
+        ></iframe>
+        {/* {user ? (
+          schedule.length > 0 ? (
+            <React.Fragment>
+              <BookModal
+                visible={modalOpen}
+                dismiss={this.rejectModal}
+                children={this.children}
+              ></BookModal>
+              <Calendar
+                localizer={localizer}
+                events={schedule}
+                style={{
+                  height: "90%",
+                  width: "100vw",
+                }}
+                selectable={true}
+                onSelectEvent={(event) => this.handleSelection(event)}
+              />
+            </React.Fragment>
+          ) : (
+            <Loader />
+          )
         ) : (
-          <Loader />
-        )}
+          <></>
+        )} */}
       </div>
     );
   }

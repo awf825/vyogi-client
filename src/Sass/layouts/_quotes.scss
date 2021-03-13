@@ -1,0 +1,30 @@
+.quotes {
+  background-color: $color_white;
+  height: 10vh;
+  position: fixed;
+  width: 100vw;
+  z-index: 299;
+
+  &__carousel {
+    background-color: $color_alice_blue;
+    border: 2px dashed $color_black;
+    border-radius: 1%;
+    box-shadow: 0 0 0 2px #f8f8ff, 2px 1px 6px 4px rgba(10, 10, 0, 0.8);
+    color: $color_black;
+    height: 5vh;
+    left: 50%;
+    position: relative;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+  }
+
+  &__quote {
+    font-size: 16px;
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
