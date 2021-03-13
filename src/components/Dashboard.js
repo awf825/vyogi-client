@@ -11,6 +11,13 @@ export const Dashboard = (props) => {
   // storage is always filled/wiped out BEFORE Dashboard returns
   const session = !!localStorage.getItem("token");
 
+  /*
+    1. Dashboard container should be what contains all Components
+    2. Quotes and Footer should remain stuck in position
+    3. Conditionally Render Components that require you to be logged in
+    
+  */
+
   return (
     <div>
       <Quotes />

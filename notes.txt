@@ -1,6 +1,6 @@
 TO-DO's 
-. Remove existing Nav
-. Put links in the footer
+. Remove existing Nav (DONE)
+. Put links in the footer (DONE)
 . Line the components up so they don't overflow 
 . Have all elements lined up correctly
 . Google Calendar view on front 
