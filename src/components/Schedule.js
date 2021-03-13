@@ -27,30 +27,40 @@ class Schedule extends Component {
 
   componentDidMount() {
     const token = localStorage.getItem("token");
+
     axios
-      .get(`${API_ROOT}/lessons`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`${API_ROOT}/calendar`)
       .then((resp) => {
-        // Payload that works for Nate
-        var payload = resp.data.lessons;
-        // var payload = resp.data;
-        console.log("axios.get(`${API_ROOT}/lessons`:", payload);
-        payload.forEach((p, i) => {
-          var start = new Date(p.startTime);
-          p.start = start;
-          p.end = start;
-          p.allDay = false;
-        });
-        this.setState({
-          schedule: payload,
-        });
+        console.log("DONE");
+        console.log(resp);
       })
-      .catch((err) => {
-        console.log("SCHEDULE ERROR:", err);
-      });
+      .catch((err) => console.error(err));
+
+    // axios
+    //   .get(`${API_ROOT}/lessons`, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //   .then((resp) => {
+    //     // Payload that works for Nate
+    //     var payload = resp.data.lessons;
+    //     // var payload = resp.data;
+
+    //     console.log("axios.get(`${API_ROOT}/lessons`:", payload);
+    //     payload.forEach((p, i) => {
+    //       var start = new Date(p.startTime);
+    //       p.start = start;
+    //       p.end = start;
+    //       p.allDay = false;
+    //     });
+    //     this.setState({
+    //       schedule: payload,
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log("SCHEDULE ERROR:", err);
+    //   });
   }
 
   handleSelection = (e) => {
