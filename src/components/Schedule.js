@@ -110,7 +110,7 @@ class Schedule extends Component {
     }
 
     return (
-      <div>
+      <div id="schedule">
         {user ? (
           schedule.length > 0 ? (
             <React.Fragment>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ListGroup } from "react-bootstrap";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
 
 const RegistrationRouter = () => {
   // This is the registration page I'm using just for routing
@@ -17,6 +18,18 @@ const RegistrationRouter = () => {
         width: "100vw",
       }}
     >
+      <Link
+        to="/"
+        style={{
+          color: "black",
+          testDecoration: "none",
+          fontSize: "64px",
+          paddingRight: "200px",
+          marginLeft: "-300px",
+        }}
+      >
+        <IoArrowBackCircleSharp />
+      </Link>
       <ListGroup>
         <ListGroup.Item variant="info">
           <Link
