@@ -2,8 +2,8 @@ TO-DO's
 . Remove existing Nav (DONE)
 . Put links in the footer (DONE)
 . Line the components up so they don't overflow (DONE)
-. Have all elements lined up correctly 
-. Google Calendar view on front 
+. Have all elements lined up correctly (DONE)
+. Google Calendar view on front (DONE)
 . Registration Router inline styles need to be moved to own sass file 
 . All CSS files need to be moved to SASS files 
 
