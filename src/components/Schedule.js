@@ -26,45 +26,36 @@ class Schedule extends Component {
   }
 
   componentDidMount() {
+    // const url = `${API_ROOT}/lessons`
+    const url = `${API_ROOT}/calendar`
     const token = localStorage.getItem("token");
-    // SUCCESSFUL GCALENDAR CALL
     axios
-      .get(`${API_ROOT}/calendar`)
+      .get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((resp) => {
-        console.log("DONE");
-        console.log(resp);
+        var payload = resp.data;
+        console.log("axios.get(`${API_ROOT}/lessons`:", payload);
+        payload.forEach((p, i) => {
+          var start = new Date(p.start);
+          var end = new Date(p.end)
+          p.start = start;
+          p.end = end;
+          p.allDay = false;
+          p.cost = 900;
+        });
+        this.setState({
+          schedule: payload,
+        });
       })
       .catch((err) => console.error(err));
-
-    // axios
-    //   .get(`${API_ROOT}/lessons`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((resp) => {
-    //     // Payload that works for Nate
-    //     var payload = resp.data.lessons;
-    //     // var payload = resp.data;
-
-    //     console.log("axios.get(`${API_ROOT}/lessons`:", payload);
-    //     payload.forEach((p, i) => {
-    //       var start = new Date(p.startTime);
-    //       p.start = start;
-    //       p.end = start;
-    //       p.allDay = false;
-    //     });
-    //     this.setState({
-    //       schedule: payload,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log("SCHEDULE ERROR:", err);
-    //   });
   }
 
   handleSelection = (e) => {
-    // Can't wipe out this logic, its important //
+    // Can't wipe out this logic //
+
     // var lessonIds = this.props.account.bookings.map(x => x.lesson_id)
     // if (lessonIds.includes(e.id)) {
     //   this.rejectModal()
@@ -121,17 +112,7 @@ class Schedule extends Component {
 
     return (
       <div id="schedule">
-        <iframe
-          src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FNew_York&amp;src=ZmFpZGVuNDU0QGdtYWlsLmNvbQ&amp;src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23039BE5&amp;color=%237986CB&amp;color=%237986CB"
-          style={{
-            border: "solid 1px #777",
-            width: "100vw",
-            height: "100vh",
-            frameborder: "0",
-            scrolling: "no",
-          }}
-        ></iframe>
-        {/* {user ? (
+        {user ? (
           schedule.length > 0 ? (
             <React.Fragment>
               <BookModal
@@ -155,7 +136,7 @@ class Schedule extends Component {
           )
         ) : (
           <></>
-        )} */}
+        )}
       </div>
     );
   }
