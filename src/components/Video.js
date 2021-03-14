@@ -1,7 +1,10 @@
 import { API_ROOT } from '../api-config.js';
 import React, { useCallback, useState, useEffect } from 'react'
+import { useHistory } from "react-router-dom";
 import Call from './video/call/Call';
 import Tray from './video/tray/Tray';
+import VideoAccessModal from "./video/modal/VideoAccessModal";
+import VideoAccessForm from './video/modal/VideoAccessForm';
 import dailyApi from './video/dailyApi'
 import DailyIframe from '@daily-co/daily-js';
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from '../urlUtils';
@@ -20,15 +23,17 @@ const STATE_ERROR = 'STATE_ERROR';
 export const Video = (props) => {
   const initialState = {
     codeInput: "",
-    showVideo: false
+    showModal: true
   }
   
   const [data, setData] = useState(initialState);
   const [videoAppState, setAppState] = useState(STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
+  const history = useHistory();
   
   const handleInputChange = event => {
+    console.log('e.t.n and v:', event.target.name, event.target.value)
     setData({
       ...data,
       [event.target.name]: event.target.value
@@ -36,6 +41,7 @@ export const Video = (props) => {
   }
 
   const handleCodeSubmission = async event => {
+    event.preventDefault()
     const token = localStorage.getItem('token'); 
     const code = data.codeInput
     let options = {
@@ -56,11 +62,16 @@ export const Video = (props) => {
       setRoomUrl(null);
       setAppState(STATE_IDLE);
     } else {
+      setData({showModal: false});
       startJoiningCall(payload)
     }
   }  
 
   const handleVideoLaunch = event => {
+    //this prevent def is huge, keeps the urlUtils methods working
+    // bootstrap form submit was sending codeInput to the url params
+    event.preventDefault()
+    setData({showModal: false});
     createCall().then((url) => startJoiningCall(url))
   }             
   
@@ -78,6 +89,7 @@ export const Video = (props) => {
   }, []);
   //THESE FUNCTIONS BOTH HAVE NO DEPENDENCIES BECAUSE THEY ARE CHAINED TOGETHER
   const startJoiningCall = useCallback((url) => {
+    debugger
     if (url === undefined) {
       return
     } else {
@@ -221,6 +233,11 @@ export const Video = (props) => {
    * !!!
    */
   const enableStartButton = videoAppState === STATE_IDLE;
+
+  const closeModal = event => {
+    setData({showModal: false});
+    history.push('/')
+  }
             
   return (
     <div className="videoapp">
@@ -237,25 +254,19 @@ export const Video = (props) => {
           /> 
         </CallObjectContext.Provider>
       ) : (
-        <div className="video-launch">
-          <input
-            type="text"
-            value={data.codeInput}
-            onChange={handleInputChange}
-            name="codeInput"
-            id="codeInput"
-          />
-          <button
-            disabled={!enableStartButton}
-            onClick={handleCodeSubmission}
+        <div className="wrap">
+          <VideoAccessModal
+            show={data.showModal}
+            handleClose={closeModal}
+            head="Enter the code emailed to you."
+            code={data.codeInput}
           >
-            Access
-          </button>
-          <button 
-            onClick={handleVideoLaunch}
-          >
-            Launch as admin
-          </button>
+            <VideoAccessForm 
+              launchAsAdmin={handleVideoLaunch}
+              launchAsClient={handleCodeSubmission}
+              handleInputChange={handleInputChange}
+            />
+          </VideoAccessModal>
         </div>
       )}
     </div>

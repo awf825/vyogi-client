@@ -37,6 +37,7 @@ async function createRoom() {
   //   alert("You are not authorized to perform this action.")
   //   return new Error()
   // }
+
   if (payload.message) {
     alert(payload.message)
     return undefined
