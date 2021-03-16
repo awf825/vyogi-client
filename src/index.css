@@ -3,10 +3,15 @@
     text-align: center;
 }
 
-.book-modal-button {
+.payform {
+    width: 100%;
+    text-align:center;
+}
+
+.book-modal-btn {
     display: inline-block;  
-    border: 1px solid red;
-    margin: 2px;
+    border: 1px solid black;
+    margin: 8px;
 }
 
 /* body {

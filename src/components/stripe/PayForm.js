@@ -39,7 +39,7 @@ class PayForm extends Component {
   render() {
     return (
       <div className="payform">
-        <h1>Stripe</h1>
+        <p>Please enter your payment information. Your information will not be stored.</p>
         <Elements stripe={this.state.stripeToken}>
           <Checkout {...this.props}/>
         </Elements>
