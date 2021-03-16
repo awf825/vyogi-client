@@ -27,7 +27,7 @@ class Schedule extends Component {
 
   componentDidMount() {
     // const url = `${API_ROOT}/lessons`
-    const url = `${API_ROOT}/calendar`
+    const url = `${API_ROOT}/calendar`;
     const token = localStorage.getItem("token");
     axios
       .get(url, {
@@ -40,7 +40,7 @@ class Schedule extends Component {
         console.log("axios.get(`${API_ROOT}/calendar`:", payload);
         payload.forEach((p, i) => {
           var start = new Date(p.start);
-          var end = new Date(p.end)
+          var end = new Date(p.end);
           p.start = start;
           p.end = end;
           p.allDay = false;
@@ -130,7 +130,7 @@ class Schedule extends Component {
           <Loader />
         )}
       </div>
-    )
+    );
   }
 }
 
