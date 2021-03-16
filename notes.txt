@@ -4,12 +4,12 @@ TO-DO's
 . Line the components up so they don't overflow (DONE)
 . Have all elements lined up correctly (DONE)
 . Google Calendar view on front (DONE)
-. Registration Router inline styles need to be moved to own sass file 
+. Registration Router inline styles need to be moved to own sass file (DONE)
 . All CSS files need to be moved to SASS files 
 
 
 
 FILES THAT CAN BE REMOVED
-. Navigation
-. SocialFooter
-. Header 
+. Navigation (DONE)
+. SocialFooter (DONE)
+. Header (DONE)
