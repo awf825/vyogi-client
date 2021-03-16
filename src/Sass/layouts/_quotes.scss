@@ -1,16 +1,16 @@
 .quotes {
-  background-color: $color_white;
+  background-color: $color_primary;
   height: 10vh;
   position: fixed;
   width: 100vw;
   z-index: 299;
 
   &__carousel {
-    background-color: $color_alice_blue;
-    border: 2px dashed $color_black;
+    background-color: $color_secondary;
+    border: 2px dashed $color_primary_dark;
     border-radius: 1%;
-    box-shadow: 0 0 0 2px #f8f8ff, 2px 1px 6px 4px rgba(10, 10, 0, 0.8);
-    color: $color_black;
+    box-shadow: 0 0 0 2px $color_secondary, 2px 1px 6px 4px rgba(10, 10, 0, 0.8);
+    color: $color_primary_dark;
     height: 5vh;
     left: 50%;
     position: relative;

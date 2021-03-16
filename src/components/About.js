@@ -2,8 +2,7 @@ import React from "react";
 import {
   IoLogoFacebook,
   IoLogoInstagram,
-  IoIosMail,
-  IoMdCall,
+  IoLogoSnapchat,
 } from "react-icons/io";
 
 const About = () => {
@@ -47,14 +46,14 @@ const About = () => {
           </li>
           <li className="about_item">
             <a className="about__link" href="/">
-              <IoIosMail className="about__icon about__mail" />
+              <IoLogoSnapchat className="about__icon about__snap" />
             </a>
           </li>
-          <li className="about_item">
+          {/* <li className="about_item">
             <a className="about__link" href="/">
               <IoMdCall className="about__icon about__phone" />
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

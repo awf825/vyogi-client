@@ -1,5 +1,5 @@
 .contact {
-  background-color: lightslategrey;
+  background-color: $color_secondary_dark;
   height: 100%;
   min-width: 100%;
   width: 100vw;
@@ -11,7 +11,7 @@
   &__form_container {
     background-color: white;
     border-radius: 3px;
-    box-shadow: 3px 3px 3px black;
+    box-shadow: 3px 3px 3px $color_black;
     position: relative;
     left: 50%;
     top: 50%;

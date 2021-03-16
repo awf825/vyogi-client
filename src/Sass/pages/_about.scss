@@ -1,5 +1,5 @@
 .about {
-  background-color: $color_alice_blue;
+  background-color: $color_primary;
   height: 100%;
   overflow: hidden;
   min-width: 100%;
@@ -11,7 +11,7 @@
   }
 
   &__main {
-    background: $color_white;
+    background: $color_secondary;
     box-sizing: border-box;
     border-radius: 1%;
     box-shadow: 5px 5px 5px $color_black;
@@ -140,15 +140,10 @@
     color: white;
   }
 
-  &__mail {
-    background-color: black;
+  &__snap {
+    background-color: $color_black;
     border-radius: 30%;
-    color: red;
+    color: #F7F400;
   }
 
-  &__phone {
-    background-color: lightgreen;
-    border-radius: 30%;
-    color: white;
-  }
 }
