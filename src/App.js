@@ -8,6 +8,7 @@ import Schedule from "./components/Schedule";
 import RegistrationRouter from "./components/Registration/RegistrationRouter";
 import RegistrationLogin from "./components/Registration/RegistrationLogin";
 import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
+import PayForm from "./components/stripe/PayForm";
 
 function App() {
   return (
@@ -28,10 +29,12 @@ function App() {
           />
           <Route exact path="/video" render={(props) => <Video {...props} />} />
           <Route
-            eact
+            exact
             path="/schedule"
             render={(props) => <Schedule {...props} />}
           />
+
+          <Route exact path="/payform" component={PayForm} />
         </Switch>
       </div>
     </BrowserRouter>
