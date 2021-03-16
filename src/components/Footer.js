@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { signout } from "./Registration/RegistrationAuth";
+import Quotes from "./Quotes/Quotes";
 
 const Footer = () => {
   const history = useHistory();
@@ -61,13 +62,7 @@ const Footer = () => {
         </ul>
       </div>
 
-      <div className="footer__copy">
-        <p className="footer__paragraph">
-          &copy; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-          sodales quis lacus et dictum. Ut congue, lorem sit amet egestas
-          laoreet, ligula velit.
-        </p>
-      </div>
+      <Quotes />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React from "react";
-import Quotes from "./Quotes/Quotes";
 import About from "./About";
 import Contact from "./Contact";
 import Schedule from "./Schedule";
+import Video from "./Video";
 import Footer from "./Footer";
 
 export const Dashboard = (props) => {
@@ -13,13 +13,11 @@ export const Dashboard = (props) => {
 
   return (
     <div className="dashboard">
-      <div className="dashboard__header">
-        <Quotes />
-      </div>
       <div className="dashboard__container">
         <About />
         <Contact />
         <Schedule />
+        <Video />
       </div>
       <div className="dashboard__footer">
         <Footer />
