@@ -8,10 +8,10 @@ const BookModalContent = (props) => {
 
   return (
     <div>
-      <div>
+      <div className="book-modal-landing">
         <p>{props.message}</p>
-        <input type="button" value="Yes" onClick={confirm}></input>
-        <input type="button" value="No" onClick={reject}></input>
+        <input type="button" class="book-modal-btn" value="Continue" onClick={confirm}></input>
+        <input type="button" class="book-modal-btn" value="Back to Calendar" onClick={reject}></input>
       </div>
       {
         reveal ? 

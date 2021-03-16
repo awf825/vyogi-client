@@ -91,17 +91,27 @@ class Schedule extends Component {
     this.rejectModal();
   };
 
+  twentyFourHourClockConvert = (int) => {
+    let ap;
+    if (int <= 12) {
+      ap = 'A.M';
+    } else {
+      ap = 'P.M'
+      int = int-12
+    }
+    return `${int} o\' clock ${ap}` 
+  }
+
   render() {
     const { schedule, modalOpen, modalData, showPayForm } = this.state;
     const localizer = momentLocalizer(moment);
-
-    const message = `This is lesson ${modalData.title}.
-    It will start at ${modalData.start} and last an hour. Can you confirm
-    this?`;
-
     if (modalOpen && modalData) {
+      const hour = this.twentyFourHourClockConvert(modalData.start.getHours())
+
+      const message = `This lesson will start at ${hour} and last an hour.`;
       this.children = (
         <BookModalContent
+          header = {modalData.title}
           message={message}
           oneLesson={modalData}
           handleLessonConfirmation={this.handleLessonConfirmation}

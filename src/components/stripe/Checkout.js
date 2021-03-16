@@ -63,7 +63,7 @@ export const Checkout = (props) => {
   return (
     <form onSubmit={e => handleSubmit(e)}>
       <CardSection />
-      <button disabled={!props.stripe}>Confirm Order</button>
+      <button className="book-modal-btn" disabled={!props.stripe}>Confirm Order</button>
     </form>
   )
 }
