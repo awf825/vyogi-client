@@ -73,7 +73,7 @@ const RegistrationSignUpForm = () => {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form className="registration__form" onSubmit={handleSubmit(onSubmit)}>
       <Form.Group>
         <Form.Label>Email</Form.Label>
         <Form.Control

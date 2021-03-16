@@ -70,7 +70,7 @@ const RegistrationLoginForm = () => {
   // The h4 handles errors in the form
   return (
     <>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form className="registration__form" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
           <Form.Label>Email</Form.Label>
           <Form.Control
