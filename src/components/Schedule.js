@@ -110,7 +110,7 @@ class Schedule extends Component {
     }
 
     return (
-      <div>
+      <div id="schedule">
         {schedule.length > 0 ? (
           <React.Fragment>
             <BookModal

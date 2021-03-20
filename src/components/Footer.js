@@ -26,27 +26,27 @@ const Footer = () => {
       <div className="footer__links">
         <ul className="footer__list">
           <li className="footer__list__item">
-            <Link className="footer__link" to="/">
+            <a className="footer__link" href="#about">
               Home
-            </Link>
+            </a>
           </li>
           <li className="footer__list__item">
-            <Link
+            <a
               className="footer__link"
-              to="/video"
-              onClick={(e) => authorizeSelection(e)}
-            >
-              Video
-            </Link>
-          </li>
-          <li className="footer__list__item">
-            <Link
-              className="footer__link"
-              to="/schedule"
+              href="#schedule"
               onClick={(e) => authorizeSelection(e)}
             >
               Schedule
-            </Link>
+            </a>
+          </li>
+          <li className="footer__list__item">
+            <a
+              className="footer__link"
+              href="#video"
+              onClick={(e) => authorizeSelection(e)}
+            >
+              Video
+            </a>
           </li>
           <li className="footer__list__item">
             {user ? (

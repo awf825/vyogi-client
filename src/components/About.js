@@ -7,7 +7,7 @@ import {
 
 const About = () => {
   return (
-    <div className="about">
+    <div className="about" id="about">
       <div className="about__main">
         <div className="about__img"></div>
         <h2 className="about__instructor">Hi I’m Alanna!</h2>
