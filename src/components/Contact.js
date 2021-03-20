@@ -45,6 +45,7 @@ const Contact = () => {
                   })}
                   name="message"
                   type="text"
+                  className="contact__text"
                   placeholder="Enter your message here"
                 />
               </Form.Group>

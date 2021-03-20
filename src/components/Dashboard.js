@@ -15,9 +15,9 @@ export const Dashboard = (props) => {
     <div className="dashboard">
       <div className="dashboard__container">
         <About />
-        <Contact />
         <Schedule />
         <Video />
+        <Contact />
       </div>
       <div className="dashboard__footer">
         <Footer />

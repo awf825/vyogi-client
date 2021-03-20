@@ -17,12 +17,26 @@
     top: 50%;
     transform: translate(-50%, -80%);
     width: 70vw;
+
+    @include respond(phone) {
+      height: 300px;
+      width: 80vw;
+    }
   }
 
   &__label {
     font-weight: 800;
     padding-left: 40%;
     padding-right: 40%;
+    @include respond(phone) {
+      padding: 0 30%;
+    }
+  }
+
+  &__text {
+    border-radius: 3px;
+    border: 1px solid $color_black;
+    box-shadow: 3px 3px 3px $color_black;
   }
 
   &__form {
