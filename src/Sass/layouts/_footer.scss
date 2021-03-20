@@ -11,11 +11,24 @@
   padding: 0;
   position: fixed;
   width: 100vw;
-  // z-index: 200;
+
+  @include respond(phone) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
 
   &__links {
     grid-row: 1;
     grid-column: 1 / 3;
+
+    @include respond(tab-land) {
+      margin-top: 10%;
+    }
+
+    @include respond(phone) {
+      grid-row: 4;
+      margin-top: 0%;
+    }
   }
 
   &__link {
@@ -25,6 +38,11 @@
     padding: 10px;
     text-decoration: none;
     transition: all 1s;
+
+    @include respond(tab-port) {
+      font-size: 12px;
+      padding: 5px;
+    }
   }
 
   &__link:hover {
@@ -37,9 +55,14 @@
   &__list {
     display: flex;
     list-style: none;
+
     &__item {
       margin: 0 auto;
       padding-top: 5%;
+
+      @include respond(phone) {
+        padding-top: 3%;
+      }
     }
   }
 

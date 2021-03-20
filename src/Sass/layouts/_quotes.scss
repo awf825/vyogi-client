@@ -3,30 +3,44 @@
   grid-column: 3 / 6;
   width: 100%;
 
+  @include respond(phone) {
+    grid-column: 1;
+    grid-row: 2 / 3;
+  }
+
   &__carousel {
-      background-color: $color_secondary;
-      border: 2px dashed $color_primary_dark;
-      border-radius: 1%;
-      box-shadow: 0 0 0 2px $color_secondary, 2px 1px 6px 4px rgba(10, 10, 0, 0.8);
-      color: $color_primary_dark;
-      height: 5vh;
-      left: 50%;
-      position: relative;
-      text-align: center;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
+    background-color: $color_secondary;
+    border: 2px dashed $color_primary_dark;
+    border-radius: 1%;
+    box-shadow: 0 0 0 2px $color_secondary, 2px 1px 6px 4px rgba(10, 10, 0, 0.8);
+    color: $color_primary_dark;
+    height: 5vh;
+    left: 50%;
+    position: relative;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+
+    @include respond(phone) {
+      margin-top: 5px;
+      height: 2vh;
+    }
   }
 
   &__quote {
-  font-size: 16px;
-  left: 50%;
-  position: fixed;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-}
+    font-size: 16px;
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
 
+    @include respond(phone) {
+      font-size: 12px;
+    }
+  }
+}
 
 // background-color: $color_white;
 // height: 10vh;
