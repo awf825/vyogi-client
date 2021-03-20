@@ -3,7 +3,6 @@
   height: 100%;
   overflow: hidden;
   min-width: 100%;
-
   width: 100%;
 
   &__heading {
@@ -23,20 +22,36 @@
     transform: translate(-50%, -50%);
     width: 90%;
 
-    @media (max-width: 1150px) {
+    @include respond(tab-land) {
+      height: 75%;
+      top: 50%;
+    }
+
+    @include respond(tab-port) {
       height: 90%;
+    }
+
+    @include respond(phone) {
+      height: 95%;
       overflow-y: scroll;
-      top: 45%;
     }
   }
 
   &__instructor {
-    font-size: 30px;
+    font-size: 32px;
     text-align: center;
     padding: 0;
 
-    @media (max-width: 700px) {
-      font-size: 16px;
+    @include respond(tab-land) {
+      font-size: 36px;
+    }
+
+    @include respond(tab-port) {
+      font-size: 32px;
+    }
+
+    @include respond(phone) {
+      font-size: 24px;
     }
   }
 
@@ -52,10 +67,24 @@
     shape-outside: circle();
     width: 200px;
 
-    @media (max-width: "1000px") {
-      background-position: 45% 45%;
+    @include respond(tab-land) {
+      background-position: 45% 50%;
       background-repeat: no-repeat;
+    }
+
+    @include respond(tab-port) {
+      background-position: 47% 47%;
+      background-repeat: no-repeat;
+      height: 150px;
+      width: 150px;
+    }
+
+    @include respond(phone) {
+      background-position: 45% 50%;
+      float: none;
       height: 100px;
+      margin: 0 auto;
+
       width: 100px;
     }
   }
@@ -67,6 +96,21 @@
     margin: 0;
     text-align: justify;
     padding: 0;
+
+    @include respond(tab-land) {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    @include respond(tab-port) {
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    @include respond(phone) {
+      font-size: 18px;
+      line-height: 1;
+    }
   }
 
   &__list {
@@ -98,6 +142,17 @@
     height: 50px;
     width: 50px;
     transition: all 1s;
+
+    @include respond(tab-land) {
+      height: 75px;
+      width: 75px;
+    }
+
+    @include respond(phone) {
+      height: 40px;
+      width: 40px;
+    }
+
     :hover {
       transform: scale(1);
     }
@@ -143,7 +198,6 @@
   &__snap {
     background-color: $color_black;
     border-radius: 30%;
-    color: #F7F400;
+    color: #f7f400;
   }
-
 }
