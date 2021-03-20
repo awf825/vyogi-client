@@ -121,7 +121,7 @@ class Schedule extends Component {
             <Calendar
               localizer={localizer}
               events={schedule}
-              style={{ height: 800 }}
+              style={{ height: 800, width: "100vw" }}
               selectable={true}
               onSelectEvent={(event) => this.handleSelection(event)}
             />
