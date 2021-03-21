@@ -9,6 +9,8 @@ const BookModalContent = (props) => {
   return (
     <div>
       <div className="book-modal-landing">
+        <h2>{props.header}</h2>
+        <p>{props.desc}</p>
         <p>{props.message}</p>
         <input type="button" class="book-modal-btn" value="Continue" onClick={confirm}></input>
         <input type="button" class="book-modal-btn" value="Back to Calendar" onClick={reject}></input>
