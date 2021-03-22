@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { API_ROOT } from "../../api-config.js";
 import { authenticate } from "./RegistrationAuth";
@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 const RegistrationLoginForm = () => {
   // Initial State
   const { register, handleSubmit, errors, watch, reset } = useForm();
+  const [onSuccess, setOnSuccess] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
   const [errorHandling, setErrorHandling] = useState("");
   const history = useHistory();
@@ -24,7 +25,9 @@ const RegistrationLoginForm = () => {
       }
 
       const resp = await axios.post(`${API_ROOT}/signin`, data);
-      if (resp) authenticate(resp.data, () => history.push("/"));
+      if (resp) {
+        authenticate(resp.data, () => history.push("/"));
+      }
     } catch (err) {
       setErrorHandling(err.response.statusText);
       setShowErrors(true);
@@ -64,7 +67,15 @@ const RegistrationLoginForm = () => {
   // Regex that checks to make sure the email is an email address.
   function isEmail(email) {
     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(email);
+
+    if (regex.test(email)) {
+      return true;
+    } else {
+      return {
+        value: false,
+        message: "Not a valid email",
+      };
+    }
   }
 
   // The h4 handles errors in the form
