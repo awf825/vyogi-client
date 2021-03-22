@@ -49,11 +49,6 @@ const About = () => {
               <IoLogoSnapchat className="about__icon about__snap" />
             </a>
           </li>
-          {/* <li className="about_item">
-            <a className="about__link" href="/">
-              <IoMdCall className="about__icon about__phone" />
-            </a>
-          </li> */}
         </ul>
       </div>
     </div>

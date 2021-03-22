@@ -14,7 +14,7 @@
     box-sizing: border-box;
     border-radius: 1%;
     box-shadow: 5px 5px 5px $color_black;
-    height: 50%;
+    height: 70%;
     left: 50%;
     padding: 30px;
     position: relative;
@@ -23,7 +23,7 @@
     width: 90%;
 
     @include respond(tab-land) {
-      height: 75%;
+      height: 90%;
       top: 50%;
     }
 
@@ -90,20 +90,20 @@
   }
 
   &__text {
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 24px;
+    line-height: 1;
     hyphens: auto;
     margin: 0;
     text-align: justify;
     padding: 0;
 
     @include respond(tab-land) {
-      font-size: 32px;
+      font-size: 26px;
       line-height: 1;
     }
 
     @include respond(tab-port) {
-      font-size: 26px;
+      font-size: 24px;
       line-height: 1;
     }
 
@@ -118,7 +118,7 @@
     justify-content: space-around;
     height: 5vh;
     list-style: none;
-    margin-top: 5vh;
+    margin-top: 3%;
   }
 
   &__item {
@@ -139,13 +139,13 @@
 
   &__icon {
     box-shadow: 1px 1px 3px gray;
-    height: 50px;
-    width: 50px;
+    height: 65px;
+    width: 65px;
     transition: all 1s;
 
     @include respond(tab-land) {
-      height: 75px;
-      width: 75px;
+      height: 50px;
+      width: 50px;
     }
 
     @include respond(phone) {
