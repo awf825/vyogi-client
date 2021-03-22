@@ -110,7 +110,14 @@ class Schedule extends Component {
     }
 
     return (
-      <div id="schedule">
+      <div
+        id="schedule"
+        style={{
+          background: "lightgrey",
+          width: "100%",
+          height: "100%",
+        }}
+      >
         {schedule.length > 0 ? (
           <React.Fragment>
             <BookModal
@@ -121,7 +128,14 @@ class Schedule extends Component {
             <Calendar
               localizer={localizer}
               events={schedule}
-              style={{ height: 800, width: "100vw" }}
+              style={{
+                background: "lightblue",
+                border: "solid black 3px",
+                borderRadius: "3px",
+                height: 400,
+                width: "80%",
+                margin: "10%",
+              }}
               selectable={true}
               onSelectEvent={(event) => this.handleSelection(event)}
             />
