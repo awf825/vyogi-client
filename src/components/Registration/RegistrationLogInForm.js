@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import { API_ROOT } from "../../api-config.js";
 import { authenticate } from "./RegistrationAuth";
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 const RegistrationLoginForm = () => {
   // Initial State
   const { register, handleSubmit, errors, watch, reset } = useForm();
-  const [onSuccess, setOnSuccess] = useState(false);
+
   const [showErrors, setShowErrors] = useState(false);
   const [errorHandling, setErrorHandling] = useState("");
   const history = useHistory();
@@ -26,7 +26,7 @@ const RegistrationLoginForm = () => {
 
       const resp = await axios.post(`${API_ROOT}/signin`, data);
       if (resp) {
-        authenticate(resp.data, () => history.push("/"));
+        authenticate(resp.data, () => <Alert>Hello</Alert>);
       }
     } catch (err) {
       setErrorHandling(err.response.statusText);

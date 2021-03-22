@@ -1,6 +1,7 @@
-import React from 'react';
-import {CardElement, CardNumberElement, CardExpiryElement, CardCvcElement} from '@stripe/react-stripe-js';
-import './Styles.css'
+import React from "react";
+// need to be added to the import below commented out to get rid of warnings in console CardNumberElement, CardExpiryElement, CardCvcElement
+import { CardElement } from "@stripe/react-stripe-js";
+import "./Styles.css";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -29,6 +30,6 @@ function CardSection() {
       <CardCvcElement /> */}
     </div>
   );
-};
+}
 
 export default CardSection;

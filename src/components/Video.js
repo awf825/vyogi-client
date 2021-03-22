@@ -5,7 +5,7 @@ import Tray from "./video/tray/Tray";
 import dailyApi from "./video/dailyApi";
 import DailyIframe from "@daily-co/daily-js";
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from "../urlUtils";
-import { logDailyEvent } from "../logUtils";
+// import { logDailyEvent } from "../logUtils";
 import "./Video.css";
 
 export const CallObjectContext = React.createContext();
