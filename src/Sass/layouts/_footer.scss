@@ -20,20 +20,16 @@
   &__links {
     grid-row: 1;
     grid-column: 1 / 3;
-
-    @include respond(tab-land) {
-      margin-top: 10%;
-    }
+    margin: auto 0;
 
     @include respond(phone) {
       grid-row: 4;
-      margin-top: 0%;
     }
   }
 
   &__link {
     background-color: $color_tertiary;
-    border-radius: 3%;
+    border-radius: 10%;
     color: $color_black;
     padding: 10px;
     text-decoration: none;
