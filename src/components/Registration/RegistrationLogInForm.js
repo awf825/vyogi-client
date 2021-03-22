@@ -26,9 +26,10 @@ const RegistrationLoginForm = () => {
 
       const resp = await axios.post(`${API_ROOT}/signin`, data);
       if (resp) {
-        authenticate(resp.data, () => <Alert>Hello</Alert>);
+        authenticate(resp.data, () => history.push("/"));
       }
     } catch (err) {
+      console.log(err);
       setErrorHandling(err.response.statusText);
       setShowErrors(true);
     }
@@ -45,16 +46,16 @@ const RegistrationLoginForm = () => {
     }
   }
 
+  const handler = () => {
+    setShowErrors(false);
+    setErrorHandling("");
+    reset(errors);
+  };
+
   // Handles errors from the server such as a 401
   if (showErrors) {
     return (
-      <Alert
-        variant="danger"
-        onClose={() => (
-          setShowErrors(false), setErrorHandling(""), reset(errors)
-        )}
-        dismissible
-      >
+      <Alert variant="danger" onClose={() => handler()} dismissible>
         <Alert.Heading>{errorHandling}</Alert.Heading>
       </Alert>
     );
@@ -78,7 +79,6 @@ const RegistrationLoginForm = () => {
     }
   }
 
-  // The h4 handles errors in the form
   return (
     <>
       <Form className="registration__form" onSubmit={handleSubmit(onSubmit)}>

@@ -51,16 +51,16 @@ const RegistrationSignUpForm = () => {
     }
   }
 
+  const handler = () => {
+    setShowErrors(false);
+    setErrorHandling("");
+    reset(errors);
+  };
+
   // Hanldes showing all errors
   if (showErrors) {
     return (
-      <Alert
-        variant="danger"
-        onClose={() => (
-          setShowErrors(false), setErrorHandling(""), reset(errors)
-        )}
-        dismissible
-      >
+      <Alert variant="danger" onClose={() => handler()} dismissible>
         <Alert.Heading>{errorHandling}</Alert.Heading>
       </Alert>
     );
