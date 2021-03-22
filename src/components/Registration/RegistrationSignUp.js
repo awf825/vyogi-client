@@ -5,13 +5,18 @@ import RegistrationSignUpForm from "./RegistrationSignUpForm";
 
 const RegistrationSignUp = (props) => {
   const [showModal, setShowModal] = useState(false);
+  const [success, setSuccess] = useState(false);
   const history = useHistory();
 
   function closeModal() {
     if (showModal) {
       setShowModal(false);
       props.location.openModal = false;
-      history.push("/registration");
+      if (success) {
+        history.push("/");
+      } else {
+        history.push("/registration");
+      }
     }
   }
 
@@ -30,7 +35,10 @@ const RegistrationSignUp = (props) => {
         handleClose={closeModal}
         head="Sign Up"
       >
-        <RegistrationSignUpForm />
+        <RegistrationSignUpForm
+          success={success}
+          changeSuccess={(s) => setSuccess(s)}
+        />
       </RegistrationModal>
     </div>
   );

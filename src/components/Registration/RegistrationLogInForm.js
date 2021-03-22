@@ -6,10 +6,9 @@ import { useHistory } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 
-const RegistrationLoginForm = () => {
+const RegistrationLoginForm = (props) => {
   // Initial State
   const { register, handleSubmit, errors, watch, reset } = useForm();
-
   const [showErrors, setShowErrors] = useState(false);
   const [errorHandling, setErrorHandling] = useState("");
   const history = useHistory();
@@ -26,7 +25,7 @@ const RegistrationLoginForm = () => {
 
       const resp = await axios.post(`${API_ROOT}/signin`, data);
       if (resp) {
-        authenticate(resp.data, () => history.push("/"));
+        authenticate(resp.data, () => props.changeSuccess(true));
       }
     } catch (err) {
       console.log(err);
@@ -46,7 +45,7 @@ const RegistrationLoginForm = () => {
     }
   }
 
-  const handler = () => {
+  const errorHandler = () => {
     setShowErrors(false);
     setErrorHandling("");
     reset(errors);
@@ -55,8 +54,21 @@ const RegistrationLoginForm = () => {
   // Handles errors from the server such as a 401
   if (showErrors) {
     return (
-      <Alert variant="danger" onClose={() => handler()} dismissible>
+      <Alert variant="danger" onClose={() => errorHandler()} dismissible>
         <Alert.Heading>{errorHandling}</Alert.Heading>
+      </Alert>
+    );
+  }
+
+  const successHandler = () => {
+    props.changeSuccess(false);
+    history.push("/");
+  };
+
+  if (props.success) {
+    return (
+      <Alert variant="success" onClose={() => successHandler()} dismissible>
+        <Alert.Heading>You are logged in!</Alert.Heading>
       </Alert>
     );
   }
