@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import { API_ROOT } from "../../api-config.js";
-import { useHistory } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { authenticate } from "./RegistrationAuth";
@@ -10,7 +9,6 @@ const RegistrationSignUpForm = (props) => {
   const { register, handleSubmit, errors, watch, reset } = useForm();
   const [showErrors, setShowErrors] = useState(false);
   const [errorHandling, setErrorHandling] = useState("");
-  const history = useHistory();
   const password = useRef({});
   password.current = watch("password", "");
 
@@ -66,18 +64,8 @@ const RegistrationSignUpForm = (props) => {
     );
   }
 
-  const successHandler = () => {
-    props.changeSuccess(false);
-    history.push("/");
-  };
-
-  // Shows a success login
   if (props.success) {
-    return (
-      <Alert variant="success" onClose={() => successHandler()} dismissible>
-        <Alert.Heading>You are logged in!</Alert.Heading>
-      </Alert>
-    );
+    return <h1>You are logged in!</h1>;
   }
 
   // Email validation
