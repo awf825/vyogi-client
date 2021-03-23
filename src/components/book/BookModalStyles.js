@@ -17,11 +17,12 @@ right: 0;
 width: "32%"
 overflow:hidden;
 padding:16px;
-margin: 50px auto;
+margin: 65px;
 box-sizing:border-box;
 z-index:1;
 box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04);
-border: 0.5px solid #E8E8E8;
+border: darkgrey;
+background-color: darkgrey;
 `;
 
 export const BookModalBg = styled.div`
