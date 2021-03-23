@@ -36,6 +36,7 @@ class Schedule extends Component {
       })
       .then((resp) => {
         //debugger
+        // 0.8 = $8 in stripe
         var payload = resp.data;
         console.log("axios.get(`${API_ROOT}/lessons`:", payload);
         payload.forEach((p, i) => {
@@ -44,7 +45,7 @@ class Schedule extends Component {
           p.start = start;
           p.end = end;
           p.allDay = false;
-          p.cost = 8.5;
+          p.cost = 0.8;
         });
         this.setState({
           schedule: payload,
