@@ -29,13 +29,15 @@ export const Checkout = (props) => {
       const stripeToken = result.token;
       const browserToken = localStorage.getItem('token');
       const user = localStorage.getItem('_id'); 
+      const email = localStorage.getItem('email');
 
       const paymentData = {
         token: stripeToken.id,
         cost: oneLesson.cost,
         start: oneLesson.start,
         lesson: oneLesson.id,
-        user: user
+        user: user,
+        email: email
       }
 
       const headers = {
