@@ -45,7 +45,7 @@ class Schedule extends Component {
           p.start = start;
           p.end = end;
           p.allDay = false;
-          p.cost = 0.8;
+          p.cost = 1.2;
         });
         this.setState({
           schedule: payload,
@@ -100,7 +100,7 @@ class Schedule extends Component {
       ap = 'P.M'
       int = int-12
     }
-    return `${int} o\' clock ${ap}` 
+    return `${int} o\'clock ${ap}` 
   }
 
   render() {
@@ -109,21 +109,15 @@ class Schedule extends Component {
     if (modalOpen && modalData) {
       const hour = this.twentyFourHourClockConvert(modalData.start.getHours());
       const desc = `
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, 
-        sunt in culpa qui officia deserunt mollit anim id est laborum
-      `;
-      const message = `
-        This lesson will start at ${hour} and last an hour.
+        I have a client driven style of teaching; once we meet in the video portal we can discuss
+        what exactly you want to get out of it and we can go from there! This 1-on-1 lesson will cost
+        $12, will start at ${hour}, and last an hour. We have a 24 hour notice policy for cancellations,
+        you can cancel an appointment for any reason from the My Bookings tab in the footer.
       `;
       this.children = (
         <BookModalContent
           header = {modalData.title}
           desc={desc}
-          message={message}
           oneLesson={modalData}
           handleLessonConfirmation={this.handleLessonConfirmation}
           handleLessonRejection={this.handleLessonRejection}
