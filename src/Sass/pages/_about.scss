@@ -56,9 +56,10 @@
   }
 
   &__img {
-    background: url("../../components/pictures/placeholder_about.jpg");
-    background-position: 45% 50%;
+    background: url("../../components/pictures/alanna.jpg");
+    background-position: 50% 50%;
     background-repeat: no-repeat;
+    background-size: contain;
     border-radius: 50%;
     box-shadow: 3px 3px 3px $color_black;
     float: left;
@@ -67,18 +68,7 @@
     shape-outside: circle();
     width: 200px;
 
-    @include respond(tab-land) {
-      background-position: 45% 50%;
-      background-repeat: no-repeat;
-    }
-
-    @include respond(tab-port) {
-      background-position: 47% 47%;
-      background-repeat: no-repeat;
-    }
-
     @include respond(phone) {
-      background-position: 45% 50%;
       float: none;
       height: 150px;
       margin: 0 auto;

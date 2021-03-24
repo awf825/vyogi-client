@@ -92,13 +92,13 @@ class Schedule extends Component {
   twentyFourHourClockConvert = (int) => {
     let ap;
     if (int <= 12) {
-      ap = 'A.M';
+      ap = "A.M";
     } else {
-      ap = 'P.M'
-      int = int-12
+      ap = "P.M";
+      int = int - 12;
     }
-    return `${int} o\'clock ${ap}` 
-  }
+    return `${int} o'clock ${ap}`;
+  };
 
   render() {
     const { schedule, modalOpen, modalData, showPayForm } = this.state;
@@ -113,7 +113,7 @@ class Schedule extends Component {
       `;
       this.children = (
         <BookModalContent
-          header = {modalData.title}
+          header={modalData.title}
           desc={desc}
           oneLesson={modalData}
           handleLessonConfirmation={this.handleLessonConfirmation}
