@@ -29,7 +29,10 @@ const PayForm = (props) => {
 
   return (
     <div className="payform">
-      <h1>Stripe</h1>
+      <p>
+        Please enter your payment information. Your information will not be
+        stored.
+      </p>
       <Elements stripe={stripeToken}>
         <Checkout {...props} />
       </Elements>
@@ -38,44 +41,3 @@ const PayForm = (props) => {
 };
 
 export default PayForm;
-
-// class PayForm extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       stripeToken: null,
-//     };
-//   }
-
-//   componentDidMount() {
-//     const token = localStorage.getItem("token");
-//     axios
-//       .get(`${API_ROOT}/stripe`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       })
-//       .then((resp) => {
-//         this.setState({
-//           stripeToken: loadStripe(resp.data),
-//         });
-//       });
-//   }
-
-//   componentWillUnmount() {
-//     this.setState({
-//       stripeToken: null,
-//     });
-//   }
-
-//   render() {
-//     return (
-//       <div className="payform">
-//         <h1>Stripe</h1>
-//         <Elements stripe={this.state.stripeToken}>
-//           <Checkout {...this.props} />
-//         </Elements>
-//       </div>
-//     );
-//   }
-// }

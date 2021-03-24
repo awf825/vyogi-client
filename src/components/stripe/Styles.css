@@ -19,3 +19,7 @@
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
 }
+
+.__PrivateStripeElement-input {
+  width: 60%;
+}

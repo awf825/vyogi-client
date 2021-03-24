@@ -23,8 +23,10 @@ export const Checkout = (props) => {
       alert(`I'm sorry, your card number is either incomplete or invalid`);
     } else {
       const stripeToken = result.token;
+
       const browserToken = localStorage.getItem("token");
       const user = localStorage.getItem("_id");
+      const email = localStorage.getItem("email");
 
       const paymentData = {
         token: stripeToken.id,
@@ -32,6 +34,7 @@ export const Checkout = (props) => {
         start: oneLesson.start,
         lesson: oneLesson.id,
         user: user,
+        email: email,
       };
 
       const headers = {
@@ -67,7 +70,9 @@ export const Checkout = (props) => {
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <CardSection />
-      <button disabled={!props.stripe}>Confirm Order</button>
+      <button className="book-modal-btn" disabled={!props.stripe}>
+        Confirm Order
+      </button>
     </form>
   );
 };
