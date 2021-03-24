@@ -4,6 +4,7 @@ import Contact from "./Contact";
 import Schedule from "./Schedule";
 import Video from "./Video";
 import Footer from "./Footer";
+import LessonForm from "./LessonForm";
 
 export const Dashboard = (props) => {
   // Since the dashboard is the push point for both authenticated and unauthenticated users
@@ -18,6 +19,7 @@ export const Dashboard = (props) => {
         <Schedule />
         <Video />
         <Contact />
+        <LessonForm />
       </div>
       <div className="dashboard__footer">
         <Footer />
