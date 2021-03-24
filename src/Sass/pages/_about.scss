@@ -14,7 +14,7 @@
     box-sizing: border-box;
     border-radius: 1%;
     box-shadow: 5px 5px 5px $color_black;
-    height: 70%;
+    height: 60%;
     left: 50%;
     padding: 30px;
     position: relative;
@@ -38,7 +38,7 @@
   }
 
   &__instructor {
-    font-size: 32px;
+    font-size: 36px;
     text-align: center;
     padding: 0;
 
@@ -47,11 +47,11 @@
     }
 
     @include respond(tab-port) {
-      font-size: 32px;
+      font-size: 36px;
     }
 
     @include respond(phone) {
-      font-size: 24px;
+      font-size: 32px;
     }
   }
 
@@ -75,17 +75,14 @@
     @include respond(tab-port) {
       background-position: 47% 47%;
       background-repeat: no-repeat;
-      height: 150px;
-      width: 150px;
     }
 
     @include respond(phone) {
       background-position: 45% 50%;
       float: none;
-      height: 100px;
+      height: 150px;
       margin: 0 auto;
-
-      width: 100px;
+      width: 150px;
     }
   }
 
@@ -93,111 +90,113 @@
     font-size: 24px;
     line-height: 1.25;
     hyphens: auto;
-    margin: 0;
+    margin: 10px 0;
     text-align: justify;
     padding: 0;
 
     @include respond(tab-land) {
-      font-size: 26px;
-      line-height: 1;
+      font-size: 24px;
+      line-height: 1.25;
     }
 
     @include respond(tab-port) {
       font-size: 24px;
-      line-height: 1;
+      line-height: 1.2;
     }
 
     @include respond(phone) {
-      font-size: 18px;
-      line-height: 1;
+      font-size: 24px;
+      letter-spacing: 1px;
+      line-height: 1.25;
     }
-  }
-
-  &__list {
-    display: flex;
-    justify-content: space-around;
-    height: 5vh;
-    list-style: none;
-    margin-top: 2%;
-  }
-
-  &__item {
-    align-self: center;
-  }
-
-  &__link {
-    text-decoration: none;
-    height: 3vh;
-    width: 3vw;
-    transition: all 1s;
-    :hover {
-      box-shadow: 5px 5px 5px black;
-      cursor: pointer;
-      transform: scale(1.5);
-    }
-  }
-
-  &__icon {
-    box-shadow: 1px 1px 3px gray;
-    height: 60px;
-    width: 60px;
-    transition: all 1s;
-
-    @include respond(tab-land) {
-      height: 50px;
-      width: 50px;
-    }
-
-    @include respond(phone) {
-      height: 40px;
-      width: 40px;
-    }
-
-    :hover {
-      transform: scale(1);
-    }
-  }
-
-  &__fb {
-    background-color: white;
-    border-radius: 30%;
-    color: #4967aa;
-  }
-
-  &__insta {
-    background: #f09433;
-    background: -moz-linear-gradient(
-      45deg,
-      #f09433 0%,
-      #e6683c 25%,
-      #dc2743 50%,
-      #cc2366 75%,
-      #bc1888 100%
-    );
-    background: -webkit-linear-gradient(
-      45deg,
-      #f09433 0%,
-      #e6683c 25%,
-      #dc2743 50%,
-      #cc2366 75%,
-      #bc1888 100%
-    );
-    background: linear-gradient(
-      45deg,
-      #f09433 0%,
-      #e6683c 25%,
-      #dc2743 50%,
-      #cc2366 75%,
-      #bc1888 100%
-    );
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
-    border-radius: 30%;
-    color: white;
-  }
-
-  &__snap {
-    background-color: $color_black;
-    border-radius: 30%;
-    color: #f7f400;
   }
 }
+
+//   &__list {
+//     display: flex;
+//     justify-content: space-around;
+//     height: 5vh;
+//     list-style: none;
+//     margin-top: 2%;
+//   }
+
+//   &__item {
+//     align-self: center;
+//   }
+
+//   &__link {
+//     text-decoration: none;
+//     height: 3vh;
+//     width: 3vw;
+//     transition: all 1s;
+//     :hover {
+//       box-shadow: 5px 5px 5px black;
+//       cursor: pointer;
+//       transform: scale(1.5);
+//     }
+//   }
+
+//   &__icon {
+//     box-shadow: 1px 1px 3px gray;
+//     height: 60px;
+//     width: 60px;
+//     transition: all 1s;
+
+//     @include respond(tab-land) {
+//       height: 50px;
+//       width: 50px;
+//     }
+
+//     @include respond(phone) {
+//       height: 40px;
+//       width: 40px;
+//     }
+
+//     :hover {
+//       transform: scale(1);
+//     }
+//   }
+
+//   &__fb {
+//     background-color: white;
+//     border-radius: 30%;
+//     color: #4967aa;
+//   }
+
+//   &__insta {
+//     background: #f09433;
+//     background: -moz-linear-gradient(
+//       45deg,
+//       #f09433 0%,
+//       #e6683c 25%,
+//       #dc2743 50%,
+//       #cc2366 75%,
+//       #bc1888 100%
+//     );
+//     background: -webkit-linear-gradient(
+//       45deg,
+//       #f09433 0%,
+//       #e6683c 25%,
+//       #dc2743 50%,
+//       #cc2366 75%,
+//       #bc1888 100%
+//     );
+//     background: linear-gradient(
+//       45deg,
+//       #f09433 0%,
+//       #e6683c 25%,
+//       #dc2743 50%,
+//       #cc2366 75%,
+//       #bc1888 100%
+//     );
+//     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+//     border-radius: 30%;
+//     color: white;
+//   }
+
+//   &__snap {
+//     background-color: $color_black;
+//     border-radius: 30%;
+//     color: #f7f400;
+//   }
+// }

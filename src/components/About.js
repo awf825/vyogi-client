@@ -1,9 +1,9 @@
 import React from "react";
-import {
-  IoLogoFacebook,
-  IoLogoInstagram,
-  IoLogoSnapchat,
-} from "react-icons/io";
+// import {
+//   IoLogoFacebook,
+//   IoLogoInstagram,
+//   IoLogoSnapchat,
+// } from "react-icons/io";
 
 const About = () => {
   return (
@@ -30,7 +30,7 @@ const About = () => {
           not practicing yoga, you can find me cooking, reading, playing piano,
           (attempting) to learn new languages, or watching Real Housewives.
         </p>
-        <ul className="about__list">
+        {/* <ul className="about__list">
           <li className="about_item">
             <a
               className="about__link"
@@ -49,7 +49,7 @@ const About = () => {
               <IoLogoSnapchat className="about__icon about__snap" />
             </a>
           </li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );
