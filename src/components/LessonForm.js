@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
+// Need to add a way to communicat to user that the form has failed.  Maybe a state that shows when the form fails to submit
+
 const LessonForm = () => {
   const [errors, setErrors] = useState({
     check: "",
-    practiced: "",
-    focus: "",
-    limitations: "",
-    needToKnow: "",
+    practiced: "Tell us about you!",
+    focus: "Tell us about you!",
+    limitations: "Tell us about you!",
+    needToKnow: "Tell us about you!",
   });
 
   const [data, setData] = useState({
@@ -38,28 +40,40 @@ const LessonForm = () => {
         setData({ ...data, [name]: value });
         setErrors({
           ...errors,
-          [name]: value.length < 3 ? "Please fill in all text fields" : "",
+          [name]:
+            value.length < 3 || value === "Tell us about you!"
+              ? "Please fill in all text fields"
+              : "",
         });
         break;
       case "limitations":
         setData({ ...data, [name]: value });
         setErrors({
           ...errors,
-          [name]: value.length < 3 ? "Please fill in all text fields" : "",
+          [name]:
+            value.length < 3 || value === "Tell us about you!"
+              ? "Please fill in all text fields"
+              : "",
         });
         break;
       case "focus":
         setData({ ...data, [name]: value });
         setErrors({
           ...errors,
-          [name]: value.length < 3 ? "Please fill in all text fields" : "",
+          [name]:
+            value.length < 3 || value === "Tell us about you!"
+              ? "Please fill in all text fields"
+              : "",
         });
         break;
       case "needToKnow":
         setData({ ...data, [name]: value });
         setErrors({
           ...errors,
-          [name]: value.length < 3 ? "Please fill in all text fields" : "",
+          [name]:
+            value.length < 3 || value === "Tell us about you!"
+              ? "Please fill in all text fields"
+              : "",
         });
         break;
       default:
@@ -127,7 +141,11 @@ Is there anything else you'd like me to know? [TEXTAREA]
                   Have you practiced yoga before? If so, what type and for how
                   long?
                 </Form.Label>
-                <span>{errors.practiced}</span>
+                <span>
+                  {errors.practiced !== "Tell us about you!"
+                    ? errors.practiced
+                    : ""}
+                </span>
                 <Form.Control
                   className="lessonForm__text"
                   as="textarea"
@@ -135,13 +153,18 @@ Is there anything else you'd like me to know? [TEXTAREA]
                   rows={2}
                   value={data.practiced}
                   onChange={handleChange}
+                  placeholder={errors.practiced}
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label className="lessonForm__label">
                   Do you have any injuries or physical limitations?
                 </Form.Label>
-                <span>{errors.limitations}</span>
+                <span>
+                  {errors.limitations !== "Tell us about you!"
+                    ? errors.limitations
+                    : ""}
+                </span>
                 <Form.Control
                   as="textarea"
                   className="lessonForm__text"
@@ -149,6 +172,7 @@ Is there anything else you'd like me to know? [TEXTAREA]
                   rows={2}
                   value={data.limitations}
                   onChange={handleChange}
+                  placeholder={errors.limitations}
                 />
               </Form.Group>
               <Form.Group>
@@ -156,7 +180,9 @@ Is there anything else you'd like me to know? [TEXTAREA]
                   Is there anything specific you'd like to focus on during our
                   time together?
                 </Form.Label>
-                <span>{errors.focus}</span>
+                <span>
+                  {errors.focus !== "Tell us about you!" ? errors.focus : ""}
+                </span>
                 <Form.Control
                   as="textarea"
                   className="lessonForm__text"
@@ -164,13 +190,18 @@ Is there anything else you'd like me to know? [TEXTAREA]
                   rows={2}
                   value={data.focus}
                   onChange={handleChange}
+                  placeholder={errors.focus}
                 />
               </Form.Group>
               <Form.Group>
                 <Form.Label className="lessonForm__label">
                   Is there anything else you'd like me to know?
                 </Form.Label>
-                <span>{errors.needToKnow}</span>
+                <span>
+                  {errors.needToKnow !== "Tell us about you!"
+                    ? errors.needToKnow
+                    : ""}
+                </span>
                 <Form.Control
                   as="textarea"
                   className="lessonForm__text"
@@ -178,6 +209,7 @@ Is there anything else you'd like me to know? [TEXTAREA]
                   rows={2}
                   value={data.needToKnow}
                   onChange={handleChange}
+                  placeholder={errors.needToKnow}
                 />
               </Form.Group>
               <Button type="submit">Submit</Button>
