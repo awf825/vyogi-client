@@ -234,17 +234,22 @@ export const Video = (props) => {
         </CallObjectContext.Provider>
       ) : (
         <div className="video-launch">
-          <input
-            type="text"
-            value={data.codeInput}
-            onChange={handleInputChange}
-            name="codeInput"
-            id="codeInput"
-          />
-          <button disabled={!enableStartButton} onClick={handleCodeSubmission}>
-            Access
-          </button>
-          <button onClick={handleVideoLaunch}>Launch as admin</button>
+          <div className="video-launch-inputs">
+            <input
+              type="text"
+              value={data.codeInput}
+              onChange={handleInputChange}
+              name="codeInput"
+              id="codeInput"
+            />
+            <button
+              disabled={!enableStartButton}
+              onClick={handleCodeSubmission}
+            >
+              Access
+            </button>
+            <button onClick={handleVideoLaunch}>Launch as admin</button>
+          </div>
         </div>
       )}
     </div>
