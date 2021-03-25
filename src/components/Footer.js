@@ -41,6 +41,15 @@ const Footer = () => {
           <li className="footer__list__item">
             <Link
               className="footer__link"
+              to="/bookings"
+              onClick={(e) => authorizeSelection(e)}
+            >
+              My Bookings
+            </Link>
+          </li>
+          <li className="footer__list__item">
+            <Link
+              className="footer__link"
               to="/schedule"
               onClick={(e) => authorizeSelection(e)}
             >
