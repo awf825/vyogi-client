@@ -36,7 +36,7 @@ export const Checkout = (props) => {
         cost: oneLesson.cost,
         start: oneLesson.start,
         end: oneLesson.end,
-        // lesson: oneLesson.id,
+        lesson: oneLesson.id,
         user: user,
         email: email
       }
