@@ -1,0 +1,21 @@
+.bookings {
+  background-color: $color_secondary;
+  height: 100%;
+  width: 100%;
+
+  &__container {
+    height: 80%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: relative;
+    width: 80%;
+  }
+
+  &__table {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: relative;
+  }
+}
