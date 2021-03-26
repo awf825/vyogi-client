@@ -32,6 +32,7 @@ export const Checkout = (props) => {
         token: stripeToken.id,
         cost: oneLesson.cost,
         start: oneLesson.start,
+        end: oneLesson.end,
         lesson: oneLesson.id,
         user: user,
         email: email,

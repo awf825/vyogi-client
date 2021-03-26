@@ -42,7 +42,16 @@ const Footer = () => {
           <li className="footer__list__item">
             <a
               className="footer__link"
-              href="#video"
+              href="#bookings"
+              onClick={(e) => authorizeSelection(e)}
+            >
+              My Bookings
+            </a>
+          </li>
+          <li className="footer__list__item">
+            <a
+              className="footer__link"
+              href="#schedule"
               onClick={(e) => authorizeSelection(e)}
             >
               Video

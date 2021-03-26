@@ -3,6 +3,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Dashboard from "./components/Dashboard";
 import Video from "./components/Video";
+import UserBookings from "./components/UserBookings";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Schedule from "./components/Schedule";
 import RegistrationRouter from "./components/Registration/RegistrationRouter";
@@ -34,7 +35,11 @@ function App() {
             render={(props) => <Schedule {...props} />}
           />
 
-          <Route exact path="/payform" component={PayForm} />
+          <Route
+            exact
+            path="/bookings"
+            render={(props) => <UserBookings {...props} />}
+          />
         </Switch>
       </div>
     </BrowserRouter>

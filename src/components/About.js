@@ -19,15 +19,15 @@ const About = () => {
           environment of many yoga studios. It wasn’t until a couple years ago,
           when I was living in New York City, that I began to practice seriously
           again. I turned to yoga as a way to calm down in the hectic
-          environment, and this time it really stuck! I decided that yoga had
-          such a positive impact on her wellbeing that I had to share with
-          others. Last year I headed to the Kripalu Center to get her 200 hour
-          certification, drawn to the Kripalu style due to its emphasis on
-          compassion and inclusiveness. I believe yoga is truly for everybody
+          environment, and <i>this</i> time it really stuck! I decided that yoga
+          had such a positive impact on my wellbeing that I had to share it with
+          others. Drawn to the Kripalu style due to its emphasis on compassion
+          and inclusiveness, I headed to the Kripalu Center in Stockbridge MA to
+          get my 200 hour certification. I believe yoga is for everybody
           regardless of size, age, background, or athletic ability and I try to
           live and teach by Swami Kripalu’s words: “The highest form of
           spiritual practice is self-observation without judgement.” When I’m
-          not practicing yoga, you can find me cooking, reading, playing piano,
+          not practicing yoga, I spend time cooking, reading, playing piano,
           (attempting) to learn new languages, or watching Real Housewives.
         </p>
         {/* <ul className="about__list">
