@@ -21,6 +21,11 @@ const Footer = () => {
     }
   };
 
+  // The Footer anchor tags are used for the horizontal scroll effect.  If we use Links the horizontal scroll will not function
+
+  // A link will bring up the full component out of the dashboard
+  // While the anchor tag will scroll to the correct component inside the dashboard component
+
   return (
     <div className="footer">
       <div className="footer__links">
