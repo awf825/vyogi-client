@@ -45,10 +45,13 @@ const cancel = (bkg) => {
 		console.log('CORRECT!')
 		const url = `${API_ROOT}/cancel`;
 		const token = localStorage.getItem('token');
-  		const booking = bkg._id;
+  		const bookingId = bkg._id;
+  		const bookingChargeId = bkg.chargeId
   		const data = {
-  			'booking': booking
+  			'bookingId': bookingId,
+  			'chargeId': bookingChargeId
   		}
+
   		const headers = { 'Authorization': `Bearer ${token}` }
 		axios.post(url, data, {
 			headers: headers
