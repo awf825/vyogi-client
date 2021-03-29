@@ -37,6 +37,7 @@ const Schedule = (props) => {
 
   const localizer = momentLocalizer(moment);
 
+  // Modal logic
   const handleSelection = (e) => {
     // Can't wipe out this logic //
 
@@ -67,6 +68,7 @@ const Schedule = (props) => {
     rejectModal();
   };
 
+  // Checks to see if the modal should be opened and puts the correct data in it
   if (modalOpen && modalData) {
     const hour = twentyFourHourClockConvert(modalData.start.getHours());
     const desc = `
@@ -87,6 +89,7 @@ const Schedule = (props) => {
     );
   }
 
+  // Checks to see if the user is logged in and updates the schedule
   useEffect(() => {
     axios
       .get(`${API_ROOT}/calendar`, {
