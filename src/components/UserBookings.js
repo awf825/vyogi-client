@@ -28,6 +28,7 @@ const UserBookings = (props) => {
         }
       )
       .then((res) => {
+        setBookings(res.data);
         console.log(res.data);
       })
       .catch((err) => console.log(err));
@@ -70,7 +71,11 @@ const UserBookings = (props) => {
 
   // Modal handlers
   const handleOpen = (b) => {
-    return setShowModal(true), setBook(b);
+    if (b.length > 1) {
+      setBook(b);
+    }
+
+    return setShowModal(true);
   };
   const handleClose = () => setShowModal(false);
 

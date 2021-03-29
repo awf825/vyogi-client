@@ -109,7 +109,7 @@ const Schedule = (props) => {
         setSchedule(payload);
       })
       .catch((err) => console.log(err));
-  }, [schedule, token]);
+  }, []);
 
   return (
     <div
