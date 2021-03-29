@@ -100,7 +100,7 @@ const UserBookings = (props) => {
   return (
     <div id="bookings" className="bookings">
       <div className="bookings__container">
-        <Table borderless hover variant="dark" className="bookings__table">
+        <Table borderless hover responsive variant="dark">
           <thead>
             <tr>
               <th>ID</th>
