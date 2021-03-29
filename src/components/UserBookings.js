@@ -18,18 +18,32 @@ const UserBookings = (props) => {
   // Get User Bookings
   useEffect(() => {
     axios
-      .post(
-        `${API_ROOT}/bookings`,
-        { user: user.id },
-        { headers: { Authorization: `Bearer ${user.token}` } }
-      )
-      .then((res) => {
-        setBookings(res.data);
+      .get(`${API_ROOT}/bookings`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          user: `user: ${user.id}`,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [user.token, user.id]);
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [bookings, user.token, user.id]);
+  // useEffect(() => {
+  //   axios
+  //     .post(
+  //       `${API_ROOT}/bookings`,
+  //       { headers: { Authorization: `Bearer ${user.token}` } },
+  //       { user: user.id }
+  //     )
+  //     .then((res) => {
+  //       console.log("RES", res.data);
+  //       setBookings(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [user.token, user.id, bookings]);
 
   const cancel = () => {
     axios
