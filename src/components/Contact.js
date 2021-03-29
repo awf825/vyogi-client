@@ -23,7 +23,7 @@ const Contact = () => {
   return (
     <>
       {user ? (
-        <div className="contact">
+        <div className="contact" id="contact">
           <h1 className="contact__header">Contact Us</h1>
           <div className="contact__form_container">
             <Form className="contact__form">

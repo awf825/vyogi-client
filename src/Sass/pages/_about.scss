@@ -5,10 +5,6 @@
   min-width: 100%;
   width: 100%;
 
-  &__heading {
-    text-align: center;
-  }
-
   &__main {
     background: $color_secondary;
     box-sizing: border-box;
@@ -38,6 +34,7 @@
   }
 
   &__instructor {
+    font-family: "Roboto Condensed", sans-serif;
     font-size: 36px;
     text-align: center;
     padding: 0;
@@ -78,6 +75,7 @@
 
   &__text {
     font-size: 24px;
+    font-family: "Roboto Condensed", sans-serif;
     line-height: 1.25;
     hyphens: auto;
     margin: 10px 0;

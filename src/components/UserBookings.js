@@ -31,22 +31,6 @@ const UserBookings = (props) => {
       });
   }, [user.token, user.id]);
 
-  // Modal handlers
-  const handleOpen = (b) => {
-    return setShowModal(true), setBook(b);
-  };
-  const handleClose = () => setShowModal(false);
-
-  // These might be able to be removed
-  const canceling = () => {
-    setCancelAppointment(true);
-  };
-
-  if (cancelAppointment) {
-    cancel();
-  }
-  //////////////////////////
-
   const cancel = () => {
     axios
       .post(
@@ -66,7 +50,23 @@ const UserBookings = (props) => {
       });
   };
 
-  console.log(message);
+  // Modal handlers
+  const handleOpen = (b) => {
+    return setShowModal(true), setBook(b);
+  };
+  const handleClose = () => setShowModal(false);
+
+  // These might be able to be removed
+  const canceling = () => {
+    setCancelAppointment(true);
+  };
+
+  if (cancelAppointment) {
+    cancel();
+  }
+  //////////////////////////
+
+  console.log("Messaging user booking: ", message);
 
   if (showModal) {
     return (
