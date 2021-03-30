@@ -25,7 +25,7 @@ const PayForm = (props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [stripeToken]);
+  }, []);
 
   return (
     <div className="payform">

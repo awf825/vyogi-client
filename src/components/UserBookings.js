@@ -18,9 +18,9 @@ const UserBookings = (props) => {
   // Get User Bookings
   useEffect(() => {
     axios
-      .get(
+      .post(
         `${API_ROOT}/bookings`,
-        { data: `${user.id}` },
+        { user: `${user.id}` },
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -29,10 +29,9 @@ const UserBookings = (props) => {
       )
       .then((res) => {
         setBookings(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
-  }, [bookings, user.token, user.id]);
+  }, [user.token, user.id]);
 
   // useEffect(() => {
   //   axios
@@ -53,8 +52,11 @@ const UserBookings = (props) => {
   const cancel = () => {
     axios
       .post(
-        `${API_ROOT}/bookings`,
-        { booking: book },
+        `${API_ROOT}/cancel`,
+        { 
+          bookingId: book._id,
+          chargeId: book.chargeId
+        },
         { headers: { Authorization: `Bearer ${user.token}` } }
       )
       .then((res) => {
