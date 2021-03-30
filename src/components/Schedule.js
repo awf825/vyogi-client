@@ -14,6 +14,8 @@ const Schedule = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showPayForm, setShowPayForm] = useState(false);
 
+  console.log(schedule);
+
   const token = localStorage.getItem("token");
 
   let children;
@@ -96,7 +98,7 @@ const Schedule = (props) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((resp) => {
-        var payload = resp.data;
+        let payload = resp.data;
         // console.log("axios.get(`${API_ROOT}/calendar`:", payload);
         payload.forEach((p, i) => {
           let start = new Date(p.start);

@@ -8,10 +8,6 @@ import LessonForm from "./LessonForm";
 import UserBookings from "./UserBookings";
 
 export const Dashboard = (props) => {
-  let counter = 0;
-
-  console.log(counter);
-
   return (
     <div className="dashboard">
       <div className="dashboard__container">
