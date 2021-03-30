@@ -95,13 +95,6 @@ const LessonForm = () => {
       console.log("invalid");
     }
   };
-  /*
-        Are you pregnant/have you given birth within the past year? [RADIO Y/N]
-Have you practiced yoga before? If so, what type and for how long? [TEXTAREA]
-Do you have any injuries or physical limitations? [TEXTAREA]
-Is there anything specific you'd like to focus on during our time together? [TEXTAREA]
-Is there anything else you'd like me to know? [TEXTAREA]
-  */
 
   return (
     <>

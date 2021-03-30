@@ -14,14 +14,11 @@ const Schedule = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [showPayForm, setShowPayForm] = useState(false);
 
-  console.log(schedule);
-
   const token = localStorage.getItem("token");
 
   let children;
 
   Date.prototype.addHours = function (h) {
-    // Date.now() also works in this function
     this.setTime(this.getTime() + h * 60 * 60 * 1000);
     return this;
   };
@@ -99,7 +96,6 @@ const Schedule = (props) => {
       })
       .then((resp) => {
         let payload = resp.data;
-        // console.log("axios.get(`${API_ROOT}/calendar`:", payload);
         payload.forEach((p, i) => {
           let start = new Date(p.start);
           let end = new Date(p.end);
@@ -150,49 +146,5 @@ const Schedule = (props) => {
     </div>
   );
 };
-
-// class Schedule extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       schedule: [],
-//       modalData: {},
-//       modalOpen: false,
-//       showPayForm: false,
-//     };
-//   }
-
-//   componentDidMount() {
-//     // const url = `${API_ROOT}/lessons`
-//     const url = `${API_ROOT}/calendar`;
-//     const token = localStorage.getItem("token");
-//     axios
-//       .get(url, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       })
-//       .then((resp) => {
-//         var payload = resp.data;
-//         // console.log("axios.get(`${API_ROOT}/calendar`:", payload);
-//         payload.forEach((p, i) => {
-//           var start = new Date(p.start);
-//           var end = new Date(p.end);
-//           p.start = start;
-//           p.end = end;
-//           p.allDay = false;
-//           p.cost = 1.2;
-//         });
-//         this.setState({
-//           schedule: payload,
-//         });
-//       })
-//       .catch((err) => console.error(err));
-//   }
-
-//   render() {
-//     const { schedule, modalOpen, modalData, showPayForm } = this.state;
-//   }
-// }
 
 export default Schedule;

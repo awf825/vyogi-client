@@ -1,9 +1,4 @@
 import React from "react";
-// import {
-//   IoLogoFacebook,
-//   IoLogoInstagram,
-//   IoLogoSnapchat,
-// } from "react-icons/io";
 
 const About = () => {
   return (
@@ -30,26 +25,6 @@ const About = () => {
           not practicing yoga, I spend time cooking, reading, playing piano,
           (attempting) to learn new languages, or watching Real Housewives.
         </p>
-        {/* <ul className="about__list">
-          <li className="about_item">
-            <a
-              className="about__link"
-              href="https://www.facebook.com/alanna.flynn.54"
-            >
-              <IoLogoFacebook className="about__icon about__fb" />
-            </a>
-          </li>
-          <li className="about_item">
-            <a className="about__link" href="/">
-              <IoLogoInstagram className="about__icon about__insta" />
-            </a>
-          </li>
-          <li className="about_item">
-            <a className="about__link" href="/">
-              <IoLogoSnapchat className="about__icon about__snap" />
-            </a>
-          </li>
-        </ul> */}
       </div>
     </div>
   );
