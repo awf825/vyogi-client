@@ -1,18 +1,36 @@
 import React, { Component } from "react";
-import { BookModalWrapper, BookModalBoxSetup, BookModalBg } from "./BookModalStyles";
+import { GrClose } from "react-icons/gr";
+import { Modal, Button } from "react-bootstrap";
+import PayForm from "../stripe/PayForm";
 
-export default class BookModal extends Component {
-  render() {
-    const { visible, dismiss, children, client } = this.props;
-    return (
-      <React.Fragment>
-        {visible ? (
-          <BookModalWrapper>
-              <BookModalBoxSetup width={client}>{children}</BookModalBoxSetup>
-            <BookModalBg onClick={dismiss} />
-          </BookModalWrapper>
-        ) : null}
-      </React.Fragment>
-    );
+const BookModal = ({ visible, dismiss, children }) => {
+  let payForm = false;
+  if (children) payForm = children.showPayForm;
+  if (payForm) {
+    return <PayForm closeModal={dismiss} oneLesson={children.oneLesson} />;
   }
-}
+
+  return (
+    <React.Fragment>
+      {children ? (
+        <Modal show={visible}>
+          <Modal.Header>
+            <Modal.Title>{children.title}</Modal.Title>
+            <GrClose onClick={dismiss} style={{ cursor: "pointer" }} />
+          </Modal.Header>
+          <Modal.Body>
+            {children.desc}
+            <Button onClick={children.handleLessonConfirmation}>
+              Continue
+            </Button>
+            <Button onClick={dismiss}>Close</Button>
+          </Modal.Body>
+        </Modal>
+      ) : (
+        <></>
+      )}
+    </React.Fragment>
+  );
+};
+
+export default BookModal;

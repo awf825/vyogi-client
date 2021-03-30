@@ -67,27 +67,6 @@ const Schedule = (props) => {
     rejectModal();
   };
 
-  // Checks to see if the modal should be opened and puts the correct data in it
-  if (modalOpen && modalData) {
-    const hour = twentyFourHourClockConvert(modalData.start.getHours());
-    const desc = `
-        I have a client driven style of teaching; once we meet in the video portal we can discuss
-        what exactly you want to get out of it and we can go from there! This 1-on-1 lesson will cost
-        $12, will start at ${hour}, and last an hour. We have a 24 hour notice policy for cancellations,
-        you can cancel an appointment for any reason from the My Bookings tab in the footer.
-      `;
-    children = (
-      <BookModalContent
-        header={modalData.title}
-        desc={desc}
-        oneLesson={modalData}
-        handleLessonConfirmation={handleLessonConfirmation}
-        handleLessonRejection={handleLessonRejection}
-        showPayForm={showPayForm}
-      />
-    );
-  }
-
   // Checks to see if the user is logged in and updates the schedule
   useEffect(() => {
     axios
@@ -108,6 +87,26 @@ const Schedule = (props) => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  // Checks to see if the modal should be opened and puts the correct data in it
+  if (modalOpen && modalData) {
+    const hour = twentyFourHourClockConvert(modalData.start.getHours());
+    const desc = `
+        I have a client driven style of teaching; once we meet in the video portal we can discuss
+        what exactly you want to get out of it and we can go from there! This 1-on-1 lesson will cost
+        $12, will start at ${hour}, and last an hour. We have a 24 hour notice policy for cancellations,
+        you can cancel an appointment for any reason from the My Bookings tab in the footer.
+      `;
+    const title = modalData.title;
+    children = {
+      title,
+      desc,
+      oneLesson: { modalData },
+      handleLessonConfirmation,
+      handleLessonRejection,
+      showPayForm,
+    };
+  }
 
   return (
     <div
