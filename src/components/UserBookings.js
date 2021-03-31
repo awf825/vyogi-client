@@ -7,7 +7,7 @@ const UserBookings = (props) => {
   const [bookings, setBookings] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState("");
-  const [book, setBook] = useState("");
+  const [book, setBook] = useState({});
   const [cancelAppointment, setCancelAppointment] = useState(false);
 
   const user = {
@@ -57,7 +57,9 @@ const UserBookings = (props) => {
 
   // Modal handlers
   const handleOpen = (b) => {
-    if (b.length > 1) {
+    console.log("book", b);
+
+    if (b) {
       setBook(b);
     }
 

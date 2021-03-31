@@ -6,8 +6,11 @@ import PayForm from "../stripe/PayForm";
 const BookModal = ({ visible, dismiss, children }) => {
   let payForm = false;
   if (children) payForm = children.showPayForm;
+  console.log("children", children);
   if (payForm) {
-    return <PayForm closeModal={dismiss} oneLesson={children.oneLesson} />;
+    return (
+      <PayForm closeModal={dismiss} oneLesson={children.oneLesson.modalData} />
+    );
   }
 
   return (
