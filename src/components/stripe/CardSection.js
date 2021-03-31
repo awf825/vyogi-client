@@ -2,6 +2,12 @@ import React from 'react';
 import {CardElement, CardNumberElement, CardExpiryElement, CardCvcElement} from '@stripe/react-stripe-js';
 import './Styles.css'
 
+// https://stripe.com/docs/stripe-js/react#element-props-options
+// https://stripe.com/docs/js/appendix/style?type=card
+// https://stripe.com/docs/js/elements_object/create_element?type=card#elements_create-options
+// https://stripe.com/docs/stripe-js/react Developer Tools > Customization and Styling
+
+// Maybe lay out options for each individual component?
 const CARD_ELEMENT_OPTIONS = {
   style: {
     base: {
@@ -16,18 +22,22 @@ const CARD_ELEMENT_OPTIONS = {
     invalid: {
       color: "#fa755a",
       iconColor: "#fa755a",
+      width: "60%"
     },
   },
 };
 
 function CardSection() {
   return (
-    <div>
-      <CardElement options={CARD_ELEMENT_OPTIONS} />
-      {/* <CardNumberElement options={CARD_ELEMENT_OPTIONS} />
-      <CardExpiryElement />
-      <CardCvcElement /> */}
-    </div>
+    <CardElement options={CARD_ELEMENT_OPTIONS} />
+    // <CardNumberElement />
+    // <CardExpiryElement />
+    // <CardCvcElement />
+    // <>
+    //   <CardNumberElement options={CARD_ELEMENT_OPTIONS} />
+    //   <CardExpiryElement />
+    //   <CardCvcElement />
+    // </>
   );
 };
 

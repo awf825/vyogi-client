@@ -33,6 +33,13 @@ const Navigation = () => {
     }
   };
 
+  function onHover(e) {
+    console.log(e);
+    // setTimeout(() => {
+    //   e.target.click();
+    // }, 250);
+  }
+
   return (
     <div className="navigation">
       {open === "_open" ? (
@@ -48,7 +55,7 @@ const Navigation = () => {
               />
             </OverlayTrigger>
             <div className="navigation__scale">
-              <Link to="/" className="navigation__links">
+              <Link to="/" className="navigation__links" onMouseOver={onHover}>
                 <OverlayTrigger
                   placement="right"
                   delay={{ show: 200, hide: 400 }}
