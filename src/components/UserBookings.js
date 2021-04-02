@@ -57,8 +57,6 @@ const UserBookings = (props) => {
 
   // Modal handlers
   const handleOpen = (b) => {
-    console.log("book", b);
-
     if (b) {
       setBook(b);
     }
