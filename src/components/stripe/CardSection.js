@@ -23,7 +23,7 @@ const CARD_ELEMENT_OPTIONS = {
     invalid: {
       color: "#fa755a",
       iconColor: "#fa755a",
-      width: "60%"
+      width: "60%",
     },
   },
 };

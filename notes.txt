@@ -1,1 +1,1 @@
-
+I added the redirect component to redirect the user back to the home page in the dashboard.  Since we are not using the router to go between the components this is needed to update the page. It's used so the components don't look as if they are stuck on whatever action the user just completed.  This will allow us to update the application whenever a user makes a change that would change those components states.   

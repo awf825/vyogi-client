@@ -1,6 +1,7 @@
 import { API_ROOT } from "../api-config.js";
 import React, { useState, useEffect } from "react";
 import { Table, Button, Modal } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const UserBookings = (props) => {
@@ -9,6 +10,8 @@ const UserBookings = (props) => {
   const [message, setMessage] = useState("");
   const [book, setBook] = useState({});
   const [cancelAppointment, setCancelAppointment] = useState(false);
+
+  const history = useHistory();
 
   const user = {
     id: localStorage.getItem("_id"),
@@ -47,6 +50,7 @@ const UserBookings = (props) => {
         setMessage("Your booking was canceled");
         setShowModal(false);
         setCancelAppointment(false);
+        history.push("/redir");
       })
       .catch((err) => {
         setMessage(err);

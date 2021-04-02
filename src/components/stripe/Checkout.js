@@ -1,10 +1,13 @@
 import { API_ROOT } from "../../api-config.js";
 import React from "react";
 import { ElementsConsumer, CardElement } from "@stripe/react-stripe-js";
+import { Button } from "react-bootstrap";
 import CardSection from "./CardSection";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 export const Checkout = (props) => {
+  const history = useHistory();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -56,6 +59,7 @@ export const Checkout = (props) => {
             alert(
               "Thank you! You should be emailed your access code shortly; please contact us if it hasn't arrived in the next 10 minutes"
             );
+            history.push("/redir");
           } else {
             alert("Something went wrong. Please try again.");
           }
@@ -71,9 +75,9 @@ export const Checkout = (props) => {
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <CardSection />
-      <button className="book-modal-btn" disabled={!props.stripe}>
+      <Button type="submit" className="payform__btn" disabled={!props.stripe}>
         Confirm Order
-      </button>
+      </Button>
     </form>
   );
 };

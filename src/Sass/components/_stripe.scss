@@ -1,8 +1,8 @@
 .payform {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 50%;
-    transform: translate(-50%, -50%);
-    
+  width: 100%;
+
+  &__btn {
+    box-shadow: 1px 2px 3px 0 black;
+    margin-top: 10px;
+  }
 }

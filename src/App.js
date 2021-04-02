@@ -9,7 +9,7 @@ import Schedule from "./components/Schedule";
 import RegistrationRouter from "./components/Registration/RegistrationRouter";
 import RegistrationLogin from "./components/Registration/RegistrationLogin";
 import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
-// import PayForm from "./components/stripe/PayForm";
+import Redirect from "./components/Redirect";
 
 function App() {
   return (
@@ -40,6 +40,8 @@ function App() {
             path="/bookings"
             render={(props) => <UserBookings {...props} />}
           />
+
+          <Route exact path="/redir" component={Redirect} />
         </Switch>
       </div>
     </BrowserRouter>
