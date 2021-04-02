@@ -100,7 +100,7 @@ const LessonForm = () => {
     <>
       {user ? (
         <div className="lessonForm">
-          <div className="lessonForm__form_container">
+          <div className="lessonForm__form__container">
             <Form className="lessonForm__form" onSubmit={handleSubmit}>
               <h3 className="lessonForm__heading">Lesson Form</h3>
               <Form.Group>

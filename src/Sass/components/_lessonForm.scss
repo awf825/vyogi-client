@@ -4,7 +4,7 @@
   min-width: 100%;
   width: 100%;
 
-  &__form_container {
+  &__form__container {
     background-color: white;
     border-radius: 3px;
     box-shadow: 3px 3px 3px $color_black;
@@ -13,7 +13,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 90%;
+    width: 95%;
 
     @include respond(phone) {
       height: 300px;
@@ -44,9 +44,10 @@
     border-radius: 3px;
     border: 1px solid $color_black;
     box-shadow: 3px 3px 3px $color_black;
+    width: 75%;
   }
 
   &__form {
-    padding: 50px;
+    height: 100%;
   }
 }
