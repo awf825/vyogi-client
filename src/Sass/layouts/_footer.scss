@@ -1,7 +1,7 @@
 .footer {
-  background-color: lightgray;
+  background-color: $color_secondary_dark;
   bottom: 0px;
-  border-top: 1px solid rgba(black, 0.2);
+  border-top: 1px solid rgba($color_black, 0.2);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(1, 1fr);
@@ -11,33 +11,59 @@
   padding: 0;
   position: fixed;
   width: 100vw;
-  // z-index: 200;
+
+  @include respond(phone) {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
 
   &__links {
     grid-row: 1;
     grid-column: 1 / 3;
+    margin: auto 0;
+
+    @include respond(phone) {
+      grid-row: 4;
+    }
   }
 
   &__link {
-    background-color: aliceblue;
-    border-radius: 3%;
-    color: black;
+    background-color: $color_tertiary;
+    border-radius: 10%;
+    color: $color_black;
+    font-size: 14px;
+    padding: 10px;
     text-decoration: none;
     transition: all 1s;
+
+    @include respond(tab-port) {
+      font-size: 12px;
+      padding: 5px;
+    }
+
+    @media (max-width: 300px) {
+      font-size: 8px;
+    }
   }
 
   &__link:hover {
-    background-color: black;
-    color: aliceblue;
+    background-color: $color_black;
+    box-shadow: 5px 5px 5px $color_black;
+    color: $color_tertiary;
     text-decoration: none;
   }
 
   &__list {
     display: flex;
     list-style: none;
+
     &__item {
       margin: 0 auto;
       padding-top: 5%;
+
+      @include respond(phone) {
+        padding-top: 3%;
+      }
     }
   }
 

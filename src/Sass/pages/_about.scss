@@ -1,49 +1,62 @@
 .about {
-  background-color: $color_alice_blue;
+  background-color: $color_primary;
   height: 100%;
   overflow: hidden;
   min-width: 100%;
-
   width: 100%;
 
-  &__heading {
-    text-align: center;
-  }
-
   &__main {
-    background: $color_white;
+    background: $color_secondary;
     box-sizing: border-box;
     border-radius: 1%;
     box-shadow: 5px 5px 5px $color_black;
-    height: 80%;
+    height: 65%;
     left: 50%;
     padding: 30px;
     position: relative;
-    top: 40%;
+    top: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
 
-    @media (max-width: 1150px) {
+    @include respond(tab-land) {
       height: 90%;
+      top: 50%;
+    }
+
+    @include respond(tab-port) {
+      height: 90%;
+    }
+
+    @include respond(phone) {
+      height: 95%;
       overflow-y: scroll;
-      top: 45%;
     }
   }
 
   &__instructor {
-    font-size: 30px;
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 36px;
     text-align: center;
     padding: 0;
 
-    @media (max-width: 700px) {
-      font-size: 16px;
+    @include respond(tab-land) {
+      font-size: 36px;
+    }
+
+    @include respond(tab-port) {
+      font-size: 36px;
+    }
+
+    @include respond(phone) {
+      font-size: 32px;
     }
   }
 
   &__img {
-    background: url("../../components/pictures/placeholder_about.jpg");
-    background-position: 45% 50%;
+    background: url("../../components/pictures/alanna.jpg");
+    background-position: 50% 50%;
     background-repeat: no-repeat;
+    background-size: contain;
     border-radius: 50%;
     box-shadow: 3px 3px 3px $color_black;
     float: left;
@@ -52,103 +65,126 @@
     shape-outside: circle();
     width: 200px;
 
-    @media (max-width: "1000px") {
-      background-position: 45% 45%;
-      background-repeat: no-repeat;
-      height: 100px;
-      width: 100px;
+    @include respond(phone) {
+      float: none;
+      height: 150px;
+      margin: 0 auto;
+      width: 150px;
     }
   }
 
   &__text {
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 24px;
+    font-family: "Roboto Condensed", sans-serif;
+    line-height: 1.25;
     hyphens: auto;
-    margin: 0;
+    margin: 10px 0;
     text-align: justify;
     padding: 0;
-  }
 
-  &__list {
-    display: flex;
-    justify-content: space-around;
-    height: 5vh;
-    list-style: none;
-    margin-top: 5vh;
-  }
-
-  &__item {
-    align-self: center;
-  }
-
-  &__link {
-    text-decoration: none;
-    height: 3vh;
-    width: 3vw;
-    transition: all 1s;
-    :hover {
-      box-shadow: 5px 5px 5px black;
-      cursor: pointer;
-      transform: scale(1.5);
+    @include respond(tab-land) {
+      font-size: 24px;
+      line-height: 1.25;
     }
-  }
 
-  &__icon {
-    box-shadow: 1px 1px 3px gray;
-    height: 50px;
-    width: 50px;
-    transition: all 1s;
-    :hover {
-      transform: scale(1);
+    @include respond(tab-port) {
+      font-size: 20px;
+      line-height: 1.2;
     }
-  }
 
-  &__fb {
-    background-color: white;
-    border-radius: 30%;
-    color: #4967aa;
-  }
-
-  &__insta {
-    background: #f09433;
-    background: -moz-linear-gradient(
-      45deg,
-      #f09433 0%,
-      #e6683c 25%,
-      #dc2743 50%,
-      #cc2366 75%,
-      #bc1888 100%
-    );
-    background: -webkit-linear-gradient(
-      45deg,
-      #f09433 0%,
-      #e6683c 25%,
-      #dc2743 50%,
-      #cc2366 75%,
-      #bc1888 100%
-    );
-    background: linear-gradient(
-      45deg,
-      #f09433 0%,
-      #e6683c 25%,
-      #dc2743 50%,
-      #cc2366 75%,
-      #bc1888 100%
-    );
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
-    border-radius: 30%;
-    color: white;
-  }
-
-  &__mail {
-    background-color: black;
-    border-radius: 30%;
-    color: red;
-  }
-
-  &__phone {
-    background-color: lightgreen;
-    border-radius: 30%;
-    color: white;
+    @include respond(phone) {
+      font-size: 16px;
+      letter-spacing: 1px;
+      line-height: 1.25;
+    }
   }
 }
+
+//   &__list {
+//     display: flex;
+//     justify-content: space-around;
+//     height: 5vh;
+//     list-style: none;
+//     margin-top: 2%;
+//   }
+
+//   &__item {
+//     align-self: center;
+//   }
+
+//   &__link {
+//     text-decoration: none;
+//     height: 3vh;
+//     width: 3vw;
+//     transition: all 1s;
+//     :hover {
+//       box-shadow: 5px 5px 5px black;
+//       cursor: pointer;
+//       transform: scale(1.5);
+//     }
+//   }
+
+//   &__icon {
+//     box-shadow: 1px 1px 3px gray;
+//     height: 60px;
+//     width: 60px;
+//     transition: all 1s;
+
+//     @include respond(tab-land) {
+//       height: 50px;
+//       width: 50px;
+//     }
+
+//     @include respond(phone) {
+//       height: 40px;
+//       width: 40px;
+//     }
+
+//     :hover {
+//       transform: scale(1);
+//     }
+//   }
+
+//   &__fb {
+//     background-color: white;
+//     border-radius: 30%;
+//     color: #4967aa;
+//   }
+
+//   &__insta {
+//     background: #f09433;
+//     background: -moz-linear-gradient(
+//       45deg,
+//       #f09433 0%,
+//       #e6683c 25%,
+//       #dc2743 50%,
+//       #cc2366 75%,
+//       #bc1888 100%
+//     );
+//     background: -webkit-linear-gradient(
+//       45deg,
+//       #f09433 0%,
+//       #e6683c 25%,
+//       #dc2743 50%,
+//       #cc2366 75%,
+//       #bc1888 100%
+//     );
+//     background: linear-gradient(
+//       45deg,
+//       #f09433 0%,
+//       #e6683c 25%,
+//       #dc2743 50%,
+//       #cc2366 75%,
+//       #bc1888 100%
+//     );
+//     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+//     border-radius: 30%;
+//     color: white;
+//   }
+
+//   &__snap {
+//     background-color: $color_black;
+//     border-radius: 30%;
+//     color: #f7f400;
+//   }
+// }

@@ -1,16 +1,14 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import { API_ROOT } from "../../api-config.js";
-import { useHistory } from "react-router-dom";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { authenticate } from "./RegistrationAuth";
 
-const RegistrationSignUpForm = () => {
+const RegistrationSignUpForm = (props) => {
   const { register, handleSubmit, errors, watch, reset } = useForm();
   const [showErrors, setShowErrors] = useState(false);
   const [errorHandling, setErrorHandling] = useState("");
-  const history = useHistory();
   const password = useRef({});
   password.current = watch("password", "");
 
@@ -22,7 +20,7 @@ const RegistrationSignUpForm = () => {
       }
       const resp = await axios.post(`${API_ROOT}/signup`, data);
       if (resp) {
-        authenticate(resp.data, () => history.push("/"));
+        authenticate(resp.data, () => props.changeSuccess(true));
       }
     } catch (err) {
       setErrorHandling(err.response.statusText);
@@ -51,29 +49,40 @@ const RegistrationSignUpForm = () => {
     }
   }
 
+  const errorHandler = () => {
+    setShowErrors(false);
+    setErrorHandling("");
+    reset(errors);
+  };
+
   // Hanldes showing all errors
   if (showErrors) {
     return (
-      <Alert
-        variant="danger"
-        onClose={() => (
-          setShowErrors(false), setErrorHandling(""), reset(errors)
-        )}
-        dismissible
-      >
+      <Alert variant="danger" onClose={() => errorHandler()} dismissible>
         <Alert.Heading>{errorHandling}</Alert.Heading>
       </Alert>
     );
   }
 
+  if (props.success) {
+    return <h1>You are logged in!</h1>;
+  }
+
   // Email validation
   function isEmail(email) {
     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(email);
+    if (regex.test(email)) {
+      return true;
+    } else {
+      return {
+        value: false,
+        message: "Not a valid email",
+      };
+    }
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form className="registration__form" onSubmit={handleSubmit(onSubmit)}>
       <Form.Group>
         <Form.Label>Email</Form.Label>
         <Form.Control

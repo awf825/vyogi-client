@@ -5,6 +5,7 @@ import RegistrationLoginForm from "./RegistrationLogInForm";
 
 const RegistrationLogin = (props) => {
   const [showModal, setShowModal] = useState(false);
+  const [success, setSuccess] = useState(false);
   const history = useHistory();
 
   // Closes the modal and moves the user back to the RegistrationRouter for now
@@ -12,7 +13,11 @@ const RegistrationLogin = (props) => {
     if (showModal) {
       setShowModal(false);
       props.location.openModal = false;
-      history.push("/registration");
+      if (success) {
+        history.push("/");
+      } else {
+        history.push("/registration");
+      }
     }
   }
 
@@ -29,7 +34,10 @@ const RegistrationLogin = (props) => {
   return (
     <div className="wrap">
       <RegistrationModal show={showModal} handleClose={closeModal} head="Login">
-        <RegistrationLoginForm />
+        <RegistrationLoginForm
+          success={success}
+          changeSuccess={(s) => setSuccess(s)}
+        />
       </RegistrationModal>
     </div>
   );

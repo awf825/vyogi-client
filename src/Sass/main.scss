@@ -10,17 +10,18 @@
 @import "./base/utilities";
 
 // Sass Components
+@import "./components/lessonForm";
+@import "./components/stripe";
 
 // Sass Layouts
 @import "./layouts/loader";
-@import "./layouts/header";
-@import "./layouts/navigation";
-@import "./layouts/socialFooter";
 @import "./layouts/footer";
 @import "./layouts/quotes";
 
 // Sass Pages
 @import "./pages/about";
+@import "./pages/bookings";
 @import "./pages/home";
 @import "./pages/contact";
 @import "./pages/dashboard";
+@import "./pages//registration";

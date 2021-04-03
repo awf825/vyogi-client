@@ -1,9 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+// Put these in the form only removed to get rid of warnings
+// Alert
 
 const Contact = () => {
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register } = useForm();
+  // Put these in the form only removed to get rid of warnings
+  // handleSubmit, watch, errors
 
   const user = localStorage.getItem("token");
 
@@ -11,14 +15,15 @@ const Contact = () => {
   // I wanted to see what we would need for the fields before moving forward
   // Also how we would send the information and where to
 
-  function isEmail(email) {
-    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return regex.test(email);
-  }
+  // function isEmail(email) {
+  //   const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   return regex.test(email);
+  // }
+
   return (
     <>
       {user ? (
-        <div className="contact">
+        <div className="contact" id="contact">
           <h1 className="contact__header">Contact Us</h1>
           <div className="contact__form_container">
             <Form className="contact__form">
@@ -40,6 +45,7 @@ const Contact = () => {
                   })}
                   name="message"
                   type="text"
+                  className="contact__text"
                   placeholder="Enter your message here"
                 />
               </Form.Group>
