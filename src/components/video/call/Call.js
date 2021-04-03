@@ -146,14 +146,14 @@ export default function Call(props) {
   const message = getMessage(callState);
   return (
     <div className="call">
-      <div className="large-tiles">
+      <div className="large-tiles clmn">
         {
           !message
             ? largeTiles
             : null 
         }
       </div>
-      <div className="small-tiles">{smallTiles}</div>
+      <div className="small-tiles clmn">{smallTiles}</div>
       {message && (
         <CallMessage
           header={message.header}
