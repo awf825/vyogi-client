@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { signout } from "./Registration/RegistrationAuth";
+import Quotes from "./Quotes/Quotes";
 
 const Footer = () => {
   const history = useHistory();
@@ -20,41 +21,46 @@ const Footer = () => {
     }
   };
 
+  // The Footer anchor tags are used for the horizontal scroll effect.  If we use Links the horizontal scroll will not function
+
+  // A link will bring up the full component out of the dashboard
+  // While the anchor tag will scroll to the correct component inside the dashboard component
+
   return (
     <div className="footer">
       <div className="footer__links">
         <ul className="footer__list">
           <li className="footer__list__item">
-            <Link className="footer__link" to="/">
+            <a className="footer__link" href="#about">
               Home
-            </Link>
+            </a>
           </li>
           <li className="footer__list__item">
-            <Link
+            <a
               className="footer__link"
-              to="/video"
-              onClick={(e) => authorizeSelection(e)}
-            >
-              Video
-            </Link>
-          </li>
-          <li className="footer__list__item">
-            <Link
-              className="footer__link"
-              to="/bookings"
-              onClick={(e) => authorizeSelection(e)}
-            >
-              My Bookings
-            </Link>
-          </li>
-          <li className="footer__list__item">
-            <Link
-              className="footer__link"
-              to="/schedule"
+              href="#schedule"
               onClick={(e) => authorizeSelection(e)}
             >
               Schedule
-            </Link>
+            </a>
+          </li>
+          <li className="footer__list__item">
+            <a
+              className="footer__link"
+              href="#bookings"
+              onClick={(e) => authorizeSelection(e)}
+            >
+              My Bookings
+            </a>
+          </li>
+          <li className="footer__list__item">
+            <a
+              className="footer__link"
+              href="#video"
+              onClick={(e) => authorizeSelection(e)}
+            >
+              Video
+            </a>
           </li>
           <li className="footer__list__item">
             {user ? (
@@ -70,13 +76,7 @@ const Footer = () => {
         </ul>
       </div>
 
-      <div className="footer__copy">
-        <p className="footer__paragraph">
-          &copy; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
-          sodales quis lacus et dictum. Ut congue, lorem sit amet egestas
-          laoreet, ligula velit.
-        </p>
-      </div>
+      <Quotes />
     </div>
   );
 };

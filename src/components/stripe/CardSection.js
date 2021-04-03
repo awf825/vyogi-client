@@ -1,6 +1,7 @@
-import React from 'react';
-import {CardElement, CardNumberElement, CardExpiryElement, CardCvcElement} from '@stripe/react-stripe-js';
-import './Styles.css'
+import React from "react";
+// need to be added to the import below commented out to get rid of warnings in console CardNumberElement, CardExpiryElement, CardCvcElement
+import { CardElement } from "@stripe/react-stripe-js";
+import "./Styles.css";
 
 // https://stripe.com/docs/stripe-js/react#element-props-options
 // https://stripe.com/docs/js/appendix/style?type=card
@@ -22,7 +23,7 @@ const CARD_ELEMENT_OPTIONS = {
     invalid: {
       color: "#fa755a",
       iconColor: "#fa755a",
-      width: "60%"
+      width: "60%",
     },
   },
 };
@@ -39,6 +40,6 @@ function CardSection() {
     //   <CardCvcElement />
     // </>
   );
-};
+}
 
 export default CardSection;

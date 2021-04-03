@@ -1,14 +1,13 @@
-import React, { useEffect, useContext, useState } from 'react'
-import './Tray.css'
+import React, { useEffect, useContext, useState } from "react";
+import "./Tray.css";
 import TrayButton, {
   TYPE_MUTE_CAMERA,
   TYPE_MUTE_MIC,
-  TYPE_SCREEN,
-  TYPE_LEAVE
-} from '../trayButton/TrayButton'
-import { CallObjectContext } from '../../Video';
-import { logDailyEvent } from '../../../logUtils'
-
+  // TYPE_SCREEN,
+  TYPE_LEAVE,
+} from "../trayButton/TrayButton";
+import { CallObjectContext } from "../../Video";
+// import { logDailyEvent } from '../../../logUtils'
 
 /**
  * Gets [isCameraMuted, isMicMuted, isSharingScreen].
@@ -39,7 +38,7 @@ export default function Tray(props) {
   function toggleCamera() {
     callObject.setLocalVideo(isCameraMuted);
   }
-  
+
   function toggleMic() {
     callObject.setLocalAudio(isMicMuted);
   }
@@ -48,28 +47,26 @@ export default function Tray(props) {
     props.onClickLeaveCall && props.onClickLeaveCall();
   }
 
-   /**
+  /**
    * Start listening for participant changes when callObject is set (i.e. when the component mounts).
    * This event will capture any changes to your audio/video mute state.
    */
-  useEffect (() => {
+  useEffect(() => {
     if (!callObject) return;
-  
+
     function handleNewParticipantsState(event) {
       // event && logDailyEvent(event);
       // console.log('event @ handleNewPartcipantsState (Tray.js line 58):', event, Date.now())
       // console.log('callObject @ handleNewPartcipantsState (Tray):', callObject)
-      const [isCameraMuted, isMicMuted] = getStreamStates(
-        callObject
-      );
+      const [isCameraMuted, isMicMuted] = getStreamStates(callObject);
       setCameraMuted(isCameraMuted);
       setMicMuted(isMicMuted);
     }
-  
+
     handleNewParticipantsState();
-  
-    callObject.on("participant-updated", handleNewParticipantsState)
-  
+
+    callObject.on("participant-updated", handleNewParticipantsState);
+
     return function cleanup() {
       callObject.off("participant-updated", handleNewParticipantsState);
     };
@@ -97,10 +94,5 @@ export default function Tray(props) {
         onClick={leaveCall}
       />
     </div>
-  )
-
+  );
 }
-
-
-
-
