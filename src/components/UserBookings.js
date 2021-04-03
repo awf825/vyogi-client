@@ -51,9 +51,10 @@ const UserBookings = (props) => {
         setShowModal(false);
         setCancelAppointment(false);
         history.push("/redir");
+        return;
       })
       .catch((err) => {
-        setMessage(err);
+        setMessage("I'm sorry, something went wrong.");
         setShowModal(false);
         setCancelAppointment(false);
       });
