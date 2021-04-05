@@ -146,9 +146,6 @@ export default function Call(props) {
   const [largeTiles, smallTiles] = getTiles();
   const message = getMessage(callState);
   return (
-    // in the css, "small-tiles" is referring to the ONLY other participant
-    // the display looks good enough so this can remain if group lesson  
-    // is enabled ion another branch of logic
     <div className="call">
       <div className="trainer-tile">
         {
