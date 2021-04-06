@@ -83,7 +83,7 @@ export default function Tray(props) {
       <TrayButton
         type={TYPE_MUTE_MIC}
         disabled={props.disabled}
-        highlighted={isCameraMuted}
+        highlighted={isMicMuted}
         onClick={toggleMic}
       />
       <TrayButton

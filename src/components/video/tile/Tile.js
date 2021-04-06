@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './Tile.css';
-
+import Loader from '../../Loader'
 /**
  * Props
  * - videoTrack: MediaStreamTrack?
@@ -31,7 +31,7 @@ export default function Tile(props) {
   }, [props.audioTrack]);
 
   function getLoadingComponent() {
-    return props.isLoading && <p className="loading">Loading...</p>;
+    return props.isLoading && <Loader />;
   }
 
   function getVideoComponent() {
