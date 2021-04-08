@@ -31,18 +31,18 @@
     background-color: $color_tertiary;
     border-radius: 10%;
     color: $color_black;
-    font-size: 14px;
+    font-size: $footer_normal;
     padding: 10px;
     text-decoration: none;
     transition: all 1s;
 
     @include respond(tab-port) {
-      font-size: 12px;
+      font-size: $footer_port;
       padding: 5px;
     }
 
     @media (max-width: 300px) {
-      font-size: 8px;
+      font-size: $footer_phone;
     }
   }
 
