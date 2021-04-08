@@ -40,7 +40,8 @@
     flex-direction: row;
 
     &__btn {
-      margin: 5px;
+      margin-bottom: 5px;
+      margin-left: 10px;
       align-items: center;
 
       @include respond(tab-port) {

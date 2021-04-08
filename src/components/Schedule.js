@@ -130,7 +130,7 @@ const Schedule = (props) => {
               background: "lightblue",
               border: "solid black 3px",
               borderRadius: "3px",
-              height: 400,
+              height: "70%",
               width: "80%",
               margin: "10%",
             }}
