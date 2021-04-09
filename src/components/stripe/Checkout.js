@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 
 export const Checkout = (props) => {
   const history = useHistory();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 

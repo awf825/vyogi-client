@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { GrClose } from "react-icons/gr";
 import { Modal, Button } from "react-bootstrap";
-import PayForm from "../stripe/PayForm";
+import LessonForm from "../LessonForm";
 
 const BookModal = ({ visible, dismiss, children }) => {
-  let payForm = false;
-  if (children) payForm = children.showPayForm;
+  const [oneLessonData, setOneLessonData] = useState({});
+  const [showLesson, setShowLesson] = useState(false);
 
-  if (payForm) {
+  useEffect(() => {
+    if (children) {
+      setOneLessonData(children.oneLesson.modalData);
+      setShowLesson(children.showLessonForm);
+    }
+  }, [children]);
+
+  if (showLesson) {
     return (
       <Modal className="paymentModal" show={visible}>
         <Modal.Header className="paymentModal__header">
           <GrClose onClick={dismiss} style={{ cursor: "pointer" }} />
         </Modal.Header>
         <Modal.Body className="paymentModal__body">
-          <PayForm
-            closeModal={dismiss}
-            oneLesson={children.oneLesson.modalData}
+          <LessonForm
+            oneLesson={oneLessonData}
+            dismiss={dismiss}
+            visible={visible}
           />
         </Modal.Body>
       </Modal>

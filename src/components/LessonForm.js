@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Modal } from "react-bootstrap";
+import { GrClose } from "react-icons/gr";
+import PayForm from "../components/stripe/PayForm";
 
 // Need to add a way to communicat to user that the form has failed.  Maybe a state that shows when the form fails to submit
 
-const LessonForm = () => {
+const LessonForm = (props) => {
+  const [showPayForm, setShowPayForm] = useState(false);
+
   const [errors, setErrors] = useState({
     check: "",
     practiced: "Tell us about you!",
@@ -18,9 +22,28 @@ const LessonForm = () => {
     limitations: "",
     focus: "",
     needToKnow: "",
+    allDay: props ? props.oneLesson.allDay : null,
+    cost: props ? props.oneLesson.cost : null,
+    end: props ? props.oneLesson.end : null,
+    id: props ? props.oneLesson.id : null,
+    start: props ? props.oneLesson.start : null,
+    title: props ? props.oneLesson.title : null,
   });
 
   const user = localStorage.getItem("token");
+
+  if (showPayForm) {
+    return (
+      <Modal className="paymentModal" show={props.visible}>
+        <Modal.Header className="paymentModal__header">
+          <GrClose onClick={props.dismiss} style={{ cursor: "pointer" }} />
+        </Modal.Header>
+        <Modal.Body className="paymentModal__body">
+          <PayForm closeModal={props.dismiss} oneLesson={data} />
+        </Modal.Body>
+      </Modal>
+    );
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -91,6 +114,7 @@ const LessonForm = () => {
     e.preventDefault();
     if (validForm(errors)) {
       console.log("valid");
+      setShowPayForm(true);
     } else {
       console.log("invalid");
     }
@@ -103,7 +127,6 @@ const LessonForm = () => {
           <div className="lessonForm__form__container">
             <Form className="lessonForm__form" onSubmit={handleSubmit}>
               <div className="lessonForm__content">
-                <h3 className="lessonForm__heading">Lesson Form</h3>
                 <Form.Group>
                   <Form.Label className="lessonForm__label">
                     Are you pregnant/have you given birth within the past year?

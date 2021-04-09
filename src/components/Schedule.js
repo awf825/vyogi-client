@@ -11,7 +11,7 @@ const Schedule = (props) => {
   const [schedule, setSchedule] = useState([]);
   const [modalData, setModalData] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
-  const [showPayForm, setShowPayForm] = useState(false);
+  const [showLessonForm, setShowLessonForm] = useState(false);
 
   const token = localStorage.getItem("token");
 
@@ -55,11 +55,11 @@ const Schedule = (props) => {
 
   const rejectModal = () => {
     setModalOpen(false);
-    setShowPayForm(false);
+    setShowLessonForm(false);
   };
 
   const handleLessonConfirmation = () => {
-    setShowPayForm(true);
+    setShowLessonForm(true);
   };
 
   const handleLessonRejection = () => {
@@ -103,7 +103,7 @@ const Schedule = (props) => {
       oneLesson: { modalData },
       handleLessonConfirmation,
       handleLessonRejection,
-      showPayForm,
+      showLessonForm,
     };
   }
 

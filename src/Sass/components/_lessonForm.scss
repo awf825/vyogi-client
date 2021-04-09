@@ -20,20 +20,6 @@
     }
   }
 
-  &__heading {
-    text-align: center;
-    margin-bottom: 5%;
-
-    @include respond(tab-port) {
-      font-size: $text_port;
-      margin-bottom: 0;
-    }
-
-    @include respond(sm) {
-      font-size: $footer_port;
-    }
-  }
-
   &__radio {
     display: flex;
     flex-direction: row;
@@ -66,7 +52,7 @@
     border: 1px solid $color_black;
     box-shadow: 3px 3px 3px $color_black;
     font-size: $text_phone;
-    width: 90%;
+    width: 80%;
 
     @include respond(phone) {
       font-size: $footer_phone;
