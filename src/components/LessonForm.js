@@ -9,6 +9,7 @@ const LessonForm = (props) => {
   const [showPayForm, setShowPayForm] = useState(false);
 
   const [errors, setErrors] = useState({
+    blank: "",
     check: "",
     practiced: "Tell us about you!",
     focus: "Tell us about you!",
@@ -117,6 +118,10 @@ const LessonForm = (props) => {
       console.log("valid");
       setShowPayForm(true);
     } else {
+      setErrors({ ...errors, blank: "Please fill out all fields!" });
+      setTimeout(() => {
+        setErrors({ ...errors, blank: "" });
+      }, 5000);
       console.log("invalid");
     }
   };
@@ -127,6 +132,7 @@ const LessonForm = (props) => {
         <div className="lessonForm">
           <Form onSubmit={handleSubmit}>
             <Form.Group>
+              <span>{errors.blank}</span>
               <Form.Label>
                 Are you pregnant/have you given birth within the past year?
               </Form.Label>
