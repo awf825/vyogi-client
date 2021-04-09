@@ -16,11 +16,12 @@ const BookModal = ({ visible, dismiss, children }) => {
 
   if (showLesson) {
     return (
-      <Modal className="paymentModal" show={visible}>
-        <Modal.Header className="paymentModal__header">
-          <GrClose onClick={dismiss} style={{ cursor: "pointer" }} />
+      <Modal className="modal" show={visible}>
+        <Modal.Header className="modal__header">
+          <h3 className="modal__header__text">Tell us about you!</h3>
+          <GrClose className="modal__icon" onClick={dismiss} />
         </Modal.Header>
-        <Modal.Body className="paymentModal__body">
+        <Modal.Body className="modal__body">
           <LessonForm
             oneLesson={oneLessonData}
             dismiss={dismiss}
@@ -34,20 +35,20 @@ const BookModal = ({ visible, dismiss, children }) => {
   return (
     <React.Fragment>
       {children ? (
-        <Modal className="bookModal" show={visible}>
+        <Modal className="modal" show={visible}>
           <Modal.Header>
             <Modal.Title>{children.title}</Modal.Title>
-            <GrClose onClick={dismiss} style={{ cursor: "pointer" }} />
+            <GrClose className="modal__icon" onClick={dismiss} />
           </Modal.Header>
           <Modal.Body>
-            <div className="bookModal__desc">{children.desc}</div>
+            <div className="modal__desc">{children.desc}</div>
             <Button
-              className="bookModal__btn"
+              className="modal__submit"
               onClick={children.handleLessonConfirmation}
             >
               Continue
             </Button>
-            <Button className="bookModal__btn" onClick={dismiss}>
+            <Button className="modal__submit" onClick={dismiss}>
               Close
             </Button>
           </Modal.Body>

@@ -10,8 +10,9 @@
 @import "./base/utilities";
 
 // Sass Components
-// @import "./components/lessonForm";
+@import "./components/lessonForm";
 @import "./components/stripe";
+@import "./components/modal";
 
 // Sass Layouts
 @import "./layouts/loader";

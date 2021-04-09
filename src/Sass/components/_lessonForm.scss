@@ -1,24 +1,5 @@
 .lessonForm {
-  background-color: $color_secondary_dark;
-  height: 100%;
-  width: 100%;
-
-  &__form__container {
-    background-color: $color_white;
-    border-radius: 3px;
-    box-shadow: 3px 3px 3px $color_black;
-    height: 95%;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 95%;
-
-    @include respond(phone) {
-      height: 80vh;
-      width: 80vw;
-    }
-  }
+  width: 90%;
 
   &__radio {
     display: flex;
@@ -28,22 +9,6 @@
       margin-bottom: 5px;
       margin-left: 10px;
       align-items: center;
-
-      @include respond(tab-port) {
-        font-size: $footer_port;
-      }
-
-      @include respond(sm) {
-        font-size: $footer_phone;
-      }
-    }
-  }
-
-  &__label {
-    font-weight: 800;
-
-    @include respond(tab-port) {
-      font-size: $footer_phone;
     }
   }
 
@@ -52,23 +17,6 @@
     border: 1px solid $color_black;
     box-shadow: 3px 3px 3px $color_black;
     font-size: $text_phone;
-    width: 80%;
-
-    @include respond(phone) {
-      font-size: $footer_phone;
-    }
-  }
-
-  &__form {
-    height: 100%;
     width: 100%;
-    margin: 0 auto;
-  }
-
-  &__content {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
   }
 }
