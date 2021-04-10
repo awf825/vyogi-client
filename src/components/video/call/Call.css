@@ -1,21 +1,47 @@
-.call {
-  display: flex;
+/*.call {
   position: relative;
+  display: inline-block;
   top: 0;
   left: 0;
   width: 100%;
   height: calc(100% - 60px);
-  overflow: auto;
+  overflow: hidden;
+  border: 1px solid red;
+  margin-right: 10px;
+  float: left;
 }
 
 .client-tile {
   height: calc(100% - 62.5px);
   overflow: hidden;
-  width: 70%;
 }
 
 .trainer-tile {
   height: calc(100% - 62.5px);
+  overflow: hidden;
   flex-grow: 1;
-  width: 30%;
+  float: left;
+  margin-right: 5px;
+}*/
+
+.trainer-tile {
+    background-color: red;
+    height: calc(100% - 62.5px);
+    float: left;
+    width: 30%;
+}
+
+.client-tile {
+    background-color: blue;
+    width: 70%;
+    height: calc(100% - 62.5px);
+    float:left;
+}
+
+.call {
+    width: 100%;
+    height: calc(100% - 60px);
+    padding-left: 15px;
+    padding-right: 15px;
+    float:left;
 }

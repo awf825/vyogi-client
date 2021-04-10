@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './Tile.css';
-
+import Loader from '../../Loader'
 /**
  * Props
  * - videoTrack: MediaStreamTrack?
@@ -31,12 +31,14 @@ export default function Tile(props) {
   }, [props.audioTrack]);
 
   function getLoadingComponent() {
-    return props.isLoading && <p className="loading">Loading...</p>;
+    return props.isLoading && <Loader />;
   }
 
-  function getVideoComponent() {
+  function getVideoComponent(classNames) {
+    // https://stackoverflow.com/questions/23248441/resizing-video-element-to-parent-div
+    const videoClass = classNames.includes("local") ? "local" : "incoming"
     return (
-      props.videoTrack && <video autoPlay muted playsInline ref={videoEl} />
+      props.videoTrack && <video className={videoClass} autoPlay muted playsInline ref={videoEl} />
     );
   }
 
@@ -50,6 +52,7 @@ export default function Tile(props) {
   function getClassNames() {
     let classNames = 'tile';
     classNames += props.isLarge ? ' large' : ' small';
+    //classNames += (props.isLocalPerson ? ' local' : ' incoming');
     props.isLocalPerson && (classNames += ' local');
     return classNames;
   }
@@ -57,7 +60,7 @@ export default function Tile(props) {
   return (
     <div className={getClassNames()} onClick={props.onClick}>
       {getLoadingComponent()}
-      {getVideoComponent()}
+      {getVideoComponent(getClassNames())}
       {getAudioComponent()}
     </div>
   );
