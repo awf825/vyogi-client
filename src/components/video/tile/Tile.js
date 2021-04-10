@@ -35,6 +35,7 @@ export default function Tile(props) {
   }
 
   function getVideoComponent(classNames) {
+    // https://stackoverflow.com/questions/23248441/resizing-video-element-to-parent-div
     const videoClass = classNames.includes("local") ? "local" : "incoming"
     return (
       props.videoTrack && <video className={videoClass} autoPlay muted playsInline ref={videoEl} />
@@ -51,6 +52,7 @@ export default function Tile(props) {
   function getClassNames() {
     let classNames = 'tile';
     classNames += props.isLarge ? ' large' : ' small';
+    //classNames += (props.isLocalPerson ? ' local' : ' incoming');
     props.isLocalPerson && (classNames += ' local');
     return classNames;
   }
