@@ -34,9 +34,10 @@ export default function Tile(props) {
     return props.isLoading && <Loader />;
   }
 
-  function getVideoComponent() {
+  function getVideoComponent(classNames) {
+    const videoClass = classNames.includes("local") ? "local" : "incoming"
     return (
-      props.videoTrack && <video autoPlay muted playsInline ref={videoEl} />
+      props.videoTrack && <video className={videoClass} autoPlay muted playsInline ref={videoEl} />
     );
   }
 
@@ -57,7 +58,7 @@ export default function Tile(props) {
   return (
     <div className={getClassNames()} onClick={props.onClick}>
       {getLoadingComponent()}
-      {getVideoComponent()}
+      {getVideoComponent(getClassNames())}
       {getAudioComponent()}
     </div>
   );
