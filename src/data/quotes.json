@@ -1,32 +1,37 @@
 [
   {
-    "quote": "This is Quote A",
-    "name": "Name A",
-    "year": "1900"
+    "quote": "Change only happens in the present moment. The past is already done. The future is just energy and intention.",
+    "name": "Kino MacGregor",
+    "year": "1977 - "
   }, 
   {
-    "quote": "This is Quote B",
-    "name": "Name B",
-    "year": "1910"
+    "quote": "Move your joints every day. You have to find your own tricks. Bury your mind deep in your heart, and watch the body move by itself.",
+    "name": "Dharma Mittra",
+    "year": "1939 - "
   }, 
   {
-    "quote": "This is Quote C",
-    "name": "Name C",
-    "year": "1920"
+    "quote": "The body benefits from movement, and the mind benefits from stillness.",
+    "name": "Sakyong Mipham",
+    "year": "1962 - "
   }, 
   {
-    "quote": "This is Quote D",
-    "name": "Name D",
-    "year": "1930"
+    "quote": "Remember, it doesn’t matter how deep into a posture you go — what does matter is who you are when you get there.",
+    "name": "Max Strom",
+    "year": "1962 - "
   }, 
   {
-    "quote": "This is Quote E",
-    "name": "Name E",
-    "year": "1940"
+    "quote": "Yoga is not about self-improvement. It’s about self-acceptance.",
+    "name": "Gurmukh Kaur Khalsa",
+    "year": "1943 - "
   }, 
   {
-    "quote": "This is Quote F",
-    "name": "Name F",
-    "year": "1950"
+    "quote": "The soul is here for its own joy.",
+    "name": "Rumi",
+    "year": "1207 - 1273"
+  },
+    {
+    "quote": "The attitude of gratitude is the highest yoga.",
+    "name": "Yogi Bhajan",
+    "year": "1929 - 2004"
   }
 ]
