@@ -108,10 +108,9 @@ const UserBookings = (props) => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Booked At</th>
+                <th>Booked On</th>
                 <th>Start Time</th>
                 <th>Cost</th>
-                <th>Payment Made?</th>
                 <th>Cancelled?</th>
               </tr>
             </thead>
@@ -121,10 +120,9 @@ const UserBookings = (props) => {
                   <td>{bkg._id.slice(-7)}</td>
                   <td>{new Date(bkg.createdAt).toLocaleDateString("en-US")}</td>
                   <td>
-                    {new Date(bkg.lessonStart).toLocaleDateString("en-US")}
+                    {`${new Date(bkg.lessonStart).toDateString()} @ ${new Date(bkg.lessonStart).toLocaleTimeString()}`}
                   </td>
-                  <td>{bkg.lessonCost}</td>
-                  <td>{bkg.payment_made ? "Yes" : "No"}</td>
+                  <td>{"$" + bkg.lessonCost*10}</td>
                   <td>{bkg.cancelled ? "Yes" : "No"}</td>
                   <td>
                     {!bkg.cancelled ? (

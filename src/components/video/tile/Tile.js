@@ -30,9 +30,10 @@ export default function Tile(props) {
       (audioEl.current.srcObject = new MediaStream([props.audioTrack]));
   }, [props.audioTrack]);
 
-  function getLoadingComponent() {
-    return props.isLoading && <Loader />;
-  }
+  // function getLoadingComponent() {
+  //   return
+  //   // return props.isLoading && <Loader />;
+  // }
 
   function getVideoComponent(classNames) {
     // https://stackoverflow.com/questions/23248441/resizing-video-element-to-parent-div
@@ -59,7 +60,6 @@ export default function Tile(props) {
 
   return (
     <div className={getClassNames()} onClick={props.onClick}>
-      {getLoadingComponent()}
       {getVideoComponent(getClassNames())}
       {getAudioComponent()}
     </div>
