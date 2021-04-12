@@ -11,9 +11,9 @@ const RegistrationModal = ({ handleClose, show, children, head }) => {
 
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header>
+      <Modal.Header className="modal__title">
         {head}
-        <GrClose onClick={handleClose} style={{ cursor: "pointer" }} />
+        <GrClose onClick={handleClose} className="modal__icon" />
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>
     </Modal>
