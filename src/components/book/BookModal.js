@@ -18,7 +18,7 @@ const BookModal = ({ visible, dismiss, children }) => {
     return (
       <Modal className="modal" show={visible}>
         <Modal.Header className="modal__header">
-          <h3 className="modal__header__text">Tell us about you!</h3>
+          <h3 className="modal__header__text">Tell me about you!</h3>
           <GrClose className="modal__icon" onClick={dismiss} />
         </Modal.Header>
         <Modal.Body className="modal__body">
