@@ -13,9 +13,7 @@ const LessonForm = (props) => {
     check: "",
     userName: "What should I call you?",
     practiced: "What type of Yoga have you practiced?",
-    focus: "Do you want to focus on meditation?",
     limitations: "Do you have a bad back? Or knees?",
-    needToKnow: "Any fun facts or concerns?",
   });
 
   const [data, setData] = useState({
@@ -64,55 +62,41 @@ const LessonForm = (props) => {
           value !== "yes" || value !== "no" ? "" : "Please select a value";
         break;
       case "practiced":
-        setData({ ...data, [name]: value });
+        setData({ ...data, [name]: value.toString() });
         setErrors({
           ...errors,
           [name]:
-            value.length < 3 ||
+            value.length < 2 ||
             value === "What type of Yoga have you practiced?"
-              ? "Please fill in all text fields"
+              ? "Field is required!"
               : "",
         });
         break;
       case "userName":
-        setData({ ...data, [name]: value });
+        setData({ ...data, [name]: value.toString() });
         setErrors({
           ...errors,
           [name]:
             value.length < 2 || value === "What should I call you?"
-              ? "Please fill in all text fields"
+              ? "Field is required!"
               : "",
         });
         break;
       case "limitations":
-        setData({ ...data, [name]: value });
+        setData({ ...data, [name]: value.toString() });
         setErrors({
           ...errors,
           [name]:
-            value.length < 3 || value === "Do you have a bad back? Or knees?"
-              ? "Please fill in all text fields"
+            value.length < 2 || value === "Do you have a bad back? Or knees?"
+              ? "Field is required!"
               : "",
         });
         break;
       case "focus":
-        setData({ ...data, [name]: value });
-        setErrors({
-          ...errors,
-          [name]:
-            value.length < 3 || value === "Do you want to focus on meditation?"
-              ? "Please fill in all text fields"
-              : "",
-        });
+        setData({ ...data, [name]: value.toString() });
         break;
       case "needToKnow":
-        setData({ ...data, [name]: value });
-        setErrors({
-          ...errors,
-          [name]:
-            value.length < 3 || value === "Any fun facts or concerns?"
-              ? "Please fill in all text fields"
-              : "",
-        });
+        setData({ ...data, [name]: value.toString() });
         break;
       default:
         break;
@@ -131,10 +115,10 @@ const LessonForm = (props) => {
       console.log("valid");
       setShowPayForm(true);
     } else {
-      setErrors({ ...errors, blank: "Please fill out all fields!" });
+      setErrors({ ...errors, blank: "Please fill out all required fields!" });
       setTimeout(() => {
         setErrors({ ...errors, blank: "" });
-      }, 5000);
+      }, 3000);
       console.log("invalid");
     }
   };
@@ -145,11 +129,11 @@ const LessonForm = (props) => {
         <div className="lessonForm">
           <Form onSubmit={handleSubmit}>
             <Form.Group>
-              <span>{errors.blank}</span>
+              <span className="lessonForm__error">{errors.blank}</span>
               <Form.Label>
-                Are you pregnant/have you given birth within the past year?
+                Are you pregnant/have you given birth within the past year? *
               </Form.Label>
-              <span>{errors.check}</span>
+              <span className="lessonForm__error">{errors.check}</span>
               <Form.Group className="lessonForm__radio">
                 <Form.Check
                   className="lessonForm__radio__btn"
@@ -172,8 +156,9 @@ const LessonForm = (props) => {
               </Form.Group>
             </Form.Group>
             <Form.Group>
-              <Form.Label>What is your first name?</Form.Label>
-              <span>
+              <Form.Label>What is your first name? *</Form.Label>
+              <br />
+              <span className="lessonForm__error">
                 {errors.userName !== "What should I call you?"
                   ? errors.userName
                   : ""}
@@ -191,9 +176,10 @@ const LessonForm = (props) => {
             <Form.Group>
               <Form.Label>
                 Have you practiced yoga before? If so, what type and for how
-                long?
+                long? *
               </Form.Label>
-              <span>
+              <br />
+              <span className="lessonForm__error">
                 {errors.practiced !== "What type of Yoga have you practiced?"
                   ? errors.practiced
                   : ""}
@@ -210,9 +196,10 @@ const LessonForm = (props) => {
             </Form.Group>
             <Form.Group>
               <Form.Label>
-                Do you have any injuries or physical limitations?
+                Do you have any injuries or physical limitations? *
               </Form.Label>
-              <span>
+              <br />
+              <span className="lessonForm__error">
                 {errors.limitations !== "Do you have a bad back? Or knees?"
                   ? errors.limitations
                   : ""}
@@ -232,11 +219,7 @@ const LessonForm = (props) => {
                 Is there anything specific you'd like to focus on during our
                 time together?
               </Form.Label>
-              <span>
-                {errors.focus !== "Do you want to focus on meditation?"
-                  ? errors.focus
-                  : ""}
-              </span>
+
               <Form.Control
                 as="textarea"
                 className="lessonForm__text"
@@ -244,18 +227,13 @@ const LessonForm = (props) => {
                 rows={2}
                 value={data.focus}
                 onChange={handleChange}
-                placeholder={errors.focus}
+                placeholder="Do you want to focus on meditation?"
               />
             </Form.Group>
             <Form.Group>
               <Form.Label>
                 Is there anything else you'd like me to know?
               </Form.Label>
-              <span>
-                {errors.needToKnow !== "Any fun facts or concerns?"
-                  ? errors.needToKnow
-                  : ""}
-              </span>
               <Form.Control
                 as="textarea"
                 className="lessonForm__text"
@@ -263,9 +241,10 @@ const LessonForm = (props) => {
                 rows={2}
                 value={data.needToKnow}
                 onChange={handleChange}
-                placeholder={errors.needToKnow}
+                placeholder="Any fun facts or concerns?"
               />
             </Form.Group>
+            <p>* means it is required!</p>
             <Button className="modal__submit" type="submit">
               Submit
             </Button>
