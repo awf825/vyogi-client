@@ -1,0 +1,31 @@
+.schedule {
+  background: $color_secondary;
+  height: 100%;
+  width: 100%;
+
+  &__calendar {
+    background: $color_primary;
+    border: solid $color_black 1px;
+    border-radius: 3px;
+    box-shadow: 1px 2px 3px 0 black;
+    height: 95%;
+    left: 50%;
+    position: relative;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+  }
+}
+
+.rbc-event {
+  background-color: $color_primary_dark;
+}
+
+.rbc-day-bg {
+  border-radius: 3px;
+  flex: 1 0;
+}
+.rbc-toolbar button {
+  background-color: $color_primary_dark;
+  color: $color_black;
+}

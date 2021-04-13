@@ -108,14 +108,7 @@ const Schedule = (props) => {
   }
 
   return (
-    <div
-      id="schedule"
-      style={{
-        background: "lightgrey",
-        width: "100%",
-        height: "100%",
-      }}
-    >
+    <div id="schedule" className="schedule">
       {schedule.length > 0 ? (
         <React.Fragment>
           <BookModal
@@ -126,14 +119,7 @@ const Schedule = (props) => {
           <Calendar
             localizer={localizer}
             events={schedule}
-            style={{
-              background: "lightblue",
-              border: "solid black 3px",
-              borderRadius: "3px",
-              height: "70%",
-              width: "80%",
-              margin: "10%",
-            }}
+            className="schedule__calendar"
             selectable={true}
             onSelectEvent={(event) => handleSelection(event)}
           />
