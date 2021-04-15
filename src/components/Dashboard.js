@@ -6,14 +6,26 @@ import Footer from "./Footer";
 import UserBookings from "./UserBookings";
 
 export const Dashboard = (props) => {
+  const hash = props.location.hash;
+
+  const whatToShow = () => {
+    switch (hash) {
+      case "#about":
+        return <About />;
+      case "#schedule":
+        return <Schedule />;
+      case "#bookings":
+        return <UserBookings />;
+      case "#video":
+        return <Video />;
+      default:
+        return <About />;
+    }
+  };
+
   return (
     <div className="dashboard">
-      <div className="dashboard__container">
-        <About />
-        <Schedule />
-        <UserBookings />
-        <Video />
-      </div>
+      <div className="dashboard__container">{whatToShow()}</div>
       <div className="dashboard__footer">
         <Footer />
       </div>

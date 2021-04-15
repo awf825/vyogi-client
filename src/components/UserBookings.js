@@ -78,7 +78,7 @@ const UserBookings = (props) => {
     cancel();
   }
 
-  console.log("Messaging user booking: ", message);
+  // console.log("Messaging user booking: ", message);
 
   if (showModal) {
     return (

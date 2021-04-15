@@ -1,5 +1,5 @@
 .dashboard {
-  background-color: aliceblue;
+  background-color: $color_primary;
   height: 100vh;
   width: 100vw;
 
@@ -8,8 +8,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     height: 90%;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     width: 100%;
   }
 
