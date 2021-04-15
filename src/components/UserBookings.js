@@ -108,11 +108,12 @@ const UserBookings = (props) => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Booked At</th>
+                <th>Booked On</th>
+                <th>Booked Date</th>
                 <th>Start Time</th>
                 <th>Cost</th>
-                <th>Payment Made?</th>
                 <th>Cancelled?</th>
+                <th>Cancel</th>
               </tr>
             </thead>
             <tbody>
@@ -123,12 +124,22 @@ const UserBookings = (props) => {
                   <td>
                     {new Date(bkg.lessonStart).toLocaleDateString("en-US")}
                   </td>
+                  <td>
+                    {new Date(bkg.lessonStart).getHours() > 12
+                      ? new Date(bkg.lessonStart).getHours() - 12
+                      : new Date(bkg.lessonStart).getHours()}
+                    :
+                    {new Date(bkg.lessonStart).getMinutes() > 0
+                      ? new Date(bkg.lessonStart).getMinutes()
+                      : "00"}
+                    {new Date(bkg.lessonStart).getHours() >= 12 ? "pm" : "am"}
+                  </td>
                   <td>{bkg.lessonCost}</td>
-                  <td>{bkg.payment_made ? "Yes" : "No"}</td>
                   <td>{bkg.cancelled ? "Yes" : "No"}</td>
                   <td>
                     {!bkg.cancelled ? (
                       <Button
+                        className="bookings__btn"
                         variant="danger"
                         type="button"
                         value="Cancel"
