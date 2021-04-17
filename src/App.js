@@ -2,14 +2,15 @@ import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Dashboard from "./components/Dashboard";
-import Video from "./components/Video";
-import UserBookings from "./components/UserBookings";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Schedule from "./components/Schedule";
 import RegistrationRouter from "./components/Registration/RegistrationRouter";
 import RegistrationLogin from "./components/Registration/RegistrationLogin";
 import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
 import Redirect from "./components/Redirect";
+
+// import Video from "./components/Video";
+// import UserBookings from "./components/UserBookings";
+// import Schedule from "./components/Schedule";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
             path="/registration/signup"
             component={RegistrationSignUp}
           />
-          <Route exact path="/video" render={(props) => <Video {...props} />} />
+          {/* <Route exact path="/video" render={(props) => <Video {...props} />} />
           <Route
             exact
             path="/schedule"
@@ -39,7 +40,7 @@ function App() {
             exact
             path="/bookings"
             render={(props) => <UserBookings {...props} />}
-          />
+          /> */}
 
           <Route exact path="/redir" component={Redirect} />
         </Switch>

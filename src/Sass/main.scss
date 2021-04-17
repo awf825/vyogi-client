@@ -12,6 +12,7 @@
 // Sass Components
 @import "./components/lessonForm";
 @import "./components/stripe";
+@import "./components/modal";
 
 // Sass Layouts
 @import "./layouts/loader";
@@ -24,4 +25,5 @@
 @import "./pages/home";
 @import "./pages/contact";
 @import "./pages/dashboard";
-@import "./pages//registration";
+@import "./pages/registration";
+@import "./pages/schedule";
