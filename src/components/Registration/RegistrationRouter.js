@@ -11,12 +11,11 @@ const RegistrationRouter = () => {
     <div className="registration_router">
       <Link className="registration_router__link_back" to="/">
         <IoArrowBackCircleSharp className="registration_router__link_back__icon" />
-        <h5 className="registration_router__link_back__text">Back</h5>
       </Link>
       <ListGroup className="registration_router__register">
-        <ListGroup.Item variant="info">
+        <ListGroup.Item className="registration_router__link_container">
           <Link
-            className="registrationRouter__link"
+            className="registration_router__link"
             to={{
               pathname: "/registration/signup",
               openModal: true,
@@ -25,9 +24,9 @@ const RegistrationRouter = () => {
             Sign Up
           </Link>
         </ListGroup.Item>
-        <ListGroup.Item variant="primary">
+        <ListGroup.Item className="registration_router__link_container">
           <Link
-            className="registrationRouter__link"
+            className="registration_router__link"
             to={{
               pathname: "/registration/login",
               openModal: true,

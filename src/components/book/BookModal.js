@@ -1,22 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { GrClose } from "react-icons/gr";
 import { Modal, Button } from "react-bootstrap";
-import PayForm from "../stripe/PayForm";
+import LessonForm from "../LessonForm";
 
 const BookModal = ({ visible, dismiss, children }) => {
-  let payForm = false;
-  if (children) payForm = children.showPayForm;
+  const [oneLessonData, setOneLessonData] = useState({});
+  const [showLesson, setShowLesson] = useState(false);
 
-  if (payForm) {
+  useEffect(() => {
+    if (children) {
+      setOneLessonData(children.oneLesson.modalData);
+      setShowLesson(children.showLessonForm);
+    }
+  }, [children]);
+
+  if (showLesson) {
     return (
-      <Modal className="paymentModal" show={visible}>
-        <Modal.Header className="paymentModal__header">
-          <GrClose onClick={dismiss} style={{ cursor: "pointer" }} />
+      <Modal className="modal" show={visible}>
+        <Modal.Header className="modal__header">
+          <h3 className="modal__header__text">Tell me about you!</h3>
+          <GrClose className="modal__icon" onClick={dismiss} />
         </Modal.Header>
-        <Modal.Body className="paymentModal__body">
-          <PayForm
-            closeModal={dismiss}
-            oneLesson={children.oneLesson.modalData}
+        <Modal.Body className="modal__body">
+          <LessonForm
+            oneLesson={oneLessonData}
+            dismiss={dismiss}
+            visible={visible}
           />
         </Modal.Body>
       </Modal>
@@ -26,20 +35,20 @@ const BookModal = ({ visible, dismiss, children }) => {
   return (
     <React.Fragment>
       {children ? (
-        <Modal className="bookModal" show={visible}>
+        <Modal className="modal" show={visible}>
           <Modal.Header>
             <Modal.Title>{children.title}</Modal.Title>
-            <GrClose onClick={dismiss} style={{ cursor: "pointer" }} />
+            <GrClose className="modal__icon" onClick={dismiss} />
           </Modal.Header>
           <Modal.Body>
-            <div className="bookModal__desc">{children.desc}</div>
+            <div className="modal__desc">{children.desc}</div>
             <Button
-              className="bookModal__btn"
+              className="modal__submit"
               onClick={children.handleLessonConfirmation}
             >
               Continue
             </Button>
-            <Button className="bookModal__btn" onClick={dismiss}>
+            <Button className="modal__submit" onClick={dismiss}>
               Close
             </Button>
           </Modal.Body>

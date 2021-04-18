@@ -11,7 +11,7 @@ const Schedule = (props) => {
   const [schedule, setSchedule] = useState([]);
   const [modalData, setModalData] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
-  const [showPayForm, setShowPayForm] = useState(false);
+  const [showLessonForm, setShowLessonForm] = useState(false);
 
   const token = localStorage.getItem("token");
 
@@ -55,11 +55,11 @@ const Schedule = (props) => {
 
   const rejectModal = () => {
     setModalOpen(false);
-    setShowPayForm(false);
+    setShowLessonForm(false);
   };
 
   const handleLessonConfirmation = () => {
-    setShowPayForm(true);
+    setShowLessonForm(true);
   };
 
   const handleLessonRejection = () => {
@@ -103,19 +103,12 @@ const Schedule = (props) => {
       oneLesson: { modalData },
       handleLessonConfirmation,
       handleLessonRejection,
-      showPayForm,
+      showLessonForm,
     };
   }
 
   return (
-    <div
-      id="schedule"
-      style={{
-        background: "lightgrey",
-        width: "100%",
-        height: "100%",
-      }}
-    >
+    <div id="schedule" className="schedule">
       {schedule.length > 0 ? (
         <React.Fragment>
           <BookModal
@@ -126,14 +119,7 @@ const Schedule = (props) => {
           <Calendar
             localizer={localizer}
             events={schedule}
-            style={{
-              background: "lightblue",
-              border: "solid black 3px",
-              borderRadius: "3px",
-              height: 400,
-              width: "80%",
-              margin: "10%",
-            }}
+            className="schedule__calendar"
             selectable={true}
             onSelectEvent={(event) => handleSelection(event)}
           />

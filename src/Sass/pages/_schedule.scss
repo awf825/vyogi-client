@@ -1,0 +1,50 @@
+.schedule {
+  background: $color_secondary;
+  height: 100%;
+  transition: all 1s;
+  width: 100%;
+
+  &__calendar {
+    animation: fade-in 1s linear;
+    background: $color_primary;
+    border: solid $color_black 1px;
+    border-radius: 3px;
+    box-shadow: 1px 2px 3px 0 $color_black;
+    height: 95%;
+    left: 50%;
+    position: relative;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+  }
+}
+
+.rbc-event {
+  background-color: $color_primary_dark;
+  border: 2px solid $color_primary_dark;
+  font-size: $text_phone;
+}
+
+.rbc-day-bg {
+  border-radius: 3px;
+  flex: 1 0;
+}
+.rbc-toolbar button {
+  background-color: $color_primary_dark;
+  color: $color_black;
+}
+
+.rbc-show-more {
+  font-size: $text_phone;
+  height: 100%;
+}
+
+.rbc-row {
+  background-color: $color_primary;
+}
+
+.rbc-time-slot {
+  background-color: $color_primary;
+  border: 1px solid $color_black;
+  border-radius: 3px;
+}

@@ -78,7 +78,7 @@ const UserBookings = (props) => {
     cancel();
   }
 
-  console.log("Messaging user booking: ", message);
+  // console.log("Messaging user booking: ", message);
 
   if (showModal) {
     return (
@@ -107,26 +107,37 @@ const UserBookings = (props) => {
           <Table borderless hover responsive variant="dark">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Booked On</th>
+                <th>Lesson Date</th>
                 <th>Start Time</th>
                 <th>Cost</th>
                 <th>Cancelled?</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               {bookings.map((bkg) => (
                 <tr key={bkg._id}>
-                  <td>{bkg._id.slice(-7)}</td>
-                  <td>{new Date(bkg.createdAt).toLocaleDateString("en-US")}</td>
+                  <td>{new Date(bkg.createdAt).toDateString()}</td>
                   <td>
-                    {`${new Date(bkg.lessonStart).toDateString()} @ ${new Date(bkg.lessonStart).toLocaleTimeString()}`}
+                    {`${new Date(bkg.lessonStart).toDateString()}`}
+                  </td>
+                  <td>
+                    {new Date(bkg.lessonStart).getHours() > 12
+                      ? new Date(bkg.lessonStart).getHours() - 12
+                      : new Date(bkg.lessonStart).getHours()}
+                    :
+                    {new Date(bkg.lessonStart).getMinutes() > 0
+                      ? new Date(bkg.lessonStart).getMinutes()
+                      : "00"}
+                    {new Date(bkg.lessonStart).getHours() >= 12 ? "pm" : "am"}
                   </td>
                   <td>{"$" + bkg.lessonCost*10}</td>
                   <td>{bkg.cancelled ? "Yes" : "No"}</td>
                   <td>
                     {!bkg.cancelled ? (
                       <Button
+                        className="bookings__btn"
                         variant="danger"
                         type="button"
                         value="Cancel"

@@ -96,6 +96,7 @@ const RegistrationLoginForm = (props) => {
             name="email"
             type="email"
             placeholder="Email"
+            className="registration__form__text"
           />
         </Form.Group>
         <Form.Group>
@@ -114,9 +115,12 @@ const RegistrationLoginForm = (props) => {
             name="password"
             type="password"
             placeholder="Password"
+            className="registration__form__text"
           />
         </Form.Group>
-        <Button type="submit">Submit</Button>
+        <Button className="modal__submit" type="submit">
+          Submit
+        </Button>
       </Form>
     </>
   );

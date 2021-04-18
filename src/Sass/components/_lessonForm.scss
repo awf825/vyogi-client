@@ -1,53 +1,26 @@
 .lessonForm {
-  background-color: $color_secondary_dark;
-  height: 100%;
-  min-width: 100%;
-  width: 100%;
-
-  &__form__container {
-    background-color: white;
-    border-radius: 3px;
-    box-shadow: 3px 3px 3px $color_black;
-    height: 95%;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 95%;
-
-    @include respond(phone) {
-      height: 300px;
-      width: 80vw;
-    }
-  }
-
-  &__heading {
-    text-align: center;
-    margin-bottom: 5px;
-  }
+  width: 90%;
 
   &__radio {
     display: flex;
     flex-direction: row;
 
     &__btn {
-      margin: 5px;
+      margin-bottom: 5px;
+      margin-left: 10px;
       align-items: center;
     }
-  }
-
-  &__label {
-    font-weight: 800;
   }
 
   &__text {
     border-radius: 3px;
     border: 1px solid $color_black;
     box-shadow: 3px 3px 3px $color_black;
-    width: 75%;
+    font-size: $text_phone;
+    width: 100%;
   }
 
-  &__form {
-    height: 100%;
+  &__error {
+    color: $color_red;
   }
 }
