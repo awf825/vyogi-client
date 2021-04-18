@@ -4,6 +4,12 @@ import quotes from "../../data/quotes.json";
 
 const Quotes = () => {
   // The key will have to be changed to an ID
+  // The interval is how you change the speed at which the quote changes
+
+  // shuffled arr
+  let shuffle = quotes.sort(() => Math.random() - 0.5);
+
+  console.log(shuffle);
   return (
     <>
       {quotes ? (
@@ -14,8 +20,8 @@ const Quotes = () => {
             indicators={false}
             fade={true}
           >
-            {quotes.map((q) => (
-              <Carousel.Item pause={"hover"} interval={500} key={q.year}>
+            {shuffle.map((q) => (
+              <Carousel.Item pause={"hover"} interval={1000} key={q.id}>
                 <h3 className="quotes__quote">
                   {q.quote} - {q.name}, {q.year}
                 </h3>

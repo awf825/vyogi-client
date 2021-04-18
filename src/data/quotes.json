@@ -1,35 +1,42 @@
 [
   {
+    "id": 1,
     "quote": "Change only happens in the present moment. The past is already done. The future is just energy and intention.",
     "name": "Kino MacGregor",
     "year": "1977 - "
-  }, 
+  },
   {
+    "id": 2,
     "quote": "Move your joints every day. You have to find your own tricks. Bury your mind deep in your heart, and watch the body move by itself.",
     "name": "Dharma Mittra",
     "year": "1939 - "
-  }, 
+  },
   {
+    "id": 3,
     "quote": "The body benefits from movement, and the mind benefits from stillness.",
     "name": "Sakyong Mipham",
     "year": "1962 - "
-  }, 
+  },
   {
+    "id": 4,
     "quote": "Remember, it doesn’t matter how deep into a posture you go — what does matter is who you are when you get there.",
     "name": "Max Strom",
     "year": "1962 - "
-  }, 
+  },
   {
+    "id": 5,
     "quote": "Yoga is not about self-improvement. It’s about self-acceptance.",
     "name": "Gurmukh Kaur Khalsa",
     "year": "1943 - "
-  }, 
+  },
   {
+    "id": 6,
     "quote": "The soul is here for its own joy.",
     "name": "Rumi",
     "year": "1207 - 1273"
   },
-    {
+  {
+    "id": 7,
     "quote": "The attitude of gratitude is the highest yoga.",
     "name": "Yogi Bhajan",
     "year": "1929 - 2004"

@@ -10,8 +10,8 @@
 
   &__carousel {
     background-color: $color_secondary;
-    border: 2px dashed $color_primary_dark;
-    border-radius: 1%;
+    // border: 2px dashed $color_primary_dark;
+    border-radius: 3px;
     box-shadow: 0 0 0 2px $color_secondary, 2px 1px 6px 4px rgba(10, 10, 0, 0.8);
     color: $color_primary_dark;
     height: 5vh;
