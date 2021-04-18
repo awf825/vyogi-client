@@ -16,7 +16,7 @@ const BookModal = ({ visible, dismiss, children }) => {
 
   if (showLesson) {
     return (
-      <Modal className="modal" show={visible}>
+      <Modal className="modal" show={visible} onHide={dismiss}>
         <Modal.Header className="modal__header">
           <h3 className="modal__header__text">Tell me about you!</h3>
           <GrClose className="modal__icon" onClick={dismiss} />
@@ -35,7 +35,7 @@ const BookModal = ({ visible, dismiss, children }) => {
   return (
     <React.Fragment>
       {children ? (
-        <Modal className="modal" show={visible}>
+        <Modal className="modal" show={visible} onHide={dismiss}>
           <Modal.Header>
             <Modal.Title>{children.title}</Modal.Title>
             <GrClose className="modal__icon" onClick={dismiss} />

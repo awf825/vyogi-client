@@ -3,7 +3,7 @@ import { Form, Button, Modal } from "react-bootstrap";
 import { GrClose } from "react-icons/gr";
 import PayForm from "../components/stripe/PayForm";
 
-// Need to add a way to communicat to user that the form has failed.  Maybe a state that shows when the form fails to submit
+// Need to add a way to communicate to user that the form has failed.  Maybe a state that shows when the form fails to submit
 
 const LessonForm = (props) => {
   const [showPayForm, setShowPayForm] = useState(false);
@@ -112,14 +112,12 @@ const LessonForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validForm(errors)) {
-      console.log("valid");
       setShowPayForm(true);
     } else {
       setErrors({ ...errors, blank: "Please fill out all required fields!" });
       setTimeout(() => {
         setErrors({ ...errors, blank: "" });
       }, 3000);
-      console.log("invalid");
     }
   };
 
