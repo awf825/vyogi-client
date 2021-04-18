@@ -37,6 +37,12 @@ export const Checkout = (props) => {
         start: oneLesson.start,
         end: oneLesson.end,
         lesson: oneLesson.id,
+        check: oneLesson.check,
+        userName: oneLesson.userName,
+        practiced: oneLesson.practiced,
+        limitations: oneLesson.limitations,
+        focus: oneLesson.focus,
+        needToKnow: oneLesson.needToKnow,
         user: user,
         email: email,
       };
