@@ -59,7 +59,7 @@ const RegistrationLoginForm = (props) => {
   }
 
   if (props.success) {
-    return <h1>You are logged in!</h1>;
+    return <h1>Thank you for logging in!</h1>;
   }
 
   function onSubmit(data) {

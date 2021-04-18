@@ -28,8 +28,8 @@
   }
 
   &__link {
-    background-color: $color_tertiary;
-    border-radius: 10%;
+    background-color: $color_primary_dark;
+    border-radius: 3px;
     color: $color_black;
     font-size: $footer_normal;
     padding: 10px;
@@ -49,7 +49,7 @@
   &__link:hover {
     background-color: $color_black;
     box-shadow: 5px 5px 5px $color_black;
-    color: $color_tertiary;
+    color: $color_primary_dark;
     text-decoration: none;
   }
 

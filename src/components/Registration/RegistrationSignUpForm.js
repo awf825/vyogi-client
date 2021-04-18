@@ -65,7 +65,7 @@ const RegistrationSignUpForm = (props) => {
   }
 
   if (props.success) {
-    return <h1>You are logged in!</h1>;
+    return <h1>You are signed up! Welcome!</h1>;
   }
 
   // Email validation

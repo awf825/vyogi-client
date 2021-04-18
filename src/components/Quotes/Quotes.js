@@ -8,8 +8,6 @@ const Quotes = () => {
 
   // shuffled arr
   let shuffle = quotes.sort(() => Math.random() - 0.5);
-
-  console.log(shuffle);
   return (
     <>
       {quotes ? (

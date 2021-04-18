@@ -119,9 +119,7 @@ const UserBookings = (props) => {
               {bookings.map((bkg) => (
                 <tr key={bkg._id}>
                   <td>{new Date(bkg.createdAt).toDateString()}</td>
-                  <td>
-                    {`${new Date(bkg.lessonStart).toDateString()}`}
-                  </td>
+                  <td>{`${new Date(bkg.lessonStart).toDateString()}`}</td>
                   <td>
                     {new Date(bkg.lessonStart).getHours() > 12
                       ? new Date(bkg.lessonStart).getHours() - 12
@@ -132,7 +130,7 @@ const UserBookings = (props) => {
                       : "00"}
                     {new Date(bkg.lessonStart).getHours() >= 12 ? "pm" : "am"}
                   </td>
-                  <td>{"$" + bkg.lessonCost*10}</td>
+                  <td>{"$" + bkg.lessonCost * 10}</td>
                   <td>{bkg.cancelled ? "Yes" : "No"}</td>
                   <td>
                     {!bkg.cancelled ? (
@@ -152,7 +150,9 @@ const UserBookings = (props) => {
             </tbody>
           </Table>
         ) : (
-          <></>
+          <>
+            <h1 className="bookings__zero">Book an appointment with me!</h1>
+          </>
         )}
       </div>
     </div>
