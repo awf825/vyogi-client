@@ -37,6 +37,7 @@ const RegistrationLogin = (props) => {
         <RegistrationLoginForm
           success={success}
           changeSuccess={(s) => setSuccess(s)}
+          setIsAdmin
         />
       </RegistrationModal>
     </div>
