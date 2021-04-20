@@ -4,11 +4,12 @@ import { API_ROOT } from "../../api-config.js";
 import { authenticate } from "./RegistrationAuth";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import AdminContext from "../AdminContext";
+import { AdminContext } from "../../actions/AdminReducer";
+import { logAdmin } from '../../actions/AdminActions';
 
 const RegistrationLoginForm = (props) => {
   // Initial State
-  const { setIsAdmin } = useContext(AdminContext);
+  const [state, dispatch] = useContext(AdminContext)
   const { register, handleSubmit, errors, watch, reset } = useForm();
   const [showErrors, setShowErrors] = useState(false);
   const [errorHandling, setErrorHandling] = useState("");
@@ -27,7 +28,7 @@ const RegistrationLoginForm = (props) => {
       if (resp) {
         authenticate(resp.data, () => 
           props.changeSuccess(true),
-          setIsAdmin(resp.data.isAdmin)
+          dispatch(logAdmin(resp.data.isAdmin))
         );
       }
     } catch (err) {

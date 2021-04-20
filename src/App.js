@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useReducer } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Dashboard from "./components/Dashboard";
@@ -7,11 +7,12 @@ import RegistrationRouter from "./components/Registration/RegistrationRouter";
 import RegistrationLogin from "./components/Registration/RegistrationLogin";
 import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
 import Redirect from "./components/Redirect";
-import AdminContextProvider from "./components/AdminContext"
+import { AdminContext, adminReducer } from "./actions/AdminReducer"
 
 function App() {
+  const [state, dispatch] = useReducer(adminReducer, false)
   return (
-   <AdminContextProvider>
+   <AdminContext.Provider value={[state, dispatch]}>
       <BrowserRouter>
         <div className="App">
           <Switch>
@@ -31,7 +32,7 @@ function App() {
           </Switch>
         </div>
       </BrowserRouter>
-    </AdminContextProvider>
+    </AdminContext.Provider>
   );
 }
 
