@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { signout } from "./Registration/RegistrationAuth";
-import Quotes from "./Quotes/Quotes";
+import { signout } from "../Registration/RegistrationAuth";
+import Quotes from "../Quotes/Quotes";
 
 const Footer = () => {
   const history = useHistory();

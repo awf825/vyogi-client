@@ -1,7 +1,7 @@
 import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/Dashboard/Dashboard";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import RegistrationRouter from "./components/Registration/RegistrationRouter";
 import RegistrationLogin from "./components/Registration/RegistrationLogin";

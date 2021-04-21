@@ -1,7 +1,7 @@
 import React from "react";
 import About from "./About";
 import Schedule from "./Schedule";
-import Video from "./Video";
+import Video from "../Video";
 import Footer from "./Footer";
 import UserBookings from "./UserBookings";
 

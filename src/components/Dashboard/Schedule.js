@@ -1,11 +1,11 @@
-import { API_ROOT } from "../api-config.js";
+import { API_ROOT } from "../../api-config";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
-import BookModal from "./book/BookModal";
+import BookModal from "../book/BookModal";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import Loader from "./Loader";
+import Loader from "../Loader";
 
 const Schedule = (props) => {
   const [schedule, setSchedule] = useState([]);
