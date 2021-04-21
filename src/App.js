@@ -8,10 +8,6 @@ import RegistrationLogin from "./components/Registration/RegistrationLogin";
 import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
 import Redirect from "./components/Redirect";
 
-// import Video from "./components/Video";
-// import UserBookings from "./components/UserBookings";
-// import Schedule from "./components/Schedule";
-
 function App() {
   return (
     <BrowserRouter>
@@ -29,19 +25,6 @@ function App() {
             path="/registration/signup"
             component={RegistrationSignUp}
           />
-          {/* <Route exact path="/video" render={(props) => <Video {...props} />} />
-          <Route
-            exact
-            path="/schedule"
-            render={(props) => <Schedule {...props} />}
-          />
-
-          <Route
-            exact
-            path="/bookings"
-            render={(props) => <UserBookings {...props} />}
-          /> */}
-
           <Route exact path="/redir" component={Redirect} />
         </Switch>
       </div>
