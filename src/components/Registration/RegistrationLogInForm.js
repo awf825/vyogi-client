@@ -1,15 +1,17 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import axios from "axios";
 import { API_ROOT } from "../../api-config.js";
 import { authenticate } from "./RegistrationAuth";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { MessageContext, sendMessage } from "../Messaging/MessageContext";
 
 const RegistrationLoginForm = (props) => {
   // Initial State
   const { register, handleSubmit, errors, watch, reset } = useForm();
   const [showErrors, setShowErrors] = useState(false);
   const [errorHandling, setErrorHandling] = useState("");
+  const [state, dispatch] = useContext(MessageContext);
   const password = useRef({});
   password.current = watch("password", "");
 
@@ -23,7 +25,12 @@ const RegistrationLoginForm = (props) => {
 
       const resp = await axios.post(`${API_ROOT}/signin`, data);
       if (resp) {
-        authenticate(resp.data, () => props.changeSuccess(true));
+        authenticate(
+          resp.data, 
+          () => 
+          props.changeSuccess(true),
+          dispatch(sendMessage("logged in"))
+        );
       }
     } catch (err) {
       console.log(err);

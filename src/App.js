@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -7,28 +7,32 @@ import RegistrationRouter from "./components/Registration/RegistrationRouter";
 import RegistrationLogin from "./components/Registration/RegistrationLogin";
 import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
 import Redirect from "./components/Redirect";
+import { MessageContext, messageReducer } from "./components/Messaging/MessageContext"
 
 function App() {
+  const [state, dispatch] = useReducer(messageReducer, false)
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Switch>
-          <Route exact path="/" render={(props) => <Dashboard {...props} />} />
-          <Route exact path="/registration" component={RegistrationRouter} />
-          <Route
-            exact
-            path="/registration/login"
-            component={RegistrationLogin}
-          />
-          <Route
-            exact
-            path="/registration/signup"
-            component={RegistrationSignUp}
-          />
-          <Route exact path="/redir" component={Redirect} />
-        </Switch>
-      </div>
-    </BrowserRouter>
+    <MessageContext.Provider value={[state, dispatch]}>
+      <BrowserRouter>
+        <div className="App">
+          <Switch>
+            <Route exact path="/" render={(props) => <Dashboard {...props} />} />
+            <Route exact path="/registration" component={RegistrationRouter} />
+            <Route
+              exact
+              path="/registration/login"
+              component={RegistrationLogin}
+            />
+            <Route
+              exact
+              path="/registration/signup"
+              component={RegistrationSignUp}
+            />
+            <Route exact path="/redir" component={Redirect} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </MessageContext.Provider>
   );
 }
 
