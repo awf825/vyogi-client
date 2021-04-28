@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import { GrClose } from "react-icons/gr";
 import PayForm from "../components/stripe/PayForm";

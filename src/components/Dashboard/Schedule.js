@@ -1,8 +1,9 @@
 import { API_ROOT } from "../../api-config";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import moment from "moment";
 import BookModal from "../book/BookModal";
+import { MessageContext, sendMessage } from "../Messaging/MessageContext";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Loader from "../Loader";
@@ -12,6 +13,7 @@ const Schedule = (props) => {
   const [modalData, setModalData] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [showLessonForm, setShowLessonForm] = useState(false);
+  const [state, dispatch] = useContext(MessageContext);
 
   const token = localStorage.getItem("token");
 
@@ -56,6 +58,7 @@ const Schedule = (props) => {
   const rejectModal = () => {
     setModalOpen(false);
     setShowLessonForm(false);
+    dispatch(sendMessage(""));
   };
 
   const handleLessonConfirmation = () => {

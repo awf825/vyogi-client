@@ -8,6 +8,7 @@ import RegistrationLogin from "./components/Registration/RegistrationLogin";
 import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
 import RegistrationSignout from "./components/Registration/RegistrationSignout";
 import Redirect from "./components/Redirect";
+import StripeSuccess from "./components/stripe/StripeSuccess";
 import {
   MessageContext,
   messageReducer,
@@ -41,6 +42,11 @@ function App() {
               exact
               path="/registration/signout"
               component={RegistrationSignout}
+            />
+            <Route
+              exact
+              path="/appointment/success"
+              component={StripeSuccess}
             />
             <Route exact path="/redir" component={Redirect} />
           </Switch>
