@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { signout } from "../Registration/RegistrationAuth";
 import Quotes from "../Quotes/Quotes";
 
 const Footer = () => {
@@ -8,10 +7,6 @@ const Footer = () => {
 
   // For the footer to check if there is a user or not
   const user = localStorage.getItem("token");
-
-  const logout = () => {
-    signout(() => history.push("/"));
-  };
 
   const authorizeSelection = (e) => {
     if (!localStorage.getItem("token")) {
@@ -64,7 +59,7 @@ const Footer = () => {
           </li>
           <li className="footer__list__item">
             {user ? (
-              <Link className="footer__link" to="/" onClick={logout}>
+              <Link className="footer__link" to="/registration/signout">
                 Sign Out
               </Link>
             ) : (

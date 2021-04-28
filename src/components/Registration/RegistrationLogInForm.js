@@ -26,9 +26,8 @@ const RegistrationLoginForm = (props) => {
       const resp = await axios.post(`${API_ROOT}/signin`, data);
       if (resp) {
         authenticate(
-          resp.data, 
-          () => 
-          props.changeSuccess(true),
+          resp.data,
+          () => props.changeSuccess(true),
           dispatch(sendMessage("logged in"))
         );
       }
@@ -65,8 +64,8 @@ const RegistrationLoginForm = (props) => {
     );
   }
 
-  if (props.success) {
-    return <h1>Thank you for logging in!</h1>;
+  if (state.message) {
+    return <h1>{state.message}</h1>;
   }
 
   function onSubmit(data) {

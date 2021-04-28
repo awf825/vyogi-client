@@ -1,14 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import axios from "axios";
 import { API_ROOT } from "../../api-config.js";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { authenticate } from "./RegistrationAuth";
+import { MessageContext, sendMessage } from "../Messaging/MessageContext";
 
 const RegistrationSignUpForm = (props) => {
   const { register, handleSubmit, errors, watch, reset } = useForm();
   const [showErrors, setShowErrors] = useState(false);
   const [errorHandling, setErrorHandling] = useState("");
+  const [state, dispatch] = useContext(MessageContext);
   const password = useRef({});
   password.current = watch("password", "");
 
@@ -21,6 +23,7 @@ const RegistrationSignUpForm = (props) => {
       const resp = await axios.post(`${API_ROOT}/signup`, data);
       if (resp) {
         authenticate(resp.data, () => props.changeSuccess(true));
+        dispatch(sendMessage("You are signed up! Welcome!"));
       }
     } catch (err) {
       setErrorHandling(err.response.statusText);
@@ -64,8 +67,8 @@ const RegistrationSignUpForm = (props) => {
     );
   }
 
-  if (props.success) {
-    return <h1>You are signed up! Welcome!</h1>;
+  if (state.message) {
+    return <h1>{state.message}</h1>;
   }
 
   // Email validation

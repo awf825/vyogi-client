@@ -6,17 +6,26 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import RegistrationRouter from "./components/Registration/RegistrationRouter";
 import RegistrationLogin from "./components/Registration/RegistrationLogin";
 import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
+import RegistrationSignout from "./components/Registration/RegistrationSignout";
 import Redirect from "./components/Redirect";
-import { MessageContext, messageReducer } from "./components/Messaging/MessageContext"
+import {
+  MessageContext,
+  messageReducer,
+} from "./components/Messaging/MessageContext";
 
 function App() {
-  const [state, dispatch] = useReducer(messageReducer, false)
+  const [state, dispatch] = useReducer(messageReducer, false);
+
   return (
     <MessageContext.Provider value={[state, dispatch]}>
       <BrowserRouter>
         <div className="App">
           <Switch>
-            <Route exact path="/" render={(props) => <Dashboard {...props} />} />
+            <Route
+              exact
+              path="/"
+              render={(props) => <Dashboard {...props} />}
+            />
             <Route exact path="/registration" component={RegistrationRouter} />
             <Route
               exact
@@ -27,6 +36,11 @@ function App() {
               exact
               path="/registration/signup"
               component={RegistrationSignUp}
+            />
+            <Route
+              exact
+              path="/registration/signout"
+              component={RegistrationSignout}
             />
             <Route exact path="/redir" component={Redirect} />
           </Switch>
