@@ -59,7 +59,13 @@ const Footer = () => {
           </li>
           <li className="footer__list__item">
             {user ? (
-              <Link className="footer__link" to="/registration/signout">
+              <Link
+                className="footer__link"
+                to={{
+                  pathname: "/registration/signout",
+                  openModal: true,
+                }}
+              >
                 Sign Out
               </Link>
             ) : (

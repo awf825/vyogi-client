@@ -1,15 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+import RegistrationModal from "./RegistrationModal";
 import { useHistory } from "react-router-dom";
 import { signout } from "./RegistrationAuth";
 
-const RegistrationSignout = () => {
+const RegistrationSignout = (props) => {
+  const [showModal, setShowModal] = useState(false);
   const history = useHistory();
 
   const logout = () => {
     signout(() => history.push("/"));
   };
 
-  return <>{logout()}</>;
+  function closeModal() {
+    if (showModal) {
+      setShowModal(false);
+      props.location.openModal = false;
+      logout();
+    }
+  }
+
+  if (props.location.openModal && !showModal) {
+    setShowModal(true);
+    return;
+  }
+
+  if (!props.location.openModal) {
+    history.push("/");
+  }
+
+  return (
+    <>
+      <div className="wrap">
+        <RegistrationModal
+          show={showModal}
+          handleClose={closeModal}
+          head="Sign Out"
+        >
+          <h1>You are signed Out!</h1>
+        </RegistrationModal>
+      </div>
+    </>
+  );
 };
 
 export default RegistrationSignout;
