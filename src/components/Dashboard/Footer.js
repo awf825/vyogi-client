@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Quotes from "../Quotes/Quotes";
+import { MessageContext, sendMessage } from "../Messaging/MessageContext";
 
 const Footer = () => {
+  const [state, dispatch] = useContext(MessageContext);
   const history = useHistory();
 
   // For the footer to check if there is a user or not
@@ -11,8 +13,12 @@ const Footer = () => {
   const authorizeSelection = (e) => {
     if (!localStorage.getItem("token")) {
       e.preventDefault();
-      alert("Please Sign In!");
-      return history.push("/");
+      dispatch(sendMessage("Please Sign In!"));
+      history.push({
+        pathname: "/message",
+        openModal: true,
+        head: "Error",
+      });
     }
   };
 

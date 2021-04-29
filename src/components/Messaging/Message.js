@@ -5,7 +5,7 @@ const Message = (props) => {
   return (
     <>
       <div className="wrap">
-        <MessagingModal pass={props} head={props.head}></MessagingModal>
+        <MessagingModal pass={props}></MessagingModal>
       </div>
     </>
   );
