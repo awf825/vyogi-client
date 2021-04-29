@@ -14,7 +14,7 @@ export const Checkout = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { stripe, oneLesson, elements, closeModal } = props;
+    const { stripe, oneLesson, elements } = props;
 
     if (!stripe || !elements) {
       return;

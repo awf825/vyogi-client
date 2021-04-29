@@ -1,15 +1,16 @@
 import { API_ROOT } from "../../api-config.js";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Table, Button, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { MessageContext, sendMessage } from "../Messaging/MessageContext";
 
 const UserBookings = (props) => {
   const [bookings, setBookings] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [message, setMessage] = useState("");
   const [book, setBook] = useState({});
   const [cancelAppointment, setCancelAppointment] = useState(false);
+  const [state, dispatch] = useContext(MessageContext);
 
   const history = useHistory();
 
@@ -47,16 +48,32 @@ const UserBookings = (props) => {
         { headers: { Authorization: `Bearer ${user.token}` } }
       )
       .then((res) => {
-        setMessage("Your booking was canceled!");
+        dispatch(sendMessage("Your booking was canceled!"));
         setShowModal(false);
         setCancelAppointment(false);
-        history.push("/redir");
-        return;
+        history.push({
+          pathname: "/message",
+          openModal: true,
+          head: "Canceled!",
+        });
+        // setMessage("Your booking was canceled!");
+        // setShowModal(false);
+        // setCancelAppointment(false);
+        // history.push("/redir");
+        // return;
       })
       .catch((err) => {
-        setMessage("I'm sorry, something went wrong.");
+        dispatch(sendMessage("I'm sorry, something went wrong."));
         setShowModal(false);
         setCancelAppointment(false);
+        history.push({
+          pathname: "/message",
+          openModal: true,
+          head: "Error!",
+        });
+        // setMessage("I'm sorry, something went wrong.");
+        // setShowModal(false);
+        // setCancelAppointment(false);
       });
   };
 
