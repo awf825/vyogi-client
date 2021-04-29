@@ -49,8 +49,8 @@ const UserBookings = (props) => {
       )
       .then((res) => {
         dispatch(sendMessage("Your booking was canceled!"));
-        setShowModal(false);
-        setCancelAppointment(false);
+        // setShowModal(false);
+        // setCancelAppointment(false);
         history.push({
           pathname: "/message",
           openModal: true,
@@ -64,8 +64,8 @@ const UserBookings = (props) => {
       })
       .catch((err) => {
         dispatch(sendMessage("I'm sorry, something went wrong."));
-        setShowModal(false);
-        setCancelAppointment(false);
+        // setShowModal(false);
+        // setCancelAppointment(false);
         history.push({
           pathname: "/message",
           openModal: true,
