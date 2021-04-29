@@ -47,7 +47,7 @@ const UserBookings = (props) => {
         { headers: { Authorization: `Bearer ${user.token}` } }
       )
       .then((res) => {
-        setMessage("Your booking was canceled");
+        setMessage("Your booking was canceled!");
         setShowModal(false);
         setCancelAppointment(false);
         history.push("/redir");
@@ -77,8 +77,6 @@ const UserBookings = (props) => {
   if (cancelAppointment) {
     cancel();
   }
-
-  // console.log("Messaging user booking: ", message);
 
   if (showModal) {
     return (

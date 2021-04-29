@@ -7,6 +7,7 @@ import RegistrationRouter from "./components/Registration/RegistrationRouter";
 import RegistrationLogin from "./components/Registration/RegistrationLogin";
 import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
 import RegistrationSignout from "./components/Registration/RegistrationSignout";
+import Message from "./components/Messaging/Message";
 import Redirect from "./components/Redirect";
 import StripeSuccess from "./components/stripe/StripeSuccess";
 import {
@@ -48,6 +49,8 @@ function App() {
               path="/appointment/success"
               component={StripeSuccess}
             />
+
+            <Route exact path="/message" component={Message} />
             <Route exact path="/redir" component={Redirect} />
           </Switch>
         </div>
