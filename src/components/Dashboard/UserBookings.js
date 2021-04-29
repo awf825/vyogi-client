@@ -50,7 +50,6 @@ const UserBookings = (props) => {
       .then((res) => {
         dispatch(sendMessage("Your booking was canceled!"));
         // setShowModal(false);
-        // setCancelAppointment(false);
         history.push({
           pathname: "/message",
           openModal: true,
@@ -60,7 +59,6 @@ const UserBookings = (props) => {
         // setShowModal(false);
         // setCancelAppointment(false);
         // history.push("/redir");
-        // return;
       })
       .catch((err) => {
         dispatch(sendMessage("I'm sorry, something went wrong."));
@@ -93,6 +91,7 @@ const UserBookings = (props) => {
 
   if (cancelAppointment) {
     cancel();
+    setCancelAppointment(false);
   }
 
   if (showModal) {
