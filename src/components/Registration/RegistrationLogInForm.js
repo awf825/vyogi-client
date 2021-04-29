@@ -28,7 +28,7 @@ const RegistrationLoginForm = (props) => {
         authenticate(
           resp.data,
           () => props.changeSuccess(true),
-          dispatch(sendMessage("logged in"))
+          dispatch(sendMessage("Welcome back!"))
         );
       }
     } catch (err) {

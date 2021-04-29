@@ -75,9 +75,9 @@ export const Checkout = (props) => {
               )
             );
             history.push({
-              pathname: "/appointment/success",
+              pathname: "/message",
               openModal: true,
-              head: "Success!",
+              head: "Appointment Booked!",
             });
           } else {
             dispatch(sendMessage("Something went wrong. Please try again."));

@@ -9,7 +9,7 @@ import RegistrationSignUp from "./components/Registration/RegistrationSignUp";
 import RegistrationSignout from "./components/Registration/RegistrationSignout";
 import Message from "./components/Messaging/Message";
 import Redirect from "./components/Redirect";
-import StripeSuccess from "./components/stripe/StripeSuccess";
+
 import {
   MessageContext,
   messageReducer,
@@ -44,12 +44,6 @@ function App() {
               path="/registration/signout"
               component={RegistrationSignout}
             />
-            <Route
-              exact
-              path="/appointment/success"
-              component={StripeSuccess}
-            />
-
             <Route exact path="/message" component={Message} />
             <Route exact path="/redir" component={Redirect} />
           </Switch>

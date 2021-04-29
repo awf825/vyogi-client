@@ -36,7 +36,7 @@ const RegistrationSignout = (props) => {
           handleClose={closeModal}
           head="Sign Out"
         >
-          <h1>You are signed Out!</h1>
+          <h1>Goodbye!</h1>
         </RegistrationModal>
       </div>
     </>
