@@ -31,7 +31,7 @@ const LessonForm = (props) => {
     title: props ? props.oneLesson.title : null,
   });
 
-  const user = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   if (showPayForm) {
     return (
@@ -123,7 +123,7 @@ const LessonForm = (props) => {
 
   return (
     <>
-      {user ? (
+      {token ? (
         <div className="lessonForm">
           <Form onSubmit={handleSubmit}>
             <Form.Group>

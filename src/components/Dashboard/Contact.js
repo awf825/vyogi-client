@@ -9,7 +9,7 @@ const Contact = () => {
   // Put these in the form only removed to get rid of warnings
   // handleSubmit, watch, errors
 
-  const user = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   // I haven't added any functionality to this form.
   // I wanted to see what we would need for the fields before moving forward
@@ -22,7 +22,7 @@ const Contact = () => {
 
   return (
     <>
-      {user ? (
+      {token ? (
         <div className="contact" id="contact">
           <h1 className="contact__header">Contact Us</h1>
           <div className="contact__form_container">

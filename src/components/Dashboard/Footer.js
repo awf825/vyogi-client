@@ -8,7 +8,7 @@ const Footer = () => {
   const history = useHistory();
 
   // For the footer to check if there is a user or not
-  const user = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const authorizeSelection = (e) => {
     if (!localStorage.getItem("token")) {
@@ -64,7 +64,7 @@ const Footer = () => {
             </a>
           </li>
           <li className="footer__list__item">
-            {user ? (
+            {token ? (
               <Link
                 className="footer__link"
                 to={{
