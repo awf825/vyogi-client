@@ -83,7 +83,7 @@ const Schedule = (props) => {
           p.start = start;
           p.end = end;
           p.allDay = false;
-          p.cost = 1.2;
+          p.cost = 2.0;
         });
         setSchedule(payload);
       })
@@ -96,7 +96,7 @@ const Schedule = (props) => {
     const desc = `
         I have a client driven style of teaching; once we meet in the video portal we can discuss
         what exactly you want to get out of it and we can go from there! This 1-on-1 lesson will cost
-        $12, will start at ${hour}, and last an hour. We have a 24 hour notice policy for cancellations,
+        $20, will start at ${hour}, and last an hour. We have a 24 hour notice policy for cancellations,
         you can cancel an appointment for any reason from the My Bookings tab in the footer.
       `;
     const title = modalData.title;
