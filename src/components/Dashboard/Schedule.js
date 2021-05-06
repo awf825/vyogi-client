@@ -39,18 +39,6 @@ const Schedule = (props) => {
 
   // Modal logic
   const handleSelection = (e) => {
-    // Can't wipe out this logic //
-
-    // var lessonIds = this.props.account.bookings.map(x => x.lesson_id)
-    // if (lessonIds.includes(e.id)) {
-    //   this.rejectModal()
-    //   alert('You are already booked for this time.')
-    // } else {
-    //   this.setState({
-    //     modalOpen: true,
-    //     modalData: e
-    //   })
-    // }
     setModalOpen(true);
     setModalData(e);
   };
@@ -71,23 +59,30 @@ const Schedule = (props) => {
 
   // Checks to see if the user is logged in and updates the schedule
   useEffect(() => {
-    axios
-      .get(`${API_ROOT}/calendar`, {
+    axios.all([
+      axios.get(`${API_ROOT}/calendar`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      axios.get(`${API_ROOT}/lessonBookings`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((resp) => {
-        let payload = resp.data;
-        payload.forEach((p, i) => {
-          let start = new Date(p.start);
-          let end = new Date(p.end);
-          p.start = start;
-          p.end = end;
-          p.allDay = false;
-          p.cost = 2.0;
-        });
-        setSchedule(payload);
-      })
-      .catch((err) => console.log(err));
+    ])
+    .then(axios.spread((calendar, lessonBookings) => {
+      let calendarPayload = calendar.data;
+      let lessonBookingPayload = lessonBookings.data.map(lb => lb.calendarEventId);
+      let schedule = [];
+      calendarPayload.forEach((p, i) => {
+        if (lessonBookingPayload.includes(p.id)) { return }
+        let start = new Date(p.start);
+        let end = new Date(p.end);
+        p.start = start;
+        p.end = end;
+        p.allDay = false;
+        p.cost = 2.0;
+        schedule.push(p)
+      });
+      setSchedule(schedule);
+    }));
   }, []);
 
   // Checks to see if the modal should be opened and puts the correct data in it
