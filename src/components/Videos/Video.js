@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect, useContext } from "react";
-import Call from "../video/call/Call";
-import Tray from "../video/tray/Tray";
+import Call from "./Call/Call";
+import VideoTray from "./Tray/VideoTray";
 import DailyIframe from "@daily-co/daily-js";
 import dailyApi from "../video/dailyApi";
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from "../../urlUtils";
@@ -40,7 +40,6 @@ const Videos = (props) => {
       .then((room) => room.url)
       .catch((error) => {
         console.log("Error creating room", error);
-        //alert('You are unauthorized to perform this action.')
         setRoomUrl(null);
         dispatch(VideoTypes.STATE_IDLE);
       });
@@ -181,7 +180,7 @@ const Videos = (props) => {
       {showCall ? (
         <CallObjectContext.Provider value={callObject}>
           <Call roomUrl={roomUrl} user={props.user} account={props.account} />
-          <Tray
+          <VideoTray
             disabled={!enableCallButtons}
             onClickLeaveCall={startLeavingCall}
           />
