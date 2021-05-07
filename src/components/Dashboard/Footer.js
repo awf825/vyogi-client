@@ -64,16 +64,6 @@ const Footer = () => {
             </a>
           </li>
           <li className="footer__list__item">
-            <a
-              className="footer__link"
-              href="#testing"
-              onClick={(e) => authorizeSelection(e)}
-            >
-              Video Test route
-            </a>
-          </li>
-
-          <li className="footer__list__item">
             {token ? (
               <Link
                 className="footer__link"

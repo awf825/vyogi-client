@@ -1,7 +1,6 @@
 import React, { useReducer } from "react";
 import About from "./About";
 import Schedule from "./Schedule";
-import Video from "../Video";
 import Footer from "./Footer";
 import UserBookings from "./UserBookings";
 import { videoReducer, CallObjectContext } from "../Videos/VideoContext";
@@ -20,8 +19,6 @@ export const Dashboard = (props) => {
       case "#bookings":
         return <UserBookings />;
       case "#video":
-        return <Video />;
-      case "#testing":
         return <Videos />;
       default:
         return <About />;

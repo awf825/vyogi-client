@@ -106,10 +106,7 @@ const Call = (props) => {
   function getTiles() {
     let largeTiles = [];
     let smallTiles = [];
-    // console.log('callState:', callState)
     Object.entries(callState.callItems).forEach(([id, callItem]) => {
-      //console.log('id (identity) of callState item in getTiles loop:', id)
-      console.log("callItem in getTiles Loop:", callItem);
       // const isLarge = callItem.isAdmin || !isLocal(id)
       // ALL CALL ITEMS ARE COMING BACK AS ADMIN IF USER IS ADMIN AND VICE VERSA
       // ID A CALL ITEM AS THE OWNER INSTEAD OF ADMIN
@@ -131,8 +128,6 @@ const Call = (props) => {
         smallTiles.push(tile);
       }
     });
-    // console.log('largeTiles before return in getTiles:', largeTiles)
-    // console.log('smallTiles before return in getTiles:', smallTiles)
     return [largeTiles, smallTiles];
   }
 

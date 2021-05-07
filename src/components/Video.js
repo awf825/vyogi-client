@@ -223,7 +223,7 @@ export const Video = (props) => {
   const enableStartButton = videoAppState === STATE_IDLE;
 
   return (
-    <div className="videoapp" id="video">
+    <div className="videoapp" id="old">
       {showCall ? (
         <CallObjectContext.Provider value={callObject}>
           <Call roomUrl={roomUrl} user={props.user} account={props.account} />

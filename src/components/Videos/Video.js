@@ -176,14 +176,18 @@ const Videos = (props) => {
   }
 
   return (
-    <div id="testing" className="videoapp">
+    <div id="video" className="videoapp">
       {showCall ? (
         <CallObjectContext.Provider value={callObject}>
-          <Call roomUrl={roomUrl} user={props.user} account={props.account} />
-          <VideoTray
-            disabled={!enableCallButtons}
-            onClickLeaveCall={startLeavingCall}
-          />
+          <div className="videoapp__call">
+            <Call roomUrl={roomUrl} user={props.user} account={props.account} />
+          </div>
+          <div className="videoapp__tray">
+            <VideoTray
+              disabled={!enableCallButtons}
+              onClickLeaveCall={startLeavingCall}
+            />
+          </div>
         </CallObjectContext.Provider>
       ) : (
         <div className="video-launch">
