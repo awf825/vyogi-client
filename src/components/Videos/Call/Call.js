@@ -135,7 +135,7 @@ const Call = (props) => {
   const message = getMessage(callState);
 
   return (
-    <div className="call">
+    <div>
       <div className="trainer-tile">{!message ? largeTiles : null}</div>
       <div className="client-tile">{smallTiles}</div>
       {message && (

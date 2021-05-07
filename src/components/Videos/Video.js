@@ -6,7 +6,6 @@ import dailyApi from "../video/dailyApi";
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from "../../urlUtils";
 import { CallObjectContext, VideoTypes } from "./VideoContext";
 import { handleCodeSubmission } from "./VideoApiCalls";
-import "./test.css";
 import { MessageContext, sendMessage } from "../Messaging/MessageContext";
 
 const Videos = (props) => {
