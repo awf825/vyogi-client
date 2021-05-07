@@ -43,27 +43,30 @@ const Videos = (props) => {
         setRoomUrl(null);
         dispatch(VideoTypes.STATE_IDLE);
       });
-  }, []);
+  }, [dispatch]);
 
-  const startJoiningCall = useCallback((url) => {
-    if (url === undefined) {
-      return;
-    } else {
-      const newCallObject = DailyIframe.createCallObject();
-      setRoomUrl(url);
-      setCallObject(newCallObject);
-      dispatch(VideoTypes.STATE_JOINING);
-      newCallObject.join({ url });
-      setShowCall(true);
-    }
-    // * !!!
-    // * IMPORTANT: only one call object is meant to be used at a time. Creating a
-    // * new call object with DailyIframe.createCallObject() *before* your previous
-    // * callObject.destroy() completely finishes can result in unexpected behavior.
-    // * Disabling the start button until then avoids that scenario.
-    // * !!!
-    // */
-  }, []);
+  const startJoiningCall = useCallback(
+    (url) => {
+      if (url === undefined) {
+        return;
+      } else {
+        const newCallObject = DailyIframe.createCallObject();
+        setRoomUrl(url);
+        setCallObject(newCallObject);
+        dispatch(VideoTypes.STATE_JOINING);
+        newCallObject.join({ url });
+        setShowCall(true);
+      }
+      // * !!!
+      // * IMPORTANT: only one call object is meant to be used at a time. Creating a
+      // * new call object with DailyIframe.createCallObject() *before* your previous
+      // * callObject.destroy() completely finishes can result in unexpected behavior.
+      // * Disabling the start button until then avoids that scenario.
+      // * !!!
+      // */
+    },
+    [dispatch]
+  );
 
   // checks to see if there are errors if not joins the call
   let codeSubmissionResponse;
@@ -91,7 +94,7 @@ const Videos = (props) => {
       dispatch(VideoTypes.STATE_LEAVING);
       callObject.leave();
     }
-  }, [callObject, call]);
+  }, [callObject, call, dispatch]);
 
   useEffect(() => {
     const url = roomUrlFromPageUrl();
@@ -142,7 +145,7 @@ const Videos = (props) => {
         callObject.off(event, handleNewMeetingState);
       }
     };
-  }, [callObject]);
+  }, [callObject, dispatch]);
 
   useEffect(() => {
     if (!callObject) {
