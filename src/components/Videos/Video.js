@@ -7,9 +7,11 @@ import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from "../../urlUtils";
 import { CallObjectContext, VideoTypes } from "./VideoContext";
 import { handleCodeSubmission } from "./VideoApiCalls";
 import "./test.css";
+import { MessageContext, sendMessage } from "../Messaging/MessageContext";
 
 const Videos = (props) => {
   const [call, dispatch] = useContext(CallObjectContext);
+  const [state, send] = useContext(MessageContext);
   const [data, setData] = useState({ codeInput: "", showVideo: false });
   const [showCall, setShowCall] = useState(false);
   const [roomUrl, setRoomUrl] = useState(null);
@@ -29,12 +31,6 @@ const Videos = (props) => {
       default:
         break;
     }
-  };
-
-  // When the code is submitted
-  let codeSubmissionResponse;
-  const onSubmit = () => {
-    handleCodeSubmission(data.codeInput, token);
   };
 
   const createCall = useCallback(() => {
@@ -71,7 +67,12 @@ const Videos = (props) => {
   }, []);
 
   // checks to see if there are errors if not joins the call
-  if (codeSubmissionResponse && codeSubmissionResponse.message) {
+  let codeSubmissionResponse;
+  const onSubmit = () => {
+    codeSubmissionResponse = handleCodeSubmission(data.codeInput, token);
+  };
+
+  if (codeSubmissionResponse !== undefined) {
     setRoomUrl(null);
     dispatch(VideoTypes.STATE_IDLE);
   } else {
@@ -170,6 +171,10 @@ const Videos = (props) => {
   const handleVideoLaunch = (event) => {
     createCall().then((url) => startJoiningCall(url));
   };
+
+  if (call === "STATE_ERROR") {
+    send(sendMessage("There was an error launching the video"));
+  }
 
   return (
     <div id="testing" className="videoapp">
