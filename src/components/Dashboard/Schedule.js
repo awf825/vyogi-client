@@ -13,6 +13,7 @@ const Schedule = (props) => {
   const [modalData, setModalData] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [showLessonForm, setShowLessonForm] = useState(false);
+  const [calendarView, setCalendarView] = useState('week')
   const [state, dispatch] = useContext(MessageContext);
 
   const token = localStorage.getItem("token");
@@ -119,6 +120,10 @@ const Schedule = (props) => {
             events={schedule}
             className="schedule__calendar"
             selectable={true}
+            view={calendarView}
+            onView={setCalendarView}
+            min={new Date(1970, 1, 1, 8)}
+            scrollToTime={new Date(1970, 1, 1, 3)}
             onSelectEvent={(event) => handleSelection(event)}
           />
         </React.Fragment>
