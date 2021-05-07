@@ -34,7 +34,7 @@ const Videos = (props) => {
   // When the code is submitted
   let codeSubmissionResponse;
   const onSubmit = () => {
-    codeSubmissionResponse = handleCodeSubmission(data.codeInput, token);
+    handleCodeSubmission(data.codeInput, token);
   };
 
   const createCall = useCallback(() => {
@@ -59,6 +59,7 @@ const Videos = (props) => {
       setCallObject(newCallObject);
       dispatch(VideoTypes.STATE_JOINING);
       newCallObject.join({ url });
+      setShowCall(true);
     }
     // * !!!
     // * IMPORTANT: only one call object is meant to be used at a time. Creating a
@@ -106,21 +107,19 @@ const Videos = (props) => {
   useEffect(() => {
     if (!callObject) return;
 
-    // these are attached to callObject payload
     const events = ["joined-meeting", "left-meeting", "error"];
 
     function handleNewMeetingState(event) {
-      // event && logDailyEvent(event);
-      // console.log('event @ handleNewMeetingState:', event, Date.now())
-      // console.log('callObject @ handleNewMeetingState:', callObject)
       switch (callObject.meetingState()) {
         case "joined-meeting":
           dispatch(VideoTypes.STATE_JOINED);
+          setShowCall(true);
           break;
         case "left-meeting":
           callObject.destroy().then(() => {
             setRoomUrl(null);
             setCallObject(null);
+            setShowCall(false);
             dispatch(VideoTypes.STATE_IDLE);
           });
           break;
@@ -152,7 +151,6 @@ const Videos = (props) => {
 
     function handleAppMessage(event) {
       if (event) {
-        // logDailyEvent(event);
         console.log(`received app message from ${event.fromId}: `, event.data);
       }
     }
@@ -193,10 +191,7 @@ const Videos = (props) => {
               name="codeInput"
               id="codeInput"
             />
-            <button
-              disabled={!enableStartButton}
-              onClick={handleCodeSubmission}
-            >
+            <button disabled={!enableStartButton} onClick={onSubmit}>
               Access
             </button>
             <button onClick={handleVideoLaunch}>Launch as admin</button>
