@@ -1,0 +1,22 @@
+.videoapp {
+  background-color: #4a4a4a;
+  transition: all 1s;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+.video-launch {
+  animation: fade-in 1s linear;
+  top: 50%;
+  left: 50%;
+  position: relative;
+  transform: translate(-50%, -50%);
+}
+
+.video-launch-inputs {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: relative;
+}

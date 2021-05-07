@@ -11,21 +11,21 @@ export const VideoTypes = {
   STATE_ERROR: "STATE_ERROR",
 };
 
-export const videoReducer = (state, action) => {
+export const videoReducer = (call, action) => {
   switch (action.type) {
     case "STATE_IDLE":
-      return { ...state, message: action.payload };
+      return { ...call, message: action.payload };
     case "STATE_CREATING":
-      return { ...state, message: action.payload };
+      return { ...call, message: action.payload };
     case "STATE_JOINING":
-      return { ...state, message: action.payload };
+      return { ...call, message: action.payload };
     case "STATE_JOINED":
-      return { ...state, message: action.payload };
+      return { ...call, message: action.payload };
     case "STATE_LEAVING":
-      return { ...state, message: action.payload };
+      return { ...call, message: action.payload };
     case "STATE_ERROR":
-      return { ...state, message: action.payload };
+      return { ...call, message: action.payload };
     default:
-      return state;
+      return call;
   }
 };

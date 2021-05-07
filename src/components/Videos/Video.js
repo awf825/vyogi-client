@@ -1,21 +1,24 @@
 import React, { useCallback, useState, useEffect, useContext } from "react";
-import { API_ROOT } from "../../api-config";
+import Call from "../video/call/Call";
+import Tray from "../video/tray/Tray";
 import DailyIframe from "@daily-co/daily-js";
 import dailyApi from "../video/dailyApi";
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from "../../urlUtils";
 import { CallObjectContext, VideoTypes } from "./VideoContext";
 import { handleCodeSubmission } from "./VideoApiCalls";
+import "./test.css";
 
 const Videos = (props) => {
-  const [state, dispatch] = useContext(CallObjectContext);
+  const [call, dispatch] = useContext(CallObjectContext);
   const [data, setData] = useState({ codeInput: "", showVideo: false });
+  const [showCall, setShowCall] = useState(false);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
   const token = localStorage.getItem("token");
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-
+  // Handles the change on the input form
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
     switch (name) {
       case "codeInput":
         setData({ ...data, [name]: value });
@@ -28,37 +31,22 @@ const Videos = (props) => {
     }
   };
 
-  // Code Submission
-  const handleCodeSubmissionPayload = handleCodeSubmission(
-    token,
-    data.codeInput
-  );
-  if (handleCodeSubmissionPayload.message) {
-    alert(handleCodeSubmissionPayload.message);
-    setRoomUrl(null);
-    dispatch({
-      type: VideoTypes.STATE_IDLE,
-      payload: handleCodeSubmissionPayload.message,
-    });
-  } else {
-    startJoiningCall(handleCodeSubmissionPayload);
-  }
-
-  // Launch the video
-  const handleVideoLaunch = (e) => {
-    createCall().then((url) => startJoiningCall(url));
+  // When the code is submitted
+  let codeSubmissionResponse;
+  const onSubmit = () => {
+    codeSubmissionResponse = handleCodeSubmission(data.codeInput, token);
   };
 
-  // creating the Call
   const createCall = useCallback(() => {
-    dispatch({ type: VideoTypes.STATE_CREATING });
+    dispatch(VideoTypes.STATE_CREATING);
     return dailyApi
       .createRoom()
       .then((room) => room.url)
-      .catch((err) => {
-        console.log("Error creating the room", err);
+      .catch((error) => {
+        console.log("Error creating room", error);
+        //alert('You are unauthorized to perform this action.')
         setRoomUrl(null);
-        dispatch({ type: VideoTypes.STATE_IDLE });
+        dispatch(VideoTypes.STATE_IDLE);
       });
   }, []);
 
@@ -69,34 +57,41 @@ const Videos = (props) => {
       const newCallObject = DailyIframe.createCallObject();
       setRoomUrl(url);
       setCallObject(newCallObject);
-      dispatch({ type: VideoTypes.STATE_JOINING });
-      newCallObject({ url });
+      dispatch(VideoTypes.STATE_JOINING);
+      newCallObject.join({ url });
     }
+    // * !!!
+    // * IMPORTANT: only one call object is meant to be used at a time. Creating a
+    // * new call object with DailyIframe.createCallObject() *before* your previous
+    // * callObject.destroy() completely finishes can result in unexpected behavior.
+    // * Disabling the start button until then avoids that scenario.
+    // * !!!
+    // */
   }, []);
 
-  ////////////***********
+  // checks to see if there are errors if not joins the call
+  if (codeSubmissionResponse && codeSubmissionResponse.message) {
+    setRoomUrl(null);
+    dispatch(VideoTypes.STATE_IDLE);
+  } else {
+    startJoiningCall(codeSubmissionResponse);
+  }
 
-  const showCall = [STATE_JOINING, STATE_JOINED, STATE_ERROR].includes(
-    videoAppState
-  );
-
-  // DISABLE LEAVE FOR TRAINER
   const startLeavingCall = useCallback(() => {
     if (!callObject) return;
     // If we're in the error state, we've already "left", so just clean up
-    if (videoAppState === STATE_ERROR) {
+    if (call === "STATE_ERROR") {
       callObject.destroy().then(() => {
         setRoomUrl(null);
         setCallObject(null);
-        setAppState(STATE_IDLE);
+        dispatch(VideoTypes.STATE_IDLE);
       });
     } else {
-      setAppState(STATE_LEAVING);
+      dispatch(VideoTypes.STATE_LEAVING);
       callObject.leave();
     }
-  }, [callObject, videoAppState]);
+  }, [callObject, call]);
 
-  // THESE EFFECTS CLEAN URL SO VIDEO CAN BE DISPLAYED
   useEffect(() => {
     const url = roomUrlFromPageUrl();
     url && startJoiningCall(url);
@@ -108,14 +103,6 @@ const Videos = (props) => {
     window.history.replaceState(null, null, pageUrl);
   }, [roomUrl]);
 
-  /**
-   * Uncomment to attach call object to window for debugging purposes.
-   */
-  // useEffect(() => {
-  //   window.callObject = callObject;
-  // }, [callObject]);
-
-  // EVERYTIME callObject changes, this method is fired
   useEffect(() => {
     if (!callObject) return;
 
@@ -128,17 +115,17 @@ const Videos = (props) => {
       // console.log('callObject @ handleNewMeetingState:', callObject)
       switch (callObject.meetingState()) {
         case "joined-meeting":
-          setAppState(STATE_JOINED);
+          dispatch(VideoTypes.STATE_JOINED);
           break;
         case "left-meeting":
           callObject.destroy().then(() => {
             setRoomUrl(null);
             setCallObject(null);
-            setAppState(STATE_IDLE);
+            dispatch(VideoTypes.STATE_IDLE);
           });
           break;
         case "error":
-          setAppState(STATE_ERROR);
+          dispatch(VideoTypes.STATE_ERROR);
           break;
         default:
           break;
@@ -158,7 +145,6 @@ const Videos = (props) => {
     };
   }, [callObject]);
 
-  // MAY NOT NEED THIS?
   useEffect(() => {
     if (!callObject) {
       return;
@@ -177,36 +163,46 @@ const Videos = (props) => {
       callObject.off("app-message", handleAppMessage);
     };
   }, [callObject]);
-  /**
-   * Only enable the call buttons (camera toggle, leave call, etc.) if we're joined
-   * or if we've errored out.
-   *
-   * !!!
-   * IMPORTANT: calling callObject.destroy() *before* we get the "joined-meeting"
-   * can result in unexpected behavior. Disabling the leave call button
-   * until then avoids this scenario.
-   * !!!
-   */
-  const enableCallButtons = [STATE_JOINED, STATE_ERROR].includes(videoAppState);
 
-  /**
-   * Only enable the start button if we're in an idle state (i.e. not creating,
-   * joining, etc.).
-   *
-   * !!!
-   * IMPORTANT: only one call object is meant to be used at a time. Creating a
-   * new call object with DailyIframe.createCallObject() *before* your previous
-   * callObject.destroy() completely finishes can result in unexpected behavior.
-   * Disabling the start button until then avoids that scenario.
-   * !!!
-   */
-  const enableStartButton = videoAppState === STATE_IDLE;
+  const enableCallButtons = call
+    ? call === "STATE_JOINED" || call === "STATE_ERROR"
+    : true;
+  const enableStartButton = call ? call === "STATE_IDLE" : true;
 
-  //////////***************
+  const handleVideoLaunch = (event) => {
+    createCall().then((url) => startJoiningCall(url));
+  };
 
   return (
-    <div id="testing">
-      <h1>Video</h1>
+    <div id="testing" className="videoapp">
+      {showCall ? (
+        <CallObjectContext.Provider value={callObject}>
+          <Call roomUrl={roomUrl} user={props.user} account={props.account} />
+          <Tray
+            disabled={!enableCallButtons}
+            onClickLeaveCall={startLeavingCall}
+          />
+        </CallObjectContext.Provider>
+      ) : (
+        <div className="video-launch">
+          <div className="video-launch-inputs">
+            <input
+              type="text"
+              value={data.codeInput}
+              onChange={handleInputChange}
+              name="codeInput"
+              id="codeInput"
+            />
+            <button
+              disabled={!enableStartButton}
+              onClick={handleCodeSubmission}
+            >
+              Access
+            </button>
+            <button onClick={handleVideoLaunch}>Launch as admin</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
