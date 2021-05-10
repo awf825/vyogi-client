@@ -13,10 +13,13 @@ import {
   getMessage,
 } from "./CallState";
 import { logDailyEvent } from "../../../logUtils";
+import VideoTray from "../Tray/VideoTray";
 
 const Call = (props) => {
   const callObject = useContext(CallObjectContext);
   const [callState, dispatch] = useReducer(callReducer, initialCallState);
+
+  const { onClickLeaveCall, disabled } = props;
 
   useEffect(() => {
     if (!callObject) return;
@@ -135,16 +138,21 @@ const Call = (props) => {
   const message = getMessage(callState);
 
   return (
-    <div>
-      <div className="trainer-tile">{!message ? largeTiles : null}</div>
-      <div className="client-tile">{smallTiles}</div>
-      {message && (
-        <CallMessage
-          header={message.header}
-          detail={message.detail}
-          isError={message.isError}
-        />
-      )}
+    <div className="callContainer">
+      <div className="call-tile">
+        <div className="trainer-tile">{!message ? largeTiles : null}</div>
+        <div className="client-tile">{smallTiles}</div>
+        {message && (
+          <CallMessage
+            header={message.header}
+            detail={message.detail}
+            isError={message.isError}
+          />
+        )}
+      </div>
+      <div className="tray">
+        <VideoTray disabled={disabled} onClickLeaveCall={onClickLeaveCall} />
+      </div>
     </div>
   );
 };

@@ -59,27 +59,25 @@ const VideoTray = (props) => {
 
   return (
     <>
-      <div className="tray">
-        <TrayButton
-          type={TYPE_MUTE_CAMERA}
-          disabled={props.disabled}
-          highlighted={isCameraMuted}
-          onClick={toggleCamera}
-        />
-        <TrayButton
-          type={TYPE_MUTE_MIC}
-          disabled={props.disabled}
-          highlighted={isMicMuted}
-          onClick={toggleMic}
-        />
-        <TrayButton
-          type={TYPE_LEAVE}
-          disabled={props.disabled}
-          newButtonGroup={true}
-          highlighted={true}
-          onClick={leaveCall}
-        />
-      </div>
+      <TrayButton
+        type={TYPE_MUTE_CAMERA}
+        disabled={props.disabled}
+        highlighted={isCameraMuted}
+        onClick={toggleCamera}
+      />
+      <TrayButton
+        type={TYPE_MUTE_MIC}
+        disabled={props.disabled}
+        highlighted={isMicMuted}
+        onClick={toggleMic}
+      />
+      <TrayButton
+        type={TYPE_LEAVE}
+        disabled={props.disabled}
+        newButtonGroup={true}
+        highlighted={true}
+        onClick={leaveCall}
+      />
     </>
   );
 };

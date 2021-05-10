@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useEffect, useContext } from "react";
 import Call from "./Call/Call";
-import VideoTray from "./Tray/VideoTray";
 import DailyIframe from "@daily-co/daily-js";
 import dailyApi from "../video/dailyApi";
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from "../../urlUtils";
@@ -181,30 +180,41 @@ const Videos = (props) => {
     <div id="video" className="videoapp">
       {showCall ? (
         <CallObjectContext.Provider value={callObject}>
-          <div className="videoapp__call">
-            <Call roomUrl={roomUrl} user={props.user} account={props.account} />
-          </div>
-          <div className="videoapp__tray">
-            <VideoTray
-              disabled={!enableCallButtons}
-              onClickLeaveCall={startLeavingCall}
-            />
-          </div>
+          <Call
+            roomUrl={roomUrl}
+            user={props.user}
+            account={props.account}
+            onClickLeaveCall={startLeavingCall}
+            disabled={!enableCallButtons}
+          />
         </CallObjectContext.Provider>
       ) : (
-        <div className="video-launch">
-          <div className="video-launch-inputs">
-            <input
-              type="text"
-              value={data.codeInput}
-              onChange={handleInputChange}
-              name="codeInput"
-              id="codeInput"
-            />
-            <button disabled={!enableStartButton} onClick={onSubmit}>
-              Access
-            </button>
-            <button onClick={handleVideoLaunch}>Launch as admin</button>
+        <div className="videoLaunch">
+          <div className="videoLaunch__inputs">
+            <div className="videoLaunch__container">
+              <input
+                className="videoLaunch__inputs__text"
+                type="text"
+                value={data.codeInput}
+                onChange={handleInputChange}
+                name="codeInput"
+                id="codeInput"
+                placeholder="Input code here!"
+              />
+              <button
+                className="videoLaunch__inputs__btn"
+                disabled={!enableStartButton}
+                onClick={onSubmit}
+              >
+                Access
+              </button>
+              <button
+                className="videoLaunch__inputs__btn"
+                onClick={handleVideoLaunch}
+              >
+                Launch as admin
+              </button>
+            </div>
           </div>
         </div>
       )}
