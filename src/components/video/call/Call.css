@@ -25,23 +25,23 @@
 }*/
 
 .trainer-tile {
-    background-color: red;
-    height: calc(100% - 62.5px);
-    float: left;
-    width: 30%;
+  background-color: red;
+  height: calc(100% - 62.5px);
+  float: left;
+  width: 30%;
 }
 
 .client-tile {
-    background-color: blue;
-    width: 70%;
-    height: calc(100% - 62.5px);
-    float:left;
+  background-color: blue;
+  width: 70%;
+  height: calc(100% - 62.5px);
+  float: left;
 }
 
 .call {
-    width: 100%;
-    height: calc(100% - 60px);
-    padding-left: 15px;
-    padding-right: 15px;
-    float:left;
+  width: 100%;
+  height: calc(100% - 60px);
+  padding-left: 15px;
+  padding-right: 15px;
+  float: left;
 }

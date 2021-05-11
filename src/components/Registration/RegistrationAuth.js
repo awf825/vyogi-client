@@ -3,6 +3,7 @@ export const authenticate = (data, next) => {
     localStorage.setItem("token", data.token);
     localStorage.setItem("_id", data._id);
     localStorage.setItem("email", data.email);
+
     next();
   }
 };
