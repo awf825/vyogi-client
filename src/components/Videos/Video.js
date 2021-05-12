@@ -69,7 +69,7 @@ const Videos = (props) => {
   // checks to see if there are errors if not joins the call
   let codeSubmissionResponse;
   const onSubmit = () => {
-    codeSubmissionResponse = handleCodeSubmission(data.codeInput, token);
+    codeSubmissionResponse = handleCodeSubmission(token, data.codeInput);
   };
 
   if (codeSubmissionResponse !== undefined) {
