@@ -37,6 +37,10 @@
     transform: translate(-50%, -50%);
     width: 100%;
 
+    @include respond(tab-land) {
+      font-size: $footer_port;
+    }
+
     @include respond(tab-port) {
       font-size: $footer_port;
     }
