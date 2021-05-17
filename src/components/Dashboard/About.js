@@ -1,9 +1,61 @@
 import React from "react";
+import { GrClose } from "react-icons/gr";
+import { Modal, Button } from "react-bootstrap";
+
+const AboutModal = ({visible, dismiss, children}) => {
+  return (
+    <React.Fragment>
+      {children ? (
+        <Modal className="modal" show={visible} onHide={dismiss}>
+          <Modal.Header>
+            <Modal.Title>How To Use This Site</Modal.Title>
+            <GrClose className="modal__icon" onClick={dismiss} />
+          </Modal.Header>
+          <Modal.Body>
+            <div className="modal__desc">{children}</div>
+            <Button className="modal__submit" onClick={dismiss}>
+              Ok
+            </Button>
+          </Modal.Body>
+        </Modal>
+      ) : (
+        <></>
+      )}
+    </React.Fragment>
+  )
+}
 
 const About = () => {
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  const handleAboutClick = () => {
+    setModalOpen(true)
+  }
+
+  const rejectModal = () => {
+    setModalOpen(false);
+    // dispatch(sendMessage(""));
+  };
+
+  const info = `
+          If you're new here, you'll have to hit the Sign Up tab in the footer 
+          in order to access my calendar. Once you've done that, go to the Schedule tab 
+          and click on an available time slot for a lesson. You'll be prompted to answer
+          a few simple questions about yourself, like your name and what you're trying to get out 
+          of the lesson. After you're done with that, you'll get a code emailed to you
+          that will allow you to access the lesson you booked at the scheduled time. I have
+          a 24 hour cancellation policy: you can cancel a lesson for any reason in the My Bookings
+          tab.
+  `
+
   return (
     <div className="about" id="about">
       <div className="about__main">
+        <AboutModal
+          visible={modalOpen}
+          dismiss={rejectModal}
+          children={info}
+        ></AboutModal>
         <div className="about__img"></div>
         <h2 className="about__instructor">Hi I’m Alanna!</h2>
         <p className="about__text">
@@ -23,8 +75,9 @@ const About = () => {
           live and teach by Swami Kripalu’s words: “The highest form of
           spiritual practice is self-observation without judgement.” When I’m
           not practicing yoga, I spend time cooking, reading, playing piano,
-          (attempting) to learn new languages, or watching Real Housewives.
+          (attempting) to learn new languages, or watching Real Housewives.<br/>
         </p>
+        <button onClick={handleAboutClick}>HOW TO USE THIS SITE</button>
       </div>
     </div>
   );

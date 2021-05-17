@@ -13,6 +13,7 @@ const Schedule = (props) => {
   const [modalData, setModalData] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [showLessonForm, setShowLessonForm] = useState(false);
+  const [calendarView, setCalendarView] = useState('week')
   const [state, dispatch] = useContext(MessageContext);
 
   const token = localStorage.getItem("token");
@@ -39,18 +40,6 @@ const Schedule = (props) => {
 
   // Modal logic
   const handleSelection = (e) => {
-    // Can't wipe out this logic //
-
-    // var lessonIds = this.props.account.bookings.map(x => x.lesson_id)
-    // if (lessonIds.includes(e.id)) {
-    //   this.rejectModal()
-    //   alert('You are already booked for this time.')
-    // } else {
-    //   this.setState({
-    //     modalOpen: true,
-    //     modalData: e
-    //   })
-    // }
     setModalOpen(true);
     setModalData(e);
   };
@@ -71,23 +60,30 @@ const Schedule = (props) => {
 
   // Checks to see if the user is logged in and updates the schedule
   useEffect(() => {
-    axios
-      .get(`${API_ROOT}/calendar`, {
+    axios.all([
+      axios.get(`${API_ROOT}/calendar`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+      axios.get(`${API_ROOT}/lessonBookings`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((resp) => {
-        let payload = resp.data;
-        payload.forEach((p, i) => {
-          let start = new Date(p.start);
-          let end = new Date(p.end);
-          p.start = start;
-          p.end = end;
-          p.allDay = false;
-          p.cost = 1.2;
-        });
-        setSchedule(payload);
-      })
-      .catch((err) => console.log(err));
+    ])
+    .then(axios.spread((calendar, lessonBookings) => {
+      let calendarPayload = calendar.data;
+      let lessonBookingPayload = lessonBookings.data.map(lb => lb.calendarEventId);
+      let schedule = [];
+      calendarPayload.forEach((p, i) => {
+        if (lessonBookingPayload.includes(p.id)) { return }
+        let start = new Date(p.start);
+        let end = new Date(p.end);
+        p.start = start;
+        p.end = end;
+        p.allDay = false;
+        p.cost = 2.0;
+        schedule.push(p)
+      });
+      setSchedule(schedule);
+    }));
   }, []);
 
   // Checks to see if the modal should be opened and puts the correct data in it
@@ -96,7 +92,7 @@ const Schedule = (props) => {
     const desc = `
         I have a client driven style of teaching; once we meet in the video portal we can discuss
         what exactly you want to get out of it and we can go from there! This 1-on-1 lesson will cost
-        $12, will start at ${hour}, and last an hour. We have a 24 hour notice policy for cancellations,
+        $20, will start at ${hour}, and last an hour. We have a 24 hour notice policy for cancellations,
         you can cancel an appointment for any reason from the My Bookings tab in the footer.
       `;
     const title = modalData.title;
@@ -124,6 +120,10 @@ const Schedule = (props) => {
             events={schedule}
             className="schedule__calendar"
             selectable={true}
+            view={calendarView}
+            onView={setCalendarView}
+            min={new Date(1970, 1, 1, 8)}
+            scrollToTime={new Date(1970, 1, 1, 3)}
             onSelectEvent={(event) => handleSelection(event)}
           />
         </React.Fragment>

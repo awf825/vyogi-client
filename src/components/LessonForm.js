@@ -37,7 +37,6 @@ const LessonForm = (props) => {
     return (
       <Modal className="modal" show={props.visible}>
         <Modal.Header className="modal__header">
-          <h3>Please enter payment information!</h3>
           <GrClose className="modal__icon" onClick={props.dismiss} />
         </Modal.Header>
         <Modal.Body className="modal__body">
