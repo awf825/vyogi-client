@@ -2,7 +2,7 @@ import React from "react";
 import { GrClose } from "react-icons/gr";
 import { Modal, Button } from "react-bootstrap";
 
-const AboutModal = ({visible, dismiss, children}) => {
+const AboutModal = ({ visible, dismiss, children }) => {
   return (
     <React.Fragment>
       {children ? (
@@ -22,15 +22,15 @@ const AboutModal = ({visible, dismiss, children}) => {
         <></>
       )}
     </React.Fragment>
-  )
-}
+  );
+};
 
 const About = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const handleAboutClick = () => {
-    setModalOpen(true)
-  }
+    setModalOpen(true);
+  };
 
   const rejectModal = () => {
     setModalOpen(false);
@@ -46,7 +46,7 @@ const About = () => {
           that will allow you to access the lesson you booked at the scheduled time. I have
           a 24 hour cancellation policy: you can cancel a lesson for any reason in the My Bookings
           tab.
-  `
+  `;
 
   return (
     <div className="about" id="about">
@@ -75,9 +75,12 @@ const About = () => {
           live and teach by Swami Kripalu’s words: “The highest form of
           spiritual practice is self-observation without judgement.” When I’m
           not practicing yoga, I spend time cooking, reading, playing piano,
-          (attempting) to learn new languages, or watching Real Housewives.<br/>
+          (attempting) to learn new languages, or watching Real Housewives.
+          <br />
         </p>
-        <button onClick={handleAboutClick}>HOW TO USE THIS SITE</button>
+        <button className="about__btn" onClick={handleAboutClick}>
+          HOW TO USE THIS SITE
+        </button>
       </div>
     </div>
   );
