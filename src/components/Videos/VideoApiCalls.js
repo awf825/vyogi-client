@@ -12,5 +12,6 @@ export const handleCodeSubmission = async (token, code) => {
 
   let response = await fetch(`${API_ROOT}/video_client`, options),
     payload = await response.json();
+
   return payload;
 };

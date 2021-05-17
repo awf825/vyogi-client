@@ -24,7 +24,6 @@ async function createRoom() {
   	})
   };
 
-  //debugger
   // call to backend is made here
   let response = await fetch(newRoomEndpoint, options),
   	payload = await response.json()

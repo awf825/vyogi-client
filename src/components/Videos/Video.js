@@ -68,16 +68,22 @@ const Videos = (props) => {
 
   // checks to see if there are errors if not joins the call
   let codeSubmissionResponse;
-  const onSubmit = () => {
-    codeSubmissionResponse = handleCodeSubmission(token, data.codeInput);
+  const onSubmit = async () => {
+    codeSubmissionResponse = await handleCodeSubmission(token, data.codeInput);
+    if (codeSubmissionResponse === undefined) {
+      setRoomUrl(null);
+      dispatch(VideoTypes.STATE_IDLE);
+    } else {
+      startJoiningCall(codeSubmissionResponse);
+    }
   };
 
-  if (codeSubmissionResponse !== undefined) {
-    setRoomUrl(null);
-    dispatch(VideoTypes.STATE_IDLE);
-  } else {
-    startJoiningCall(codeSubmissionResponse);
-  }
+  // if (codeSubmissionResponse !== undefined) {
+  //   setRoomUrl(null);
+  //   dispatch(VideoTypes.STATE_IDLE);
+  // } else {
+  //   startJoiningCall(codeSubmissionResponse);
+  // }
 
   const startLeavingCall = useCallback(() => {
     if (!callObject) return;
