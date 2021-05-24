@@ -66,11 +66,16 @@ const Videos = (props) => {
     [dispatch]
   );
 
-  // checks to see if there are errors if not joins the call
-  let codeSubmissionResponse;
   const onSubmit = async () => {
-    codeSubmissionResponse = await handleCodeSubmission(token, data.codeInput);
-    if (codeSubmissionResponse === undefined) {
+    let codeSubmissionResponse = await handleCodeSubmission(
+      token,
+      data.codeInput
+    );
+    // Checks if there is a code submitted and checks to see if it is valid
+    if (
+      codeSubmissionResponse === undefined ||
+      codeSubmissionResponse.message === "code is invalid"
+    ) {
       setRoomUrl(null);
       dispatch(VideoTypes.STATE_IDLE);
     } else {
@@ -78,16 +83,9 @@ const Videos = (props) => {
     }
   };
 
-  // if (codeSubmissionResponse !== undefined) {
-  //   setRoomUrl(null);
-  //   dispatch(VideoTypes.STATE_IDLE);
-  // } else {
-  //   startJoiningCall(codeSubmissionResponse);
-  // }
-
+  // Leaves the call and cleans up
   const startLeavingCall = useCallback(() => {
     if (!callObject) return;
-    // If we're in the error state, we've already "left", so just clean up
     if (call === "STATE_ERROR") {
       callObject.destroy().then(() => {
         setRoomUrl(null);
@@ -100,6 +98,7 @@ const Videos = (props) => {
     }
   }, [callObject, call, dispatch]);
 
+  // Cleans the url for the call
   useEffect(() => {
     const url = roomUrlFromPageUrl();
     url && startJoiningCall(url);
@@ -155,15 +154,12 @@ const Videos = (props) => {
     if (!callObject) {
       return;
     }
-
     function handleAppMessage(event) {
       if (event) {
         console.log(`received app message from ${event.fromId}: `, event.data);
       }
     }
-
     callObject.on("app-message", handleAppMessage);
-
     return function cleanup() {
       callObject.off("app-message", handleAppMessage);
     };
