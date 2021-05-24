@@ -19,6 +19,18 @@
     overflow-y: scroll;
   }
 
+  &__th {
+    @include respond(phone) {
+      font-size: $footer_port;
+    }
+  }
+
+  &__td {
+    @include respond(phone) {
+      font-size: $footer_port;
+    }
+  }
+
   &__btn {
     box-shadow: 1px 2px 3px 0 $color_black;
   }

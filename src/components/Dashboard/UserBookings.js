@@ -121,20 +121,24 @@ const UserBookings = (props) => {
           <Table borderless hover responsive variant="dark">
             <thead>
               <tr>
-                <th>Booked On</th>
-                <th>Lesson Date</th>
-                <th>Start Time</th>
-                <th>Cost</th>
-                <th>Cancelled?</th>
+                <th className="bookings__th">Booked On</th>
+                <th className="bookings__th">Lesson Date</th>
+                <th className="bookings__th">Start Time</th>
+                <th className="bookings__th">Cost</th>
+                <th className="bookings__th">Cancelled?</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {bookings.map((bkg) => (
                 <tr key={bkg._id}>
-                  <td>{new Date(bkg.createdAt).toDateString()}</td>
-                  <td>{`${new Date(bkg.lessonStart).toDateString()}`}</td>
-                  <td>
+                  <td className="bookings__td">
+                    {new Date(bkg.createdAt).toDateString()}
+                  </td>
+                  <td className="bookings__td">{`${new Date(
+                    bkg.lessonStart
+                  ).toDateString()}`}</td>
+                  <td className="bookings__td">
                     {new Date(bkg.lessonStart).getHours() > 12
                       ? new Date(bkg.lessonStart).getHours() - 12
                       : new Date(bkg.lessonStart).getHours()}
@@ -144,15 +148,18 @@ const UserBookings = (props) => {
                       : "00"}
                     {new Date(bkg.lessonStart).getHours() >= 12 ? "pm" : "am"}
                   </td>
-                  <td>{"$" + bkg.lessonCost * 10}</td>
-                  <td>{bkg.cancelled ? "Yes" : "No"}</td>
-                  <td>
+                  <td className="bookings__td">{"$" + bkg.lessonCost * 10}</td>
+                  <td className="bookings__td">
+                    {bkg.cancelled ? "Yes" : "No"}
+                  </td>
+                  <td className="bookings__td">
                     {!bkg.cancelled ? (
                       <Button
                         className="bookings__btn"
                         variant="danger"
                         type="button"
                         value="Cancel"
+                        size="sm"
                         onClick={() => handleOpen(bkg)}
                       >
                         Cancel
