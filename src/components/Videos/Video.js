@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useEffect, useContext } from "react";
 import Call from "./Call/Call";
 import DailyIframe from "@daily-co/daily-js";
-import dailyApi from "../video/dailyApi";
+import dailyApi from "./dailyApi";
 import { roomUrlFromPageUrl, pageUrlFromRoomUrl } from "../../urlUtils";
 import { CallObjectContext, VideoTypes } from "./VideoContext";
 import { handleCodeSubmission } from "./VideoApiCalls";
