@@ -74,6 +74,7 @@ const Videos = (props) => {
       token,
       data.codeInput
     );
+
     // Checks if there is a code submitted and checks to see if it is valid
     if (
       codeSubmissionResponse === undefined ||

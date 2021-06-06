@@ -143,6 +143,19 @@
   object-fit: fill;
 }
 
+.local {
+  z-index: 1;
+
+  @include respond(phone) {
+    height: 25%;
+    width: 40%;
+  }
+}
+
+.incoming {
+  height: 100%;
+  width: 100%;
+}
 // .tile .loading {
 //   position: absolute;
 //   color: #ffffff;
