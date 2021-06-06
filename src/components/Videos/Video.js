@@ -45,7 +45,10 @@ const Videos = (props) => {
 
   const startJoiningCall = useCallback(
     (url) => {
-      if (url === undefined) {
+      if (
+        url === undefined ||
+        url.message === "There is no lesson to request at this time."
+      ) {
         return;
       } else {
         const newCallObject = DailyIframe.createCallObject();
@@ -74,7 +77,9 @@ const Videos = (props) => {
     // Checks if there is a code submitted and checks to see if it is valid
     if (
       codeSubmissionResponse === undefined ||
-      codeSubmissionResponse.message === "code is invalid"
+      codeSubmissionResponse.message === "code is invalid" ||
+      codeSubmissionResponse.message ===
+        "There is no lesson to request at this time."
     ) {
       setRoomUrl(null);
       dispatch(VideoTypes.STATE_IDLE);
