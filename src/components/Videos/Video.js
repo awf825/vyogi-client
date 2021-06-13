@@ -1,4 +1,5 @@
 import React, { useCallback, useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Call from "./Call/Call";
 import DailyIframe from "@daily-co/daily-js";
 import dailyApi from "./dailyApi";
@@ -9,12 +10,13 @@ import { MessageContext, sendMessage } from "../Messaging/MessageContext";
 
 const Videos = (props) => {
   const [call, dispatch] = useContext(CallObjectContext);
-  const [state, send] = useContext(MessageContext);
+  const [state, dispatchMessage] = useContext(MessageContext);
   const [data, setData] = useState({ codeInput: "", showVideo: false });
   const [showCall, setShowCall] = useState(false);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
   const token = localStorage.getItem("token");
+  const history = useHistory();
 
   // Handles the change on the input form
   const handleInputChange = (e) => {
@@ -31,26 +33,46 @@ const Videos = (props) => {
     }
   };
 
+  const handleVideoLaunch = (e) => {
+    createCall()
+    .then((payload) => {
+      startJoiningCall(payload)
+    })
+  };
+
   const createCall = useCallback(() => {
     dispatch(VideoTypes.STATE_CREATING);
     return dailyApi
       .createRoom()
-      .then((room) => room.url)
+      .then((room) => room)
       .catch((error) => {
         console.log("Error creating room", error);
         setRoomUrl(null);
         dispatch(VideoTypes.STATE_IDLE);
+        dispatchMessage(sendMessage("Sorry, there was an error creating launching videoYYY."));
+        history.push({
+          pathname: "/message",
+          openModal: true,
+          head: "Video Error",
+        });
       });
   }, [dispatch]);
 
   const startJoiningCall = useCallback(
-    (url) => {
+    (payload, source=null) => {
       if (
-        url === undefined ||
-        url.message === "There is no lesson to request at this time."
+        typeof(payload) !== 'object' && source === null
       ) {
-        return;
+        setRoomUrl(null);
+        dispatch(VideoTypes.STATE_IDLE);
+        dispatchMessage(sendMessage(payload));
+        history.push({
+          pathname: "/message",
+          openModal: true,
+          head: "Video Error",
+        });
       } else {
+        var url = source ? payload : payload.url
         const newCallObject = DailyIframe.createCallObject();
         setRoomUrl(url);
         setCallObject(newCallObject);
@@ -69,12 +91,11 @@ const Videos = (props) => {
     [dispatch]
   );
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
     let codeSubmissionResponse = await handleCodeSubmission(
       token,
       data.codeInput
     );
-
     // Checks if there is a code submitted and checks to see if it is valid
     if (
       codeSubmissionResponse === undefined ||
@@ -82,10 +103,17 @@ const Videos = (props) => {
       codeSubmissionResponse.message ===
         "There is no lesson to request at this time."
     ) {
+      e.preventDefault();
       setRoomUrl(null);
       dispatch(VideoTypes.STATE_IDLE);
+      dispatchMessage(sendMessage(codeSubmissionResponse.message));
+      history.push({
+        pathname: "/message",
+        openModal: true,
+        head: "Video Error",
+      });
     } else {
-      startJoiningCall(codeSubmissionResponse);
+      startJoiningCall(codeSubmissionResponse, 'client');
     }
   };
 
@@ -176,12 +204,8 @@ const Videos = (props) => {
     : true;
   const enableStartButton = call ? call === "STATE_IDLE" : true;
 
-  const handleVideoLaunch = (event) => {
-    createCall().then((url) => startJoiningCall(url));
-  };
-
   if (call === "STATE_ERROR") {
-    send(sendMessage("There was an error launching the video"));
+    dispatchMessage(sendMessage("There was an error launching the video"));
   }
 
   return (
@@ -212,7 +236,7 @@ const Videos = (props) => {
               <button
                 className="videoLaunch__inputs__btn"
                 disabled={!enableStartButton}
-                onClick={onSubmit}
+                onClick={(e) => onSubmit(e)}
               >
                 Access
               </button>
